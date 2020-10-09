@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact name="DesktopUi:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/DesktopUi_jar</output-path>
+    <root id="root">
+      <element id="archive" name="DesktopUi.jar">
+        <element id="module-output" name="DesktopUi" />
+        <element id="module-output" name="SystemEngine" />
+        <element id="module-output" name="DTO" />
+      </element>
+    </root>
+  </artifact>
+</component>

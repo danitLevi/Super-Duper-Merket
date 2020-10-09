@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="webUi:war">
+    <output-path>$PROJECT_DIR$/out/artifacts/webUi_war</output-path>
+    <root id="archive" name="webUi_war.war">
+      <element id="artifact" artifact-name="webUi:war exploded" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="SystemEngine" />
+          <element id="module-output" name="DTO" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

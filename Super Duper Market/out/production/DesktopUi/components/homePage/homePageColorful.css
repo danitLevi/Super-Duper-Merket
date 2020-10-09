@@ -1,0 +1,74 @@
+.borderPane
+{
+    -fx-accent: #2262C6;
+    -fx-focus-color: -fx-accent;
+    -fx-base: #ffe9d0;
+    -fx-control-inner-background: derive(-fx-base, 35%);
+    -fx-control-inner-background-alt: -fx-control-inner-background ;
+    -fx-background-color: #c9e0f6;
+    -fx-border-color: lightgrey;
+}
+
+.combo-boxBtn {
+    -fx-background-color: #f6f0e8;
+    -fx-border-color: #faa357;
+    -fx-background-radius: 50;
+    -fx-border-radius:50 ;
+}
+
+.combo-boxBtn:hover
+{
+    -fx-background-color: #fcc89c;
+}
+
+
+.headerBtn {
+    -fx-background-color: #618db6;
+    -fx-background-radius: 50;
+    -fx-border-radius:50 ;
+    /**/
+}
+
+.headerBtn > .arrow-button>
+{
+    -fx-padding: 0;
+}
+
+.headerBtn > .arrow-button> .arrow
+{
+    -fx-padding: 0;
+}
+.headerBtn:hover
+{
+    -fx-border-color: #faa357;
+    -fx-background-radius: 50;
+    -fx-border-radius:50 ;
+    -fx-background-color: #91bae0;
+}
+
+.tile
+{
+    -fx-border-color:#faa357 ;
+    -fx-border-radius:50 ;
+    -fx-border-color: #faa357;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb
+{
+    -fx-background-radius: 2em;
+}
+
+.header
+{
+    -fx-font-family: "Stencil";
+    -fx-font-weight: bold;
+    -fx-font-size: 14pt;
+    -fx-text-fill: #1d52a3;
+}
+
+.label
+{
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 10pt;
+}

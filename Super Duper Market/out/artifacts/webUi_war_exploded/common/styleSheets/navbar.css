@@ -1,0 +1,16 @@
+.btn {
+    background-color: #0399ff;
+    border-color: #0399ff;
+    -webkit-text-fill-color: #FFFFFF;
+}
+
+.btn:hover {
+    background-color: #097aff;
+    border-color: #097aff;
+}
+
+.btn:focus {
+    background-color: #097aff;
+    border-color: #097aff;
+}
+

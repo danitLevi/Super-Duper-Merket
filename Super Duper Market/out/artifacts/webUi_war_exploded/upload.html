@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Super Duper Market</title>
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="common/styleSheets/navbar.css">
+    <link rel="stylesheet" type="text/css" href="components/Regions/Regions.css">
+    <!--    <link rel="stylesheet" type="text/css" href=components/Stores/Stores.css">-->
+    <script src="common/context-path-helper.js"></script>
+
+    <script src="components/Regions/upload.js"></script>
+    <link rel="stylesheet" href="common/styleSheets/centerdPage.css">
+
+
+</head>
+<body clas=" justify-content-center">
+<!--Navbar-->
+<nav class="navbar fixed-top navbar-expand-md navbar-light bg-light">
+    <div class="navbar-brand" >
+        <img src="common/resources/Logo.png" alt="Super Duper Market" id="logo" width="122" height="45">
+    </div>
+<!--    <form class="uploadForm" action="/upload">-->
+<!--        <input type="file" name="filename" class="btn align-middle btn-primary ml-auto mr-3 order-lg-last" type="button" id="uploadbtn">-->
+<!--        &lt;!&ndash;        <input type="submit">&ndash;&gt;-->
+<!--    </form>-->
+        <a href="upload.html" class="btn align-middle btn-primary ml-auto mr-3 order-lg-last" type="button" id="uploadbtn">Upload</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="chat.html">Chat</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+
+<!--Main body-->
+<div class="text-center card shadow p-3 mb-5 bg-white rounded " style="width: 25rem" lang="en">
+    <h5 class="card-title">Upload xml Data file</h5>
+<!--    <form class="form-upload" enctype="multipart/form-data" method="POST" action="upload"><br>-->
+    <form id="uploadForm" enctype="multipart/form-data" method="POST" action="upload" >
+        <div class="form-group">
+            <input type="file" accept=".xml" class="form-control-file" id="dataFile" name="dataFile"  >
+        </div>
+        <p class="error"></p>
+        <br>
+<!--        <button class="btn btn-lg btn-primary btn-block" type="submit">Upload</button>-->
+        <input type="Submit" value="Upload File"><br>
+    </form>
+</div>
+
+</body>
+</html>
