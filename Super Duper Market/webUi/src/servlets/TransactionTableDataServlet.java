@@ -1,9 +1,10 @@
 package servlets;
 
-import DtoObjects.RegionBaseDataDto;
+import DtoObjects.TransactionDto;
 import com.google.gson.Gson;
 import logic.SDMLogicInterface;
 import utils.ServletUtils;
+import utils.SessionUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,9 +15,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(name = "servlets.RegionsBaseDataServlet", urlPatterns = {"/regionsBaseData"})
+@WebServlet(name = "servlets.TransactionTableDataServlet", urlPatterns = {"/transactionsData"})
 
-public class RegionsBaseDataServlet extends HttpServlet {
+public class TransactionTableDataServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -26,20 +27,19 @@ public class RegionsBaseDataServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter())
         {
             Gson gson = new Gson();
-            List<RegionBaseDataDto> regionsBaseDetails=null;
+            String userName= SessionUtils.getUsername(request);
+            List<TransactionDto> transactionsDetails=null;
             synchronized (getServletContext()) {
                 SDMLogicInterface sdmLogic = ServletUtils.getSdmLogic(getServletContext());
-                regionsBaseDetails = sdmLogic.getAllRegionsBaseData();
+                transactionsDetails = sdmLogic.getCustomerTransactionsDetails(userName);
             }
-            String json = gson.toJson(regionsBaseDetails);
+            String json = gson.toJson(transactionsDetails);
             out.println(json);
             out.flush();
         }
-
     }
 }

@@ -8,6 +8,7 @@ import logic.Owner;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -15,7 +16,7 @@ public interface RegionInterface {
     Set<StoreDto> getStoresDetails();
     StoreDto getStoreDetails(int storeId);
     StoreDto getSpecificStoreDetails(int storeId);
-    Set<ItemInSystemDto> getItemsDetails();
+    List<ItemInSystemDto> getItemsDetails() ;
 
     boolean isValidStoreId(int id);
 

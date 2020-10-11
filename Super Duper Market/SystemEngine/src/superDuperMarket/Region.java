@@ -306,9 +306,9 @@ public class Region implements RegionInterface {
     }
 
 
-    public Set<ItemInSystemDto> getItemsDetails()
+    public List<ItemInSystemDto> getItemsDetails()
     {
-        Set<ItemInSystemDto> itemsInSystemDetails = new HashSet<>();
+        List<ItemInSystemDto> itemsInSystemDetails = new ArrayList<>();
         ItemInSystemDto currItemDetails;
         for (Item currItem : itemIdToItems.values())
         {
@@ -872,7 +872,7 @@ public class Region implements RegionInterface {
 
         public  Set<ItemInSystemDto> getItemsInSystemNotInStore(int storeId)
         {
-            Set<ItemInSystemDto> itemsInSystem=getItemsDetails();
+            List<ItemInSystemDto> itemsInSystem=getItemsDetails();
             Set<ItemInSystemDto> itemsInSystemNotInStore=new HashSet<>();
 
             Store currStore=storeIdToStore.get(storeId);

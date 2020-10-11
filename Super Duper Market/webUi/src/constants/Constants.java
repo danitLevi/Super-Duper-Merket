@@ -12,7 +12,7 @@ public class Constants {
     public static final String customer="Customer";
     public static final String storeOwner="storeOwner";
     public static final String AMOUNT_TO_CHARGE="amountToCharge";
-
+    public static final String DATE="dateInForm";
     public static final String SDM_LOGIC_ATTRIBUTE_NAME = "SDMLogic";
 
     public static final String SESSION = "mySession";
