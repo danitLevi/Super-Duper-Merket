@@ -1,6 +1,7 @@
 package logic;
 
 import DtoObjects.RegionBaseDataDto;
+import DtoObjects.TransactionDto;
 import DtoObjects.UserDto;
 import Exceptions.*;
 import generatedClassesJaxb.SuperDuperMarketDescriptor;
@@ -48,13 +49,13 @@ public class SDMLogic implements SDMLogicInterface {
 
     public void saveOrder(String regionName , int customerId)
     {
-        Region SDMRegionObj=findRegionByName(regionName);
+        Region SDMRegionObj= getRegionByName(regionName);
         Customer customer= (Customer) userIdToUser.get(customerId);
         //todo save order (and add customer )
         //SDMRegionObj.saveOrder(customer)
     }
 
-    public Region findRegionByName(String regionName )
+    public Region getRegionByName(String regionName )
     {
 
         for (Region currRegion:regions)
@@ -174,9 +175,9 @@ public class SDMLogic implements SDMLogicInterface {
         return (Owner) userIdToUser.get(ownerName);
     }
 
-    public Set<RegionBaseDataDto> getAllRegionsBaseData()
+    public List<RegionBaseDataDto> getAllRegionsBaseData()
     {
-        Set<RegionBaseDataDto> regionBaseDataDetails=new HashSet<>();
+        List<RegionBaseDataDto> regionBaseDataDetails=new ArrayList<>();
         RegionBaseDataDto currRegionBaseData;
         for (Region currRegion:regions)
         {
@@ -192,16 +193,24 @@ public class SDMLogic implements SDMLogicInterface {
         return regionBaseDataDetails;
     }
 
-    public void chargeCustomerBalance(String customerName, double amountToAdd)
+    public void chargeCustomerBalance(String customerName, double amountToAdd, Date chargeDate)
     {
         Customer customer= (Customer) userIdToUser.get(customerName);
-        customer.chargeBalance(amountToAdd);
+        customer.chargeBalance(amountToAdd,chargeDate);
     }
 
-    public double getCustomerBalance(String customerName)
+    public double getBalance(String userName)
     {
-        Customer currCustomer= (Customer) userIdToUser.get(customerName);
-        return currCustomer.getCurrBalance();
+        User currUser=  userIdToUser.get(userName);
+        return currUser.getCurrBalance();
+    }
+
+    public List<TransactionDto> getCustomerTransactionsDetails(String customerName)
+    {
+        Set<TransactionDto> CustomerTransactionsDetails=new HashSet<>();
+        Customer currCustomer=(Customer) userIdToUser.get(customerName);
+        return currCustomer.getTransactionsDetails();
+
     }
 
 }

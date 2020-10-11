@@ -1,9 +1,11 @@
-package servlets;
+package servlets.oneRegionServlets;
 
-import DtoObjects.RegionBaseDataDto;
+import DtoObjects.ItemInSystemDto;
 import com.google.gson.Gson;
 import logic.SDMLogicInterface;
+import superDuperMarket.RegionInterface;
 import utils.ServletUtils;
+import utils.SessionUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,9 +16,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(name = "servlets.RegionsBaseDataServlet", urlPatterns = {"/regionsBaseData"})
+@WebServlet(name = "servlets.oneRegionServlets.ItemsDataServlet", urlPatterns = {"/items"})
 
-public class RegionsBaseDataServlet extends HttpServlet {
+public class ItemsDataServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -24,19 +26,21 @@ public class RegionsBaseDataServlet extends HttpServlet {
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
-    {
+            throws ServletException, IOException {
+
 
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter())
         {
             Gson gson = new Gson();
-            List<RegionBaseDataDto> regionsBaseDetails=null;
+            List<ItemInSystemDto> itemsDetailsList=null;
             synchronized (getServletContext()) {
                 SDMLogicInterface sdmLogic = ServletUtils.getSdmLogic(getServletContext());
-                regionsBaseDetails = sdmLogic.getAllRegionsBaseData();
+                String regionName= SessionUtils.getRegionName(request);
+                RegionInterface region=sdmLogic.getRegionByName(regionName);
+                itemsDetailsList = region.getItemsDetails();
             }
-            String json = gson.toJson(regionsBaseDetails);
+            String json = gson.toJson(itemsDetailsList);
             out.println(json);
             out.flush();
         }

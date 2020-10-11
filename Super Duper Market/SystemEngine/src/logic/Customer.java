@@ -1,6 +1,10 @@
 package logic;
 
+import DtoObjects.TransactionDto;
+
+import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Customer extends User{
@@ -25,14 +29,15 @@ public class Customer extends User{
         orderIds.add(orderId);
     }
 
-    public void chargeBalance(double anountToAdd)
+    public void chargeBalance(double amountToAdd, Date chargeDate)
     {
-        getAccount().addToBalance(anountToAdd);
+        getAccount().addToBalance(amountToAdd,chargeDate);
     }
 
-    public double getCurrBalance()
-    {
-        return getAccount().getBalance();
-    }
 
+
+    public List<TransactionDto> getTransactionsDetails()
+    {
+        return this.getAccount().getTransactionsDetails();
+    }
 }

@@ -1,4 +1,6 @@
 var USER_LIST_URL = buildUrlWithContextPath("userslist");
+var REMOVE_USER_URL = buildUrlWithContextPath("removeUser");
+
 
 function refreshUsersList(users) {
     //clear all current users
@@ -31,5 +33,9 @@ $(function() {
 // }
 
 function triggerAjaxUsers() {
-    setTimeout(ajaxUsersList, 400);
+    setTimeout(ajaxUsersList, 1000);
 }
+
+
+
+

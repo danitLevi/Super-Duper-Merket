@@ -3,17 +3,18 @@ var REGION_PAGE_URL = buildUrlWithContextPath("regionPage");
 
 
 $(function() {
-    triggerAjaxRegionsData();
+    // triggerAjaxRegionsData();
+    triggerAjaxTimeInterval();
     onBtnClick();
 });
 
-function triggerAjaxRegionsData() {
-
-    setTimeout(ajaxRegionsBaseData, 0);
-}
+// function triggerAjaxRegionsData() {
+//
+//     setTimeout(ajaxRegionsBaseData, 0);
+// }
 function triggerAjaxTimeInterval() {
 
-    setInterval(ajaxRegionsBaseData, 1000);
+    setInterval(ajaxRegionsBaseData, 500);
 }
 
 function ajaxRegionsBaseData() {
@@ -75,7 +76,7 @@ $("#regionsTableData").on('click','.btnSelect',function(){
     var currentRow=$(this).closest("tr");
     var regionName=currentRow.find("td:eq(1)").text(); // get current row 2nd TD
     // triggerAjaxRegionsDataTimeOut(regionName);
-    triggerAjexRegionPage(regionName);
+    triggerAjaxRegionPage(regionName);
 })
 }
 

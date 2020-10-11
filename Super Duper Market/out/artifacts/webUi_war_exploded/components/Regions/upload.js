@@ -3,6 +3,7 @@ var UPLOAD_URL = buildUrlWithContextPath("upload");
 
 $(function() {
     ajaxUserType();
+
 });
 
 function ajaxUserType() {
@@ -34,7 +35,9 @@ $(function() { // onload...do
             success: function (resp) {
                 if (resp === "Regions.html") {
                     window.location.assign(resp);
-                    $('#alert-success').show();
+                    // window.$("#iChanged").text("!!!");
+
+                    // $("#theModal").modal('show');
 
                 } else {
                     //todo alert

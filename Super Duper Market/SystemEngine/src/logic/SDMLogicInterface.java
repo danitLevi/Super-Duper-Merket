@@ -1,14 +1,16 @@
 package logic;
 
 import DtoObjects.RegionBaseDataDto;
+import DtoObjects.TransactionDto;
 import DtoObjects.UserDto;
 import Exceptions.*;
+import superDuperMarket.Region;
 
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 public interface SDMLogicInterface {
     void importDataFromXmlFile(InputStream inputStream , String ownerName) throws InvalidFileExtension, FileNotFoundException, JAXBException, ItemNotFoundInStoresException, ValueOutOfRangeException, StoreItemNotFoundInSystemException, ItemAlreadyExistInStoreException, DoubleObjectIdInSystemException, DoubleObjectInCoordinateException, ItemInSaleNotFoundInStoreException, RegionAlreadyExistException;
@@ -17,8 +19,10 @@ public interface SDMLogicInterface {
     void addCustomer(String name);
     void addOwner(String name);
     List<UserDto> getUsersDetails();
-    Set<RegionBaseDataDto> getAllRegionsBaseData();
+    List<RegionBaseDataDto> getAllRegionsBaseData();
 
-    void chargeCustomerBalance(String customerName, double amountToAdd);
-    double getCustomerBalance(String customerName);
+    void chargeCustomerBalance(String customerName, double amountToAdd, Date chargeDate);
+    double getBalance(String userName);
+    List<TransactionDto> getCustomerTransactionsDetails(String customerName);
+    Region getRegionByName(String regionName );
     }
