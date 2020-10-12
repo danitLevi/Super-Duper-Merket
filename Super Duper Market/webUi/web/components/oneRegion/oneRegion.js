@@ -6,7 +6,7 @@ $(function () {
   ajaxSetMenuByUserType();
 
   itemsClicked();
-    StoresClicked()
+  StoresClicked()
 })
 
 function itemsClicked() {
@@ -30,15 +30,15 @@ function ajaxSetMenuByUserType() {
         success: function (userType) {
             if(userType==="Customer")
             {
-                $("<button type='button' class='btn1 btn1-pink btn-rounded' id='itemsPage'>Order</button>" +
-                    "<button type='button' class='btn1 btn1-pink btn-rounded' id='itemsPage'>OrdersHistory</button>" +
+                $("<button type='button' class='btn1 btn1-pink btn-rounded' id='orderPage'>Order</button>" +
+                    "<button type='button' class='btn1 btn1-pink btn-rounded' id='orderHistoryPage'>OrdersHistory</button>" +
                     "").appendTo($("#oneRegionMenu"));
             }
             else
             {
-                $("<button type='button' class='btn1 btn1-pink btn-rounded' id='itemsPage'>Orders from my stores</button>" +
-                    "<button type='button' class='btn1 btn1-pink btn-rounded' id='itemsPage'>Feedbacks</button>" +
-                    "<button type='button' class='btn1 btn1-pink btn-rounded' id='itemsPage'>Open new store</button>"
+                $("<button type='button' class='btn1 btn1-pink btn-rounded' id='ordersFromStorePage'>Orders from my stores</button>" +
+                    "<button type='button' class='btn1 btn1-pink btn-rounded' id='feedbacksPage'>Feedbacks</button>" +
+                    "<button type='button' class='btn1 btn1-pink btn-rounded' id='newStorePage'>Open new store</button>"
                     ).appendTo($("#oneRegionMenu"));
             }
         }
@@ -52,4 +52,13 @@ function setRegionName() {
             $("#regionName").text(regionName);
         }
     });
+}
+
+
+// danit added
+function orderClicked() {
+    $("#itemsPage").click(function () {
+        $("#content").load("ItemsTemplate.html");
+        triggerItemsAjaxTimeInterval();
+    })
 }
