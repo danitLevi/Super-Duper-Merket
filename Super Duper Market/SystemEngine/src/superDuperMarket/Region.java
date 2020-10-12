@@ -280,7 +280,7 @@ public class Region implements RegionInterface {
     {
         Store currStore=storeIdToStore.get(storeId);
         List<Item> currStoreItems = getStoreItemsSet(currStore.getItemsIds());
-        return currStore.getStoreDetails(currStoreItems,getStoreProfitFromDeliveries(currStore.getId()) ,getStoreOrdersSet(currStore.getId()));
+        return currStore.getStoreDetails(currStoreItems,getStoreProfitFromDeliveries(currStore.getId()),getStoreProfitFromItems(currStore.getId()) ,getStoreOrdersSet(currStore.getId()));
 
     }
 
@@ -288,7 +288,7 @@ public class Region implements RegionInterface {
     {
         Store currStore=storeIdToStore.get(storeId);
         List<Item> currStoreItems = getStoreItemsSet(currStore.getItemsIds());
-        return currStore.getStoreDetails(currStoreItems,getStoreProfitFromDeliveries(currStore.getId()) ,getStoreOrdersSet(currStore.getId()));
+        return currStore.getStoreDetails(currStoreItems,getStoreProfitFromDeliveries(currStore.getId()),getStoreProfitFromItems(currStore.getId()) ,getStoreOrdersSet(currStore.getId()));
     }
 
     public double getStoreProfitFromDeliveries(int storeId)
@@ -303,6 +303,23 @@ public class Region implements RegionInterface {
             deliveriesProfit+=currStore.getDeliveryPrice(currOrder.getOrderLocation());
         }
         return deliveriesProfit;
+    }
+
+    public double getStoreProfitFromItems(int storeId)
+    {
+        Order currOrder;
+        StoreOrder currStoreOrder;
+        Store currStore=storeIdToStore.get(storeId);
+        Set<Integer> storeOrdersIds=currStore.getOrderIds(); //Get All store orders id
+
+        double itemsProfit=0;
+        for (Integer currOrderId:storeOrdersIds)
+        {
+            currOrder=orderIdToOrder.get(currOrderId); //Get order by oreder id
+            currStoreOrder = currOrder.getStoreIdToStoreOrder().get(storeId); //Get storeOrder by store id
+            itemsProfit += currStoreOrder.getItemsTotalPrice();
+        }
+        return itemsProfit;
     }
 
 

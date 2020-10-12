@@ -1,5 +1,6 @@
 package logic;
 
+import DtoObjects.FeedbackDto;
 import DtoObjects.RegionBaseDataDto;
 import DtoObjects.TransactionDto;
 import DtoObjects.UserDto;
@@ -20,9 +21,10 @@ public interface SDMLogicInterface {
     void addOwner(String name);
     List<UserDto> getUsersDetails();
     List<RegionBaseDataDto> getAllRegionsBaseData();
-
+    List<String> getRegionsNames();
     void chargeCustomerBalance(String customerName, double amountToAdd, Date chargeDate);
     double getBalance(String userName);
     List<TransactionDto> getCustomerTransactionsDetails(String customerName);
     Region getRegionByName(String regionName );
+    List<FeedbackDto> getOwnerFeedbackDetailsDetails(String ownerName);
     }

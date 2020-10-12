@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="common/styleSheets/form.css">
+    <!--JavaScript -->
+    <script src="components/oneRegion/addNewStore.js"></script>
+</head>
+<body>
+
+<div>
+    <h2 >Add new store</h2>
+    <div id="NewStoreContent">
+        <div class="container">
+            <form id="newStoreForm" method="POST" role="form" method="POST" >
+
+                <div class="form-group" >
+                    <label for="storeRegion" class="control-label col-sm-2">Region:</label>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="storeRegion" >
+                        <!--     TODO: ADD OPTIONS-->
+                        </select>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+
+                <div class="form-group">
+                    <label for="storeName" class="col-sm-2 control-label">Name:</label>
+                    <div class="col-sm-4">
+                        <input type="text" id="storeName" class="form-control" placeholder="Store Name" required>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+
+                <div class="form-group">
+                    <label for="storePPK" class="col-sm-2 control-label">Delivery PPK:</label>
+                    <div class="col-sm-3">
+                        <input type="number" id="storePPK" min="0" step="0.01" class="form-control" placeholder="Delivery PPK" required>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+
+                <div class="form-group ">
+                    <label for="x" class="col-sm-2 control-label">Location</label>
+                    <div class="col-sm-3">
+                        <input type="number" id="x" min="1" max="50" step="1" placeholder="X Coordinate" class="form-control"required>
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="number" id="y" min="1" max="50" step="1"  placeholder="Y Coordinate" class="form-control" required>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+
+                <!--items in store table -->
+                <div class="row">
+                    <h2>Items to sell</h2>
+                    <div class="table-responsive " >
+                        <table class="table table-striped table-sm table-hover col-sm-auto">
+                            <thead>
+                            <tr id="tableHeaders">
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Purchase category</th>
+                                <th>Price</th>
+                            </tr>
+                            </thead>
+                            <tbody id="itemsToSellTableData">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!--submit-->
+                <div class="form-group col-md-6">
+                    <button type="submit" class="btn btn-primary mb-2" id="addStoreBtn">Add Store</button>
+                </div>
+
+            </form> <!-- /form -->
+
+
+        </div> <!-- ./container -->
+
+
+
+    </div>
+</div>
+</body>
+</html>
+
+

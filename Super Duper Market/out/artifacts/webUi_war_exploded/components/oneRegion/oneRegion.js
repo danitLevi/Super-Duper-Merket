@@ -3,10 +3,10 @@ var REGION_NAME_URL = buildUrlWithContextPath("getRegionName");
 
 $(function () {
     setRegionName();
-  ajaxSetMenuByUserType();
+    ajaxSetMenuByUserType();
 
-  itemsClicked();
-  StoresClicked()
+    itemsClicked();
+    StoresClicked();
 })
 
 function itemsClicked() {
@@ -18,9 +18,22 @@ function itemsClicked() {
 
 function StoresClicked() {
     $("#storesPage").click(function () {
-      //  $("#content").load("storesTemplate.html");
-        $("#content").load("storesTemplate.html"); //todo: change to storesTamplate
+        $("#content").load("storesTemplate.html");
          triggerStoresAjaxTimeInterval();
+    })
+}
+
+function ManagerFeedbacksClicked() {
+    $("#feedbacksPage").click(function () {
+        $("#content").load("feedbacksTemplate.html");
+        triggerFeedbacksAjaxTimeInterval();
+    })
+}
+
+function AddNewStoreClicked() {
+    $("#newStorePage").click(function () {
+        $("#content").load("AddNewStore.html");
+        addNewStore();
     })
 }
 
@@ -40,6 +53,8 @@ function ajaxSetMenuByUserType() {
                     "<button type='button' class='btn1 btn1-pink btn-rounded' id='feedbacksPage'>Feedbacks</button>" +
                     "<button type='button' class='btn1 btn1-pink btn-rounded' id='newStorePage'>Open new store</button>"
                     ).appendTo($("#oneRegionMenu"));
+                ManagerFeedbacksClicked();
+                AddNewStoreClicked();
             }
         }
     });

@@ -1,5 +1,6 @@
 package logic;
 
+import DtoObjects.FeedbackDto;
 import DtoObjects.RegionBaseDataDto;
 import DtoObjects.TransactionDto;
 import DtoObjects.UserDto;
@@ -66,6 +67,23 @@ public class SDMLogic implements SDMLogicInterface {
         return null;
     }
 
+    public List<String> getRegionsNames()
+    {
+        List<String> regionsNames = new ArrayList<>();
+
+        for (Region currRegion : regions)
+        {
+            regionsNames.add(currRegion.getRegionName());
+        }
+
+        return regionsNames;
+    }
+
+    public List<FeedbackDto> getOwnerFeedbackDetailsDetails(String ownerName)
+    {
+        Owner owner= (Owner) userIdToUser.get(ownerName);
+        return owner.getFeedbacksDetails();
+    }
 
     public boolean isUserExist(String userName)
     {
