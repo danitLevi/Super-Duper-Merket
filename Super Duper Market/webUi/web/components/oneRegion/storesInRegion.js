@@ -11,7 +11,6 @@ function ajaxStoresData() {
 
             $("#storesData").empty();
 
-
             $.each(storesJson || [], function (index, storeData) {
                 $("#storesData").add("StoreCardTemplate.html");
                // refreshStoreCard(storeData);
