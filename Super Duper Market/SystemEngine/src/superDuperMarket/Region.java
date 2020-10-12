@@ -266,8 +266,8 @@ public class Region implements RegionInterface {
         }
     }
 
-    public Set<StoreDto> getStoresDetails() {
-        Set<StoreDto> storesInSystemDetails = new HashSet<>();
+    public List<StoreDto> getStoresDetails() {
+        List<StoreDto> storesInSystemDetails = new ArrayList<>();
         for (Store currStore : storeIdToStore.values()) {
             StoreDto currStoreDetails= getStoreDetails(currStore.getId());
             storesInSystemDetails.add(currStoreDetails);
@@ -279,7 +279,7 @@ public class Region implements RegionInterface {
     public StoreDto getStoreDetails(int storeId)
     {
         Store currStore=storeIdToStore.get(storeId);
-        Set<Item> currStoreItems = getStoreItemsSet(currStore.getItemsIds());
+        List<Item> currStoreItems = getStoreItemsSet(currStore.getItemsIds());
         return currStore.getStoreDetails(currStoreItems,getStoreProfitFromDeliveries(currStore.getId()) ,getStoreOrdersSet(currStore.getId()));
 
     }
@@ -287,7 +287,7 @@ public class Region implements RegionInterface {
     public StoreDto getSpecificStoreDetails(int storeId)
     {
         Store currStore=storeIdToStore.get(storeId);
-        Set<Item> currStoreItems = getStoreItemsSet(currStore.getItemsIds());
+        List<Item> currStoreItems = getStoreItemsSet(currStore.getItemsIds());
         return currStore.getStoreDetails(currStoreItems,getStoreProfitFromDeliveries(currStore.getId()) ,getStoreOrdersSet(currStore.getId()));
     }
 
@@ -326,9 +326,9 @@ public class Region implements RegionInterface {
 
     }
 
-    public Set<Item> getStoreItemsSet(Set<Integer> ids)
+    public List<Item> getStoreItemsSet(Set<Integer> ids)
     {
-        Set<Item> storeItems=new HashSet<Item>();
+        List<Item> storeItems=new ArrayList<>();
         for (Integer CurrId :ids)
         {
             storeItems.add(itemIdToItems.get(CurrId)) ;
@@ -717,10 +717,10 @@ public class Region implements RegionInterface {
     }
 
 
-    public Set<ItemInStoreDto> getStoreItemsDetails(int storeId)
+    public List<ItemInStoreDto> getStoreItemsDetails(int storeId)
     {
         Store currStore= storeIdToStore.get(storeId);
-        return  currStore.getStoreItemsDetails(getStoreItemsSet(currStore.getItemsIds()) ,getStoreOrdersSet(storeId) );
+        return currStore.getStoreItemsDetails(getStoreItemsSet(currStore.getItemsIds()) ,getStoreOrdersSet(storeId) );
     }
 
 //    @Override
