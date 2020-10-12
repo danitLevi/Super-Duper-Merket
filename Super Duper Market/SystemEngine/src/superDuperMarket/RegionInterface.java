@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Set;
 
 public interface RegionInterface {
-    Set<StoreDto> getStoresDetails();
+    List<StoreDto> getStoresDetails();
     StoreDto getStoreDetails(int storeId);
     StoreDto getSpecificStoreDetails(int storeId);
     List<ItemInSystemDto> getItemsDetails() ;
@@ -22,7 +22,7 @@ public interface RegionInterface {
 
     String getStoreName(int storeId);
 
-    Set<ItemInStoreDto> getStoreItemsDetails(int storeId);
+    List<ItemInStoreDto> getStoreItemsDetails(int storeId);
 
 //    Set<CustomerDto> getCustomersDetails();
 
