@@ -57,8 +57,8 @@ function setRegionName() {
 
 // danit added
 function orderClicked() {
-    $("#itemsPage").click(function () {
-        $("#content").load("ItemsTemplate.html");
+    $("#orderPage").click(function () {
+        $("#content").load("OrderTemplate.html");
         triggerItemsAjaxTimeInterval();
     })
 }

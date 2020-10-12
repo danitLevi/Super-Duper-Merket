@@ -34,7 +34,7 @@ function ajaxStoresData() {
                     '</div>'+
                     '<br>'+
                     <!--items in store data-->
-                '<table class="table table-striped table-sm table-hover col-sm-auto" >'+
+                '<table class="storeItemsTable table table-striped table-sm table-hover col-sm-auto" >'+
                     '<thead>'+
                     '<tr>'+
                     '<th >Id</th>'+
@@ -69,9 +69,24 @@ function ajaxStoresData() {
 
             });
 
+            // //added
+            setItems();
         }
     });
 }
+
+
+function setItems() {
+
+    var tablesArray=$(".storeItemsTable");
+    $.each(tablesArray,function (index,curritemsTable) {
+        var contentElement=$(curritemsTable).find("tbody");
+        $("<tr><td>added</td>").appendTo(contentElement);
+
+    })
+}
+
+
 
 //
 // function refreshStoreCard(storeData) {
