@@ -37,6 +37,13 @@ function AddNewStoreClicked() {
     })
 }
 
+function OrdersHistoryClicked() {
+    $("#ordersFromStorePage").click(function () {
+        $("#content").load("OrdersHistoryForOwner.html");
+        addNewStore();
+    })
+}
+
 function ajaxSetMenuByUserType() {
     $.ajax({
         url: SESSION_URL,
@@ -55,6 +62,7 @@ function ajaxSetMenuByUserType() {
                     ).appendTo($("#oneRegionMenu"));
                 ManagerFeedbacksClicked();
                 AddNewStoreClicked();
+                triggerOrdersAjaxTimeInterval();
             }
         }
     });
