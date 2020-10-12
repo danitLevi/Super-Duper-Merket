@@ -186,9 +186,9 @@ public class Store implements Serializable {
         }
     }
 
-    public StoreDto getStoreDetails(Set<Item> storeItems,double deliveriesProfit,Set<StoreOrder> storeOrders)
+    public StoreDto getStoreDetails(List<Item> storeItems,double deliveriesProfit,Set<StoreOrder> storeOrders)
     {
-        Set<ItemInStoreDto> itemsInStoreDetails=getStoreItemsDetails(storeItems,storeOrders);
+        List<ItemInStoreDto> itemsInStoreDetails=getStoreItemsDetails(storeItems,storeOrders);
         return new StoreDto(id,name,deliveryPpk,deliveriesProfit,this.location.getX(),this.location.getY(),itemsInStoreDetails,orderIds.size(),getSalesData());
 
     }
@@ -214,9 +214,9 @@ public class Store implements Serializable {
         return  distance;
     }
 
-    public Set<ItemInStoreDto> getStoreItemsDetails(Set<Item> storeItems ,Set<StoreOrder> storeOrders)
+    public List<ItemInStoreDto> getStoreItemsDetails(List<Item> storeItems ,Set<StoreOrder> storeOrders)
     {
-        Set<ItemInStoreDto> itemsInStoreDetails=new HashSet<>();
+        List<ItemInStoreDto> itemsInStoreDetails=new ArrayList<>();
         ItemInStoreDto currItemDetails;
         for (Item currItem : storeItems)
         {

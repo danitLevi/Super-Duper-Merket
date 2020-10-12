@@ -1,5 +1,6 @@
 package DtoObjects;
 
+import java.util.List;
 import java.util.Set;
 
 public class StoreDto {
@@ -10,12 +11,12 @@ public class StoreDto {
     private final double paymentForDeliveries;
     private final int xCoordinate;
     private final int yCoordinate;
-    Set<ItemInStoreDto> itemsInStore;
+    List<ItemInStoreDto> itemsInStore;
     private  final  int ordersAmount;
     private  final Set<SaleDto> sales;
 
 
-    public StoreDto(int id, String name, int deliveryPpk, double paymentForDeliveries, int xCoordinate, int yCoordinate, Set<ItemInStoreDto> itemsInStore, int ordersAmount,Set<SaleDto> sales) {
+    public StoreDto(int id, String name, int deliveryPpk, double paymentForDeliveries, int xCoordinate, int yCoordinate, List<ItemInStoreDto> itemsInStore, int ordersAmount,Set<SaleDto> sales) {
         this.id = id;
         this.name = name;
         this.deliveryPpk = deliveryPpk;
@@ -52,7 +53,7 @@ public class StoreDto {
         return yCoordinate;
     }
 
-    public Set<ItemInStoreDto> getItemsInStore() {
+    public List<ItemInStoreDto> getItemsInStore() {
         return itemsInStore;
     }
 
