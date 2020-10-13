@@ -35,7 +35,7 @@ public class TransactionTableDataServlet extends HttpServlet {
             List<TransactionDto> transactionsDetails=null;
             synchronized (getServletContext()) {
                 SDMLogicInterface sdmLogic = ServletUtils.getSdmLogic(getServletContext());
-                transactionsDetails = sdmLogic.getCustomerTransactionsDetails(userName);
+                transactionsDetails = sdmLogic.getTransactionsDetails(userName);
             }
             String json = gson.toJson(transactionsDetails);
             out.println(json);

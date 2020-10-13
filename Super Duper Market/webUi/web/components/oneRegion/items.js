@@ -16,7 +16,7 @@ function ajaxItemsData() {
 }
 
 
-function refreshItemsTable(itemsJson) {
+function refreshItemsTable(itemsJson,isStatic) {
     //clear all current users
     $("#itemsTableData").empty();
 

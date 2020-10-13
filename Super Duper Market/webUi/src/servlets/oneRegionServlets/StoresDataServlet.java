@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(name = "servlets.oneRegionServlets.StoresDataServlet", urlPatterns = {"/stores"})
+@WebServlet(name = "servlets.oneRegionServlets.StoresDataServlet", urlPatterns = {"/storesInRegion"})
 
 public class StoresDataServlet extends HttpServlet {
 

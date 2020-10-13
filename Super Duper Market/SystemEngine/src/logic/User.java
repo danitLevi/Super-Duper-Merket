@@ -1,5 +1,9 @@
 package logic;
 
+import DtoObjects.TransactionDto;
+
+import java.util.List;
+
 public class User {
 
     private int id;
@@ -46,4 +50,10 @@ public class User {
     {
         return getAccount().getBalance();
     }
+
+    public List<TransactionDto> getTransactionsDetails()
+    {
+        return this.getAccount().getTransactionsDetails();
+    }
+
 }

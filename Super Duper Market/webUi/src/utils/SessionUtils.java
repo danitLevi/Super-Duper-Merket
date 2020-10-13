@@ -1,8 +1,6 @@
 package utils;
 
 
-import constants.Constants;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 

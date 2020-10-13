@@ -9,8 +9,13 @@ import java.util.*;
 
 public class Customer extends User{
 
+//<<<<<<< HEAD
+    //todo: change to map of <Integer,Integer>  :(regionName , order id)
+//    private Set<Integer> orderIds;
+//=======
     //private Set<Integer> orderIds; //TODO: CHANGE TO MAP
     private Map<Integer, String> orderIdToRegionName;
+//>>>>>>> develop
 
     public Customer(String name) {
         super(name);
@@ -43,9 +48,14 @@ public class Customer extends User{
     {
         getAccount().addToBalance(amountToAdd,chargeDate);
     }
-
-    public List<TransactionDto> getTransactionsDetails()
-    {
-        return this.getAccount().getTransactionsDetails();
-    }
+//
+//<<<<<<< HEAD
+//
+//
+//=======
+//    public List<TransactionDto> getTransactionsDetails()
+//    {
+//        return this.getAccount().getTransactionsDetails();
+//    }
+//>>>>>>> develop
 }

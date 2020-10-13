@@ -508,6 +508,12 @@ public class Region implements RegionInterface {
         return (currStore.getDeliveryPrice(orderLocation));
     }
 
+    public double getDeliveryPriceFromCoordinates(int storeId, int xCorrdinate,int yCoordinate)
+    {
+        Coordinate givenCoordinate=new Coordinate(xCorrdinate,yCoordinate);
+        return getDeliveryPrice(storeId,givenCoordinate);
+    }
+
     public double getDistanceFromStore(int storeId,Coordinate orderLocation)
     {
         Store currStore= storeIdToStore.get(storeId);

@@ -21,7 +21,7 @@ public interface SDMLogicInterface {
     List<String> getRegionsNames();
     void chargeCustomerBalance(String customerName, double amountToAdd, Date chargeDate);
     double getBalance(String userName);
-    List<TransactionDto> getCustomerTransactionsDetails(String customerName);
+    List<TransactionDto> getTransactionsDetails(String customerName);
     Region getRegionByName(String regionName );
     List<FeedbackDto> getOwnerFeedbackDetailsDetails(String ownerName);
     List<StoreOrderDto> getStoreOrderHistory(int storeId, String regionName);

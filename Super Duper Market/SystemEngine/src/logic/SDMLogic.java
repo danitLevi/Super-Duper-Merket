@@ -267,11 +267,11 @@ public class SDMLogic implements SDMLogicInterface {
         return currUser.getCurrBalance();
     }
 
-    public List<TransactionDto> getCustomerTransactionsDetails(String customerName)
+    public List<TransactionDto> getTransactionsDetails(String userName)
     {
         Set<TransactionDto> CustomerTransactionsDetails=new HashSet<>();
-        Customer currCustomer=(Customer) userIdToUser.get(customerName);
-        return currCustomer.getTransactionsDetails();
+        User currUser= userIdToUser.get(userName);
+        return currUser.getTransactionsDetails();
 
     }
 

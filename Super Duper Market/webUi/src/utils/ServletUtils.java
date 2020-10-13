@@ -1,6 +1,5 @@
 package utils;
 
-import constants.Constants;
 import logic.SDMLogic;
 import logic.SDMLogicInterface;
 
@@ -27,5 +26,7 @@ public class ServletUtils {
 
 		return (SDMLogicInterface) servletContext.getAttribute(Constants.SDM_LOGIC_ATTRIBUTE_NAME);
 	}
+
+
 
 }

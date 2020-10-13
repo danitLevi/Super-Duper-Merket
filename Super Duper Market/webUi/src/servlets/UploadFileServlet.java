@@ -1,7 +1,7 @@
 package servlets;
 
 import Exceptions.*;
-import constants.Constants;
+import utils.Constants;
 import logic.SDMLogicInterface;
 import utils.ServletUtils;
 import utils.SessionUtils;
