@@ -51,8 +51,9 @@ public interface RegionInterface {
     int getStorePPK(int storeId);
 
     double getDeliveryPrice(int storeId, Coordinate orderLocation);
+    double getDeliveryPriceFromCoordinates(int storeId, int xCorrdinate,int yCoordinate);
 
-    double getDeliveryPriceToCustomer(int storeId,int customerId);
+//    double getDeliveryPriceToCustomer(int storeId,int customerId);
 
     double getDeliveryPriceFromMultipleStores(Set<Integer> storesIds, Coordinate orderLocation);
 

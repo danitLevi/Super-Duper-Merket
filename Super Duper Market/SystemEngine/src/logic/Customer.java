@@ -9,6 +9,7 @@ import java.util.Set;
 
 public class Customer extends User{
 
+    //todo: change to map of <Integer,Integer>  :(regionName , order id)
     private Set<Integer> orderIds;
 
     public Customer(String name) {
@@ -36,8 +37,4 @@ public class Customer extends User{
 
 
 
-    public List<TransactionDto> getTransactionsDetails()
-    {
-        return this.getAccount().getTransactionsDetails();
-    }
 }

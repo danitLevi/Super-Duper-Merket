@@ -1,6 +1,6 @@
 package servlets;
 
-import constants.Constants;
+import utils.Constants;
 import logic.SDMLogicInterface;
 import utils.ServletUtils;
 import utils.SessionUtils;

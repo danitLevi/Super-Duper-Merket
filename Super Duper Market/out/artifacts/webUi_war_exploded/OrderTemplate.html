@@ -22,12 +22,16 @@
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="common/styleSheets/form.css">
 
+<!--    <script src="common/context-path-helper.js"></script>-->
+
+<!--    <script src="components/oneRegion/order.js"></script>-->
+
 
 </head>
 <body>
 
 <div>
-    <h2 >stores in region</h2>
+    <h2 >Order</h2>
     <div id="OrderContent">
 
         <div class="container">
@@ -44,29 +48,30 @@
                 <br/>
 
                 <div class="form-group ">
-                    <label for="x" class="col-sm-2 control-label">Location </label>
+<!--                   todo: need for -->
+                    <label for="xCoordinate" class="col-sm-2 control-label">Location: </label>
                     <div class="col-sm-3">
-                        <input type="number" id="x" min="1" max="50" step="1" placeholder="X Coordinate" class="form-control"required>
+                        <input type="number" id="xCoordinate" min="1" max="50" step="1" placeholder="X Coordinate" class="form-control"required>
                     </div>
                     <div class="col-sm-3">
-                        <input type="number" id="y" min="1" max="50" step="1"  placeholder="Y Coordinate" class="form-control" required>
+                        <input type="number" id="yCoordinate" min="1" max="50" step="1"  placeholder="Y Coordinate" class="form-control" required>
                     </div>
                 </div>
                 <br/>
                 <br/>
 
                 <div class="form-group">
-                    <label for="orderType" class="control-label col-sm-2">Order type</label>
+                    <label for="orderType" class="control-label col-sm-2">Order type:</label>
                     <div class="col-sm-6">
                         <div id="orderType" class="row">
                             <div class="col-sm-5">
-                                <label class="radio-inline">
-                                    <input type="radio" name="orderType" class="radioButtonsToClick" id="computed" value="dynamic" checked>computed minimal order
+                                <label  class="radio-inline ">
+                                    <input type="radio" class="radioButtonsToClick" name="orderType"  id="computed" value="dynamic" checked>computed minimal order
                                 </label>
                             </div>
                             <div class="col-sm-5">
                                 <label class="radio-inline">
-                                    <input type="radio" name="orderType" class="radioButtonsToClick" id="minimal" value="static">regular order
+                                    <input type="radio" name="orderType" class="radioButtonsToClick" id="static" value="static">regular order
                                 </label>
                             </div>
                         </div>
@@ -76,17 +81,11 @@
                 <br/>
                 <br/>
 
-                <div class="form-group invisible" >
-                    <label for="store" class="control-label col-sm-2">Select store:</label>
+                <div class="form-group" id="staticOrderAddition" >
+                    <label for="storesOptions" class="control-label col-sm-2">store to order from:</label>
                     <div class="col-sm-6">
-                        <select class="form-control" id="store" >
+                        <select class="form-control" id="storesOptions" >
 
-<!--&lt;!&ndash;                            //todo : add options&ndash;&gt;-->
-
-<!--                            <option>1</option>-->
-<!--                            <option>2</option>-->
-<!--                            <option>3</option>-->
-<!--                            <option>4</option>-->
                         </select>
                     </div>
 
@@ -100,14 +99,16 @@
                 <div class="row">
                     <h2>Items to order</h2>
                     <div class="table-responsive " >
+<!--                        <table class="table table-striped table-sm table-hover d-flex">-->
                         <table class="table table-striped table-sm table-hover col-sm-auto">
+
                             <thead>
                             <tr id="tableHeaders">
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th>Purchase category</th>
-                                <th style="display:none ">Price</th> <!-todo: price if static -->
-                                <th>Quantity</th>
+                                <th >Id</th>
+                                <th >Name</th>
+                                <th >Purchase category</th>
+                                <th id="priceColumn"  style="display:none">Price</th>
+                                <th  >Quantity</th>
 
 <!--                                todo-->
 

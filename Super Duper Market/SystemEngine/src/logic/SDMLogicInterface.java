@@ -23,6 +23,6 @@ public interface SDMLogicInterface {
 
     void chargeCustomerBalance(String customerName, double amountToAdd, Date chargeDate);
     double getBalance(String userName);
-    List<TransactionDto> getCustomerTransactionsDetails(String customerName);
+    List<TransactionDto> getTransactionsDetails(String customerName);
     Region getRegionByName(String regionName );
     }
