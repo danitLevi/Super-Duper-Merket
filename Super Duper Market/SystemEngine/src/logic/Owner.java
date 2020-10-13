@@ -1,9 +1,11 @@
 package logic;
 
+import DtoObjects.FeedbackDto;
+import DtoObjects.ItemInStoreDto;
 import superDuperMarket.Feedback;
+import superDuperMarket.Item;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Owner extends User {
 
@@ -18,5 +20,15 @@ public class Owner extends User {
         return feedbacks;
     }
 
-
+    public List<FeedbackDto> getFeedbacksDetails()
+    {
+        List<FeedbackDto> feedbacksDetails=new ArrayList<>();
+        for (Feedback currFeedback : feedbacks) {
+            feedbacksDetails.add(new FeedbackDto(currFeedback.getName(),
+                                                    currFeedback.getDate(),
+                                                    currFeedback.getRate(),
+                                                    currFeedback.getFeedbackText()));
+        }
+        return feedbacksDetails;
+    }
 }

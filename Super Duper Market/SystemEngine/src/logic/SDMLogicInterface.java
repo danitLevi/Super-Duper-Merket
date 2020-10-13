@@ -1,8 +1,6 @@
 package logic;
 
-import DtoObjects.RegionBaseDataDto;
-import DtoObjects.TransactionDto;
-import DtoObjects.UserDto;
+import DtoObjects.*;
 import Exceptions.*;
 import superDuperMarket.Region;
 
@@ -20,9 +18,12 @@ public interface SDMLogicInterface {
     void addOwner(String name);
     List<UserDto> getUsersDetails();
     List<RegionBaseDataDto> getAllRegionsBaseData();
-
+    List<String> getRegionsNames();
     void chargeCustomerBalance(String customerName, double amountToAdd, Date chargeDate);
     double getBalance(String userName);
     List<TransactionDto> getTransactionsDetails(String customerName);
     Region getRegionByName(String regionName );
+    List<FeedbackDto> getOwnerFeedbackDetailsDetails(String ownerName);
+    List<StoreOrderDto> getStoreOrderHistory(int storeId, String regionName);
+    List<OrderDto> getCustomerOrderHistory(String customerName);
     }

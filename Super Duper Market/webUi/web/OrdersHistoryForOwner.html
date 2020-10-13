@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- JavaScript -->
+    <script src="components/oneRegion/ordersHistoryForOwner.js"></script>
+</head>
+<body>
+
+<div>
+    <h2 >Orders history</h2><br/>
+
+    <div class="container">
+        <form id="chooseStoreForm" method="POST" action="chooseStore">
+        <div class="form-group" >
+            <div class="row" >
+                <label for="ownerStores" class="control-label col-1">Store:</label>
+                <div class="col-sm-4">
+                    <select class="form-control" id="ownerStores" >
+                        <!--     TODO: ADD OPTIONS-->
+                    </select>
+                </div>
+            </div>
+        </div>
+        <br/><br/>
+        <span class="noOrdersInStore"></span>
+        </form>
+    </div>
+
+    <div id="ordersHistoryForOwner">
+    </div>
+
+</div>
+
+</body>
+</html>
+
+

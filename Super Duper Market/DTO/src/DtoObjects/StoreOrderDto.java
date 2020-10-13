@@ -14,9 +14,15 @@ public class StoreOrderDto {
     private final int orderId;
     Set<ItemInStoreOrderDto> itemsInStoreOrderDetails;
     private final double distanceFromCustomer;
+    private final String customerName;
+    private final int xCoordinate;
+    private final int yCoordinate;
 
-
-    public StoreOrderDto(LocalDate date, double itemsTotalAmount, double itemsTotalPrice, double deliveryTotalPrice, double orderTotalPrice, boolean isDynamicOrder, int orderId, Set<ItemInStoreOrderDto> itemsInStoreOrderDetails, double distanceFromCustomer) {
+    public StoreOrderDto(LocalDate date, double itemsTotalAmount, double itemsTotalPrice,
+                         double deliveryTotalPrice, double orderTotalPrice, boolean isDynamicOrder,
+                         int orderId, Set<ItemInStoreOrderDto> itemsInStoreOrderDetails,
+                         double distanceFromCustomer, String customerName, int xCoordinate, int yCoordinate)
+    {
         this.date = date;
         this.itemsTotalAmount = itemsTotalAmount;
         this.itemsTotalPrice = itemsTotalPrice;
@@ -26,9 +32,22 @@ public class StoreOrderDto {
         this.orderId = orderId;
         this.itemsInStoreOrderDetails = itemsInStoreOrderDetails;
         this.distanceFromCustomer = distanceFromCustomer;
+        this.customerName = customerName;
+        this.xCoordinate = xCoordinate;
+        this.yCoordinate = yCoordinate;
     }
 
+    public String getCustomerName() {
+        return customerName;
+    }
 
+    public int getxCoordinate() {
+        return xCoordinate;
+    }
+
+    public int getyCoordinate() {
+        return yCoordinate;
+    }
 
     public LocalDate getDate() {
         return date;

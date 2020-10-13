@@ -3,11 +3,16 @@ var REGION_NAME_URL = buildUrlWithContextPath("getRegionName");
 
 $(function () {
     setRegionName();
-  ajaxSetMenuByUserType();
+    ajaxSetMenuByUserType();
 
+<<<<<<< HEAD
   itemsClicked();
   StoresClicked();
 
+=======
+    itemsClicked();
+    StoresClicked();
+>>>>>>> develop
 })
 
 function itemsClicked() {
@@ -19,9 +24,36 @@ function itemsClicked() {
 
 function StoresClicked() {
     $("#storesPage").click(function () {
-      //  $("#content").load("storesTemplate.html");
-        $("#content").load("storesTemplate.html"); //todo: change to storesTamplate
+        $("#content").load("storesTemplate.html");
          triggerStoresAjaxTimeInterval();
+    })
+}
+
+function ManagerFeedbacksClicked() {
+    $("#feedbacksPage").click(function () {
+        $("#content").load("feedbacksTemplate.html");
+        triggerFeedbacksAjaxTimeInterval();
+    })
+}
+
+function AddNewStoreClicked() {
+    $("#newStorePage").click(function () {
+        $("#content").load("AddNewStore.html");
+        addNewStore();
+    })
+}
+
+function OwnerOrdersHistoryClicked() {
+    $("#ordersFromStorePage").click(function () {
+        $("#content").load("OrdersHistoryForOwner.html",initializeOrdersHistoryForOwner);
+        getOwnerOrderHistory();
+    })
+}
+
+function CustomerOrdersHistoryClicked() {
+    $("#orderHistoryPage").click(function () {
+        $("#content").load("OrdersHistoryForCustomer.html");
+        triggerCustomerOrdersAjaxTimeInterval();
     })
 }
 
@@ -34,8 +66,12 @@ function ajaxSetMenuByUserType() {
                 $("<button type='button' class='btn1 btn1-pink btn-rounded' id='orderPage'>Order</button>" +
                     "<button type='button' class='btn1 btn1-pink btn-rounded' id='orderHistoryPage'>OrdersHistory</button>" +
                     "").appendTo($("#oneRegionMenu"));
+<<<<<<< HEAD
 
                 orderClicked();
+=======
+                CustomerOrdersHistoryClicked();
+>>>>>>> develop
             }
             else
             {
@@ -43,6 +79,9 @@ function ajaxSetMenuByUserType() {
                     "<button type='button' class='btn1 btn1-pink btn-rounded' id='feedbacksPage'>Feedbacks</button>" +
                     "<button type='button' class='btn1 btn1-pink btn-rounded' id='newStorePage'>Open new store</button>"
                     ).appendTo($("#oneRegionMenu"));
+                ManagerFeedbacksClicked();
+                AddNewStoreClicked();
+                OwnerOrdersHistoryClicked();
             }
         }
     });

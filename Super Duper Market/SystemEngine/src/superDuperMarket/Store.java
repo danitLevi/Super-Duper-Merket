@@ -186,10 +186,12 @@ public class Store implements Serializable {
         }
     }
 
-    public StoreDto getStoreDetails(List<Item> storeItems,double deliveriesProfit,Set<StoreOrder> storeOrders)
+    public StoreDto getStoreDetails(List<Item> storeItems,double deliveriesProfit,double itemsProfit,Set<StoreOrder> storeOrders)
     {
         List<ItemInStoreDto> itemsInStoreDetails=getStoreItemsDetails(storeItems,storeOrders);
-        return new StoreDto(id,name,deliveryPpk,deliveriesProfit,this.location.getX(),this.location.getY(),itemsInStoreDetails,orderIds.size(),getSalesData());
+        return new StoreDto(id,name,storeOwner.getName(),deliveryPpk, itemsProfit,
+                deliveriesProfit,this.location.getX(),this.location.getY(),
+                itemsInStoreDetails,orderIds.size(),getSalesData());
 
     }
 
