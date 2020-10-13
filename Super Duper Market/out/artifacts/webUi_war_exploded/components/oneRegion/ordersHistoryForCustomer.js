@@ -1,74 +1,35 @@
-var OWNER_ORDERS_DATA_URL = buildUrlWithContextPath("ownerOrders");
-var OWNER_STORES_URL =  buildUrlWithContextPath("stores");
+var CUSTOMER_ORDERS_DATA_URL = buildUrlWithContextPath("customerOrders");
 
-function triggerOwnerOrdersAjaxTimeInterval() {
-    setInterval(ajaxOwnerOrdersData, 1000);
+function triggerCustomerOrdersAjaxTimeInterval() {
+    setInterval(ajaxCustomerOrdersData, 500);
 }
 
-// onload...do
-// Show orders data according to selected store
-function initializeOrdersHistoryForOwner(){
-    $("#ownerStores").on('change',function () {
-        var store = $("#ownerStores").val(); //Get selected store
-        var storeId= store.substr(0, store.indexOf(' ')); //Get selected store id
-        ajaxOwnerOrdersData(storeId); //Show data accordingly
-    })
-
-    triggerOwnerOrdersAjaxTimeInterval();
-}
-
-function getOwnerOrderHistory() {
-    ajaxStoreOptionsData();
-}
-
-//Initialize stores options
-function ajaxStoreOptionsData() {
+function ajaxCustomerOrdersData() {
     $.ajax({
-        url: OWNER_STORES_URL,
-        success: function(storesJson) {
-            initializeStoresOptions(storesJson);
-        }
-    });
-}
-
-function initializeStoresOptions(storesJson) {
-    $("#ownerStores").empty();
-
-    $.each(storesJson || [], function(index, store) {
-        $("<option>"+store.id + ' ' + store.name+"</option>").appendTo($("#ownerStores"));
-    });
-}
-
-
-function ajaxOwnerOrdersData(storeId) {
-    $.ajax({
-        url: OWNER_ORDERS_DATA_URL,
-        data:{param:storeId},
+        url: CUSTOMER_ORDERS_DATA_URL,
         success: function(ordersJson) {
             if(ordersJson.length === 0)
             {
-                $(".noOrdersInStore").text("No orders from this store");
+                $(".noCustomerOrders").text("No orders found");
             }
             else {
                 //Initialize orders data
-                setOwnerOrdersInStoreCards(ordersJson);
+                setCustomerOrdersCards(ordersJson);
                 //Insert items data to all tables
-                setOwnerOrderItemsTable(ordersJson);
+                setCustomerOrderItemsTable(ordersJson);
             }
         }
     });
 }
 
-//TODO: TEST DATA WITH ORDER
-
-function setOwnerOrdersInStoreCards(ordersJson)
+function setCustomerOrdersCards(ordersJson)
 {
-    $("#ordersHistoryForOwner").empty();
+    $("#ordersHistoryForCustomer").empty();
 
     $.each(ordersJson || [], function (index, orderData) {
-        $("#ordersHistoryForOwner").add("OrdersHistoryForOwner.html");
+        $("#ordersHistoryForCustomer").add("OrdersHistoryForCustomer.html");
 
-        $('<div class="card shadow p-3  m-4 bg-white rounded" id="oneOwnerOrderCard">'+
+        $('<div class="card shadow p-3  m-4 bg-white rounded" id="oneCustomerOrderCard">'+
             <!--        <img class="card-img-top user-image" alt="User image" src="common/images/cards/request_icon.svg">-->
             '<div class="card-body">'+
             //'<h3 class="card-title " id="storeName">'+orderData.name+'</h3>'+
@@ -81,9 +42,6 @@ function setOwnerOrdersInStoreCards(ordersJson)
             '<b class="font-weight-bold">Date: </b>'+
             '<span  class="col-1" id="date">'+orderData.date+'</span>'+
 
-            '<b class="font-weight-bold">Customer: </b>'+
-            '<span  class="col-1" id="customer">'+orderData.customerName+'</span>'+
-
             '<b class="font-weight-bold">Coordinate: </b>'+
             '<span  class="col-1" id="coordinate">('+ orderData.xCoordinate + ',' + orderData.yCoordinate+')</span>'+
 
@@ -91,14 +49,24 @@ function setOwnerOrdersInStoreCards(ordersJson)
             '<br>'+
 
             '<div class="row">'+
+            '<b class="font-weight-bold">Num of different stores in order: </b>'+
+            '<span  class="col-1" id="numOfStores">'+orderData.numOfStores+'</span>'+
+
             '<b class="font-weight-bold">Total amount of items: </b>'+
             '<span  class="col-1" id="itemsTotalAmount">'+orderData.itemsTotalAmount+'</span>'+
 
-            '<b class="font-weight-bold">Total price of items: </b>'+
+            '</div>'+
+            '<br>'+
+
+            '<div class="row">'+
+            '<b class="font-weight-bold">Total items price: </b>'+
             '<span  class="col-1" id="itemsTotalPrice">'+orderData.itemsTotalPrice+'</span>'+
 
-            '<b class="font-weight-bold">Delivery Price: </b>'+
+            '<b class="font-weight-bold">Total delivery price: </b>'+
             '<span  class="col-1" id="deliveryTotalPrice">'+orderData.deliveryTotalPrice+'</span>'+
+
+            '<b class="font-weight-bold">Total price: </b>'+
+            '<span  class="col-1" id="orderTotalPrice">'+orderData.orderTotalPrice+'</span>'+
 
             '</div>'+
             '<br>'+
@@ -110,38 +78,40 @@ function setOwnerOrdersInStoreCards(ordersJson)
             '<th >Id</th>'+
             '<th>Name</th>'+
             '<th>Purchase category</th>'+
+            '<th>Store</th>'+
             '<th>Purchases amount</th>'+
             '<th>Price per unit</th>'+
             '<th>Total price</th>'+
             '<th>Is from sale</th>'+
             '</tr>'+
             '</thead>'+
-            '<tbody id="ownerOrderItemsTable">'+
+            '<tbody id="customerOrderItemsTable">'+
             '</tbody>'+
             '</table>'+
             '<br>'+
 
             '</div>'+
             '</div>'+
-            '</div>').appendTo($("#ordersHistoryForOwner"));
+            '</div>').appendTo($("#ordersHistoryForCustomer"));
 
     });
 }
 
 function setOwnerOrderItemsTable(ordersJson) {
     // Find and create array of all Item Tables
-    var tablesArray=$(".ownerOrderItemsTable");
+    var tablesArray=$(".customerOrderItemsTable");
 
     // Insert content to each table to BODY
     $.each(tablesArray,function (index,curritemsTable) {
         var contentElement=$(curritemsTable).find("tbody");
         var currOrder = $(ordersJson).get(index);
-        var curritemsInOrder = currOrder.itemsInStoreOrderDetails;
+        var curritemsInOrder = currOrder.itemsInOrder;
 
         $.each(curritemsInOrder,function (index,item) {
-            $("<tr><td>" + item.id  +"</td>" +
+            $("<tr><td>"+item.id+"</td>" +
                 "<td>"+ item.name+"</td>"+
                 "<td>"+item.purchaseCategory+"</td>"+
+                "<td>"+item.storeName+"</td>"+
                 "<td>"+item.amount+"</td>"+
                 "<td>"+item.price+"</td>"+
                 "<td>"+item.totalPrice+"</td>"+

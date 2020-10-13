@@ -1,12 +1,12 @@
 package logic;
 
-import DtoObjects.FeedbackDto;
-import DtoObjects.RegionBaseDataDto;
-import DtoObjects.TransactionDto;
-import DtoObjects.UserDto;
+import DtoObjects.*;
 import Exceptions.*;
 import generatedClassesJaxb.SuperDuperMarketDescriptor;
+import superDuperMarket.Order;
 import superDuperMarket.Region;
+import superDuperMarket.Store;
+import superDuperMarket.StoreOrder;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -83,6 +83,50 @@ public class SDMLogic implements SDMLogicInterface {
     {
         Owner owner= (Owner) userIdToUser.get(ownerName);
         return owner.getFeedbacksDetails();
+    }
+
+    public List<StoreOrderDto> getStoreOrderHistory(int storeId, String regionName)
+    {
+        List<StoreOrderDto> storeOrderList = new ArrayList<>();
+        Region region = getRegionByName(regionName);
+        storeOrderList = region.getStoreOrderDetails(storeId);
+
+        return storeOrderList;
+    }
+
+    public List<OrderDto> getCustomerOrderHistory(String customerName)
+    {
+        List<OrderDto> customerOrdersList = new ArrayList<>();
+        Customer customer = (Customer) userIdToUser.get(customerName);
+
+        Map<Integer, String> orders = customer.getOrderIdToRegionName();
+
+        for (Integer currOrderId : orders.keySet())
+        {
+            Region orderRegion = getRegionByName(orders.get(currOrderId));
+            Order currOrder=orderRegion.getOrderIdToOrder().get(currOrderId);
+            Map<Integer,StoreOrderDto> StoreIdToStoreOrderDto = new HashMap<>();
+            for (Integer currStoreId:currOrder.getStoreIdToStoreOrder().keySet())
+            {
+                StoreOrderDto currStoreOrderDetails=orderRegion.getStoreOrderDetails(currOrder,currStoreId);
+                StoreIdToStoreOrderDto.put(currStoreId,currStoreOrderDetails);
+            }
+
+            OrderDto currOrderDetails=new OrderDto(currOrder.getDate(),
+                                            currOrder.getAmountOfOrderedItemsByUits(orderRegion.getItemIdToItems()),
+                                            currOrder.getItemsInOrderPrice(),
+                                            currOrder.getOrderDeliveryPrice(),
+                                            currOrder.getOrderTotalPrice(),
+                                            currOrder.getId(),
+                                            currOrder.getAmountOfOrderedItemsTypes(),
+                                            StoreIdToStoreOrderDto,
+                                            currOrder.getOrderLocation().getX(),
+                                            currOrder.getOrderLocation().getY());
+//            currStoreOrderDto=getStoreOrderDetails(currOrder,storeId);
+//            storeOrdersDetails.add(currStoreOrderDto);
+        }
+
+        return customerOrdersList;
     }
 
     public boolean isUserExist(String userName)

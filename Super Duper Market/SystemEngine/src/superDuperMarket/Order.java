@@ -11,35 +11,23 @@ public class Order implements Serializable
 {
     private LocalDate date;
     private  int id;
-//    private Coordinate customerLocation;
     private Coordinate orderLocation;
     Map<Integer,StoreOrder> storeIdToStoreOrder;
     private static int nextId=0;
     boolean isDynamicOrder;
-    Customer customer; // todo: needed??
+    Customer customer;
+    private String regionName;
 
-//    public Order(LocalDate date, boolean isDynamicOrder, Customer customer) {
-//        this.date = date;
-//        nextId++;
-//        this.id = nextId;
-//        this.customerLocation = customer.getLocation();
-//        this.storeIdToStoreOrder = new HashMap<>();
-//        this.isDynamicOrder=isDynamicOrder;
-//        this.customer=customer;
-//
-//        customer.addOrder(id);
-//    }
-    public Order(LocalDate date, boolean isDynamicOrder, Customer customer,Coordinate orderLocation) {
+    public Order(LocalDate date, boolean isDynamicOrder, Customer customer,Coordinate orderLocation, String regionName) {
         this.date = date;
         nextId++;
         this.id = nextId;
         this.orderLocation=orderLocation;
-//        this.customerLocation = customer.getLocation();
         this.storeIdToStoreOrder = new HashMap<>();
         this.isDynamicOrder=isDynamicOrder;
         this.customer=customer;
 
-        customer.addOrder(id);
+        customer.addOrder(id, regionName);
     }
     public static void setNextId(int nextId) {
         Order.nextId = nextId;

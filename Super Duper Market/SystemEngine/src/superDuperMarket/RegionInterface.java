@@ -60,7 +60,7 @@ public interface RegionInterface {
 
     PurchaseCategory getItemPurchaseCategory(int itemId);
 
-    Set<StoreOrderDto> getStoreOrderDetails(int storeId);
+    List<StoreOrderDto> getStoreOrderDetails(int storeId);
 
 //    Set<OrderDto> getOrdersInSystemDetails();
 //
@@ -75,7 +75,7 @@ public interface RegionInterface {
 //                          Map<Integer, Map<Integer, Double>> dynamicStoreIdToOrderedItem,
 //                          Customer customer);
 
-    Set<OrderDto> getOrdersDetails();
+    Set<OrderDto> getRegionOrdersDetails();
 
     void readOrdersHistoryFromFile(String filePath) throws IOException;
     void writeOrderHistoryToFile(String filePath) throws IOException;

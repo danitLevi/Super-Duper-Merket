@@ -1,9 +1,6 @@
 package logic;
 
-import DtoObjects.FeedbackDto;
-import DtoObjects.RegionBaseDataDto;
-import DtoObjects.TransactionDto;
-import DtoObjects.UserDto;
+import DtoObjects.*;
 import Exceptions.*;
 import superDuperMarket.Region;
 
@@ -27,4 +24,6 @@ public interface SDMLogicInterface {
     List<TransactionDto> getCustomerTransactionsDetails(String customerName);
     Region getRegionByName(String regionName );
     List<FeedbackDto> getOwnerFeedbackDetailsDetails(String ownerName);
+    List<StoreOrderDto> getStoreOrderHistory(int storeId, String regionName);
+    List<OrderDto> getCustomerOrderHistory(String customerName);
     }

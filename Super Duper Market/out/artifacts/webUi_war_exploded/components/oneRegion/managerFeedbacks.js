@@ -8,8 +8,14 @@ function ajaxFeedbacksData() {
     $.ajax({
         url: FEEDBACKS_DATA_URL,
         success: function(feedbacksJson) {
-            //Initialize feedbacks data
-            setManagerFeedbackCards(feedbacksJson);
+            if(feedbacksJson.length === 0)
+            {
+                $(".noFeedbacks").text("No feedbacks found");
+            }
+            else {
+                //Initialize feedbacks data
+                setManagerFeedbackCards(feedbacksJson);
+            }
         }
     });
 }

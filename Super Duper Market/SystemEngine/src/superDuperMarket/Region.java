@@ -81,6 +81,10 @@ public class Region implements RegionInterface {
 //    }
 
 
+    public Map<Integer, Order> getOrderIdToOrder() {
+        return orderIdToOrder;
+    }
+
     public Map<Integer, Item> getItemIdToItems() {
         return itemIdToItems;
     }
@@ -566,12 +570,12 @@ public class Region implements RegionInterface {
 //        return  itemsBag;
 //    }
 
-    public Set<StoreOrderDto> getStoreOrderDetails(int storeId)
+    public List<StoreOrderDto> getStoreOrderDetails(int storeId)
     {
         Order currOrder;
         StoreOrder currStoreOrder;
         StoreOrderDto currStoreOrderDto;
-        Set<StoreOrderDto> storeOrdersDetails=new HashSet<>();
+        List<StoreOrderDto> storeOrdersDetails=new ArrayList<>();
         Store currStore= storeIdToStore.get(storeId);
         Set<Integer> ordersFromStoreIds=currStore.getOrderIds();
         for (Integer currOrderId:ordersFromStoreIds)
@@ -603,10 +607,13 @@ public class Region implements RegionInterface {
                 isDynamicOredr,
                 order.getId(),
                 itemsInStoreDetails,
-                storeOrder.getDistanceFromCustomer(currCustomerLocation));
+                storeOrder.getDistanceFromCustomer(currCustomerLocation),
+                order.getCustomer().getName(),
+                currCustomerLocation.getX(),
+                currCustomerLocation.getY());
     }
 
-    public Set<OrderDto> getOrdersDetails()
+    public Set<OrderDto> getRegionOrdersDetails()
     {
         Set<OrderDto> ordersInSystemDetails=new HashSet<>();
         OrderDto currOrderDetails;
@@ -625,7 +632,9 @@ public class Region implements RegionInterface {
                                             currOrder.getOrderTotalPrice(),
                                             currOrder.getId(),
                                             currOrder.getAmountOfOrderedItemsTypes(),
-                                            StoreIdToStoreOrderDto);
+                                            StoreIdToStoreOrderDto,
+                                            currOrder.getOrderLocation().getX(),
+                                            currOrder.getOrderLocation().getY());
 
 //           if(currOrder.getOrderType()== OrderTypes.DYNAMIC)
 //           {
@@ -775,7 +784,7 @@ public class Region implements RegionInterface {
 
     private double getAvgCustomerOrderPrice(Customer customer)
     {
-        Set<Integer> customerOrdersIds=customer.getOrderIds();
+        Set<Integer> customerOrdersIds=customer.getOrderIdToRegionName().keySet();
         Order currOrder;
         double itemsInOrdersTotalPrice = 0, returnVal = 0;
 
@@ -792,7 +801,7 @@ public class Region implements RegionInterface {
 
     private double getAvgCustomerDeliveriesPrice(Customer customer)
     {
-        Set<Integer> customerOrdersIds=customer.getOrderIds();
+        Set<Integer> customerOrdersIds=customer.getOrderIdToRegionName().keySet();
         Order currOrder;
         double deliveriesInOrdersTotalPrice = 0, returnVal = 0;
 
@@ -1006,8 +1015,8 @@ public Set<ItemInStoreOrderDto> getWantedItemsInStoreDetails(int storeId,Map<Int
                 itemAmountToOrder,
                 itemPriceInStore,
                 itemAmountToOrder*itemPriceInStore,
-                false
-
+                false,
+                storeIdToStore.get(storeId).getName()
         );
         wantedItemsDetails.add(currItemToOrderRegular);
     }
@@ -1032,7 +1041,8 @@ public Set<ItemInStoreOrderDto> getWantedItemsInStoreDetails(int storeId,Map<Int
                         itemQuantity ,
                         currOffer.getForAdditional(),
                         itemQuantity*currOffer.getForAdditional(),
-                        true);
+                        true,
+                        storeIdToStore.get(storeId).getName());
                 wantedItemsDetails.add(currItemToOrderFromSale);
             }
         }

@@ -215,7 +215,8 @@ public class StoreOrder implements Serializable
                     itemSellToItemAmount.get(currSell),
                     currSell.getPrice(),
                     itemSellToItemAmount.get(currSell) * currSell.getPrice(),
-                    false);
+                    false,
+                    store.getName());
 
             itemsInStoreOrderDetails.add(currItemDetails);
         }
@@ -233,7 +234,8 @@ public class StoreOrder implements Serializable
                     itemsFromSaleSellToItemAmount.get(currSell),
                     currSell.getPrice(),
                     itemsFromSaleSellToItemAmount.get(currSell) * currSell.getPrice(),
-                    true);
+                    true,
+                    store.getName());
 
             itemsInStoreOrderDetails.add(currItemDetails);
         }

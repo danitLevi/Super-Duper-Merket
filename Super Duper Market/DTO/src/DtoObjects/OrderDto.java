@@ -21,7 +21,10 @@ package DtoObjects;
 //    }
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class OrderDto {
 
@@ -31,20 +34,53 @@ public class OrderDto {
     private final double deliveryTotalPrice;
     private final double orderTotalPrice;
     private int orderId;
-    private final int amountOfItemsTypes;
+    private final int amountOfItemsTypes; //TODO: DEL
     private final Map<Integer,StoreOrderDto> storeIdToStoreOrder;
+    private final List<ItemInStoreOrderDto> itemsInOrder;
+    private final int numOfStores;
+    private final int xCoordinate;
+    private final int yCoordinate;
 
-    public OrderDto(LocalDate date, double itemsTotalAmount, double itemsTotalPrice, double deliveryTotalPrice, double orderTotalPrice, int orderId, int amountOfItemsTypes, Map<Integer,StoreOrderDto> storeIdToStoreOrder)
+    public OrderDto(LocalDate date, double itemsTotalAmount, double itemsTotalPrice, double deliveryTotalPrice,
+                    double orderTotalPrice, int orderId, int amountOfItemsTypes,
+                    Map<Integer, StoreOrderDto> storeIdToStoreOrder,
+                    int xCoordinate, int yCoordinate) {
+        this.date = date;
+        this.itemsTotalAmount = itemsTotalAmount;
+        this.itemsTotalPrice = itemsTotalPrice;
+        this.deliveryTotalPrice = deliveryTotalPrice;
+        this.orderTotalPrice = orderTotalPrice;
+        this.orderId = orderId;
+        this.amountOfItemsTypes = amountOfItemsTypes;
+        this.storeIdToStoreOrder = storeIdToStoreOrder;
+        this.itemsInOrder = getItemsInStoreOrderDetails();
+        this.numOfStores = storeIdToStoreOrder.size();
+        this.xCoordinate = xCoordinate;
+        this.yCoordinate = yCoordinate;
+    }
+
+    public List<ItemInStoreOrderDto> getItemsInOrder() { return itemsInOrder; }
+
+    public List<ItemInStoreOrderDto> getItemsInStoreOrderDetails()
+    {
+        List<ItemInStoreOrderDto> itemsInOrder = new ArrayList<>();
+
+        for (StoreOrderDto currStoreOrder : storeIdToStoreOrder.values())
         {
-            this.date = date;
-            this.itemsTotalAmount = itemsTotalAmount;
-            this.itemsTotalPrice = itemsTotalPrice;
-            this.deliveryTotalPrice = deliveryTotalPrice;
-            this.orderTotalPrice = orderTotalPrice;
-            this.orderId = orderId;
-            this.amountOfItemsTypes = amountOfItemsTypes;
-            this.storeIdToStoreOrder=storeIdToStoreOrder;
+            Set<ItemInStoreOrderDto> ItemInStoreOrderDtoSet = currStoreOrder.itemsInStoreOrderDetails;
+            for (ItemInStoreOrderDto currItemInStoreOrderDto : ItemInStoreOrderDtoSet)
+            {
+                itemsInOrder.add(currItemInStoreOrderDto);
+            }
         }
+        return itemsInOrder;
+    }
+
+    public int getNumOfStores() { return numOfStores; }
+
+    public int getxCoordinate() { return xCoordinate; }
+
+    public int getyCoordinate() { return yCoordinate; }
 
     public LocalDate getDate() {
         return date;
