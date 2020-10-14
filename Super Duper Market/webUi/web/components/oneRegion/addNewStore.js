@@ -1,5 +1,5 @@
 var ADD_STORE_DATA_URL = buildUrlWithContextPath("addStore");
-var ITEMS_IN_SYSTEM_URL = buildUrlWithContextPath("itemsFromSyatemToOrder");
+var ITEMS_IN_SYSTEM_URL = buildUrlWithContextPath("items");
 var REGIONS_IN_SYSTEM_URL = buildUrlWithContextPath("getAllRegionsNames");
 
 function addNewStore() {

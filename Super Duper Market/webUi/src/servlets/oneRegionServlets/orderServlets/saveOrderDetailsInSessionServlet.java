@@ -35,13 +35,10 @@ public class saveOrderDetailsInSessionServlet extends HttpServlet {
 //
 //        String arr= String.valueOf(request.getInputStream());
 
-//        String arr=request.getParameter("items");
-//
-//        Part part1 = request.getPart("items");
-////        Part part2 = request.getPart("itemsToOrder[items]");
-////        String jsonString=request.getParameter("itemsToOrder");
-//        Type type = new TypeToken<List<ItemToOrderInputDto>>() {}.getType();
-//        List<ItemToOrderInputDto> listFromJson = gson.fromJson(arr, type);
+        String arr=request.getParameter("items");
+
+        Type type = new TypeToken<List<ItemToOrderInputDto>>() {}.getType();
+        List<ItemToOrderInputDto> listFromJson = gson.fromJson(arr, type);
 
 
 

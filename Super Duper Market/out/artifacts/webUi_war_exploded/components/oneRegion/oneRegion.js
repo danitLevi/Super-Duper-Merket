@@ -5,14 +5,14 @@ $(function () {
     setRegionName();
     ajaxSetMenuByUserType();
 
-<<<<<<< HEAD
+// <<<<<<< HEAD
   itemsClicked();
   StoresClicked();
 
-=======
-    itemsClicked();
-    StoresClicked();
->>>>>>> develop
+// =======
+//     itemsClicked();
+//     StoresClicked();
+// >>>>>>> develop
 })
 
 function itemsClicked() {
@@ -66,12 +66,11 @@ function ajaxSetMenuByUserType() {
                 $("<button type='button' class='btn1 btn1-pink btn-rounded' id='orderPage'>Order</button>" +
                     "<button type='button' class='btn1 btn1-pink btn-rounded' id='orderHistoryPage'>OrdersHistory</button>" +
                     "").appendTo($("#oneRegionMenu"));
-<<<<<<< HEAD
 
                 orderClicked();
-=======
+
                 CustomerOrdersHistoryClicked();
->>>>>>> develop
+
             }
             else
             {
