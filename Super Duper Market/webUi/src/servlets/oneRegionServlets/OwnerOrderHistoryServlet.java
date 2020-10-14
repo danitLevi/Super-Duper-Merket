@@ -3,7 +3,6 @@ package servlets.oneRegionServlets;
 import DtoObjects.FeedbackDto;
 import DtoObjects.StoreOrderDto;
 import com.google.gson.Gson;
-import constants.Constants;
 import logic.SDMLogicInterface;
 import utils.ServletUtils;
 import utils.SessionUtils;
