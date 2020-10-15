@@ -1,5 +1,5 @@
 var OWNER_ORDERS_DATA_URL = buildUrlWithContextPath("ownerOrders");
-var OWNER_STORES_URL =  buildUrlWithContextPath("stores");
+var OWNER_STORES_URL =  buildUrlWithContextPath("storesInOrder");
 
 function triggerOwnerOrdersAjaxTimeInterval() {
     setInterval(ajaxOwnerOrdersData, 1000);
@@ -26,7 +26,17 @@ function ajaxStoreOptionsData() {
     $.ajax({
         url: OWNER_STORES_URL,
         success: function(storesJson) {
-            initializeStoresOptions(storesJson);
+            if(storesJson.length === 0) {
+                $(".noOrdersInStore").text("No orders found in this region");
+            }
+            else {
+                //Initialize stores that have orders options
+                initializeStoresOptions(storesJson);
+                //Initialize order data according to curr option
+                var store = $("#ownerStores").val(); //Get selected store
+                var storeId= store.substr(0, store.indexOf(' ')); //Get selected store id
+                ajaxOwnerOrdersData(storeId);
+            }
         }
     });
 }

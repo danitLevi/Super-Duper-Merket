@@ -8,19 +8,26 @@ public class Feedback {
     private Date date;
     private int rate;
     private String feedbackText;
+    private String storeName;
 
-    public Feedback(String name, Date date, int rate) { //TODO: to keep? (no feedbackText)
+//    public Feedback(String name, Date date, int rate) { //TODO: to keep? (no feedbackText)
+//        this.name = name;
+//        this.date = date;
+//        this.rate = rate;
+//        this.feedbackText = "None";
+//    }
+
+    public Feedback(String name, Date date, int rate, String feedbackText, String storeName) {
         this.name = name;
         this.date = date;
         this.rate = rate;
-        this.feedbackText = "None";
-    }
-
-    public Feedback(String name, Date date, int rate, String feedbackText) {
-        this.name = name;
-        this.date = date;
-        this.rate = rate;
-        this.feedbackText = feedbackText;
+        this.storeName = storeName;
+        if(feedbackText==null) {
+            this.feedbackText = "None";
+        }
+        else {
+            this.feedbackText = feedbackText;
+        }
     }
 
     public String getName() {

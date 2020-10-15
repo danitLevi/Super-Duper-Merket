@@ -1189,4 +1189,63 @@ public Set<ItemInStoreOrderDto> getWantedItemsInStoreDetails(int storeId,Map<Int
 
     }
 
+    public List<StoreOrder> getStoresInOrder(Integer orderId){
+        List<StoreOrder> storesInOrder = new ArrayList<>();
+        Order order = orderIdToOrder.get(orderId);
+        Map<Integer,StoreOrder> stores = order.getStoreIdToStoreOrder();
+
+        for(StoreOrder storeInOrder : stores.values())
+        {
+            storesInOrder.add(storeInOrder);
+        }
+
+        return storesInOrder;
+    }
+
+    public void addNewStoreToRegion(Owner owner, String storeName, int ppk, int xCoordinate, int yCoordinate, List<Sell> itemsList) throws DoubleObjectInCoordinateException {
+        Map<Integer, Sell> newItemIdToItemSell = createItemIdToItemSellMap(itemsList);
+        Coordinate newStoreCoordinate = new Coordinate(xCoordinate, yCoordinate);
+
+        for (Store currStore:storeIdToStore.values()){
+            if(currStore.getLocation().equals(newStoreCoordinate))
+            {
+                throw new DoubleObjectInCoordinateException("store " +currStore.getName(),
+                                                            "store " + storeName,
+                                                             newStoreCoordinate);
+            }
+
+        }
+
+        int id = getNewStoreId();
+
+        Store newStore = new Store(id, storeName, ppk, newStoreCoordinate, newItemIdToItemSell ,owner);
+        storeIdToStore.put(newStore.getId(), newStore);
+    }
+
+    public Map<Integer, Sell> createItemIdToItemSellMap(List<Sell> itemsList)
+    {
+        Map<Integer, Sell> newItemIdToItemSell = new HashMap<>();
+
+        for(Sell currItemSell : itemsList)
+        {
+            newItemIdToItemSell.put(currItemSell.getItemId(), currItemSell);
+        }
+
+        return newItemIdToItemSell;
+    }
+
+    public int getNewStoreId()
+    {
+        int lastId = 0;
+
+        for(Integer storeId: storeIdToStore.keySet())
+        {
+            if(storeId > lastId)
+            {
+                lastId = storeId;
+            }
+        }
+
+        return ++lastId;
+    }
 }

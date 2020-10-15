@@ -64,7 +64,7 @@ function refreshRegionsTable(regionsJson) {
             "<td>"+regionData.storesAmount+"</td>"+
             "<td>"+regionData.ordersAmount+"</td>"+
             "<td>"+regionData.orderAvgCost+"</td>"+
-            "<td><button class='btnSelect' >More details</button></td>" +
+            "<td><button type='button' class='btnSelect btn-outline-dark btn-rounded'>More details</button></td>" +
             "</tr>").appendTo($("#regionsTableData"));
     });
 }

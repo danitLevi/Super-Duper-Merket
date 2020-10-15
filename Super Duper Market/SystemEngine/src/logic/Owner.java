@@ -31,4 +31,9 @@ public class Owner extends User {
         }
         return feedbacksDetails;
     }
+
+    public void addFeedback(String customer, Date date, Integer rate, String review, String storeName){
+        Feedback newFeedback = new Feedback(customer,date,rate,review,storeName);
+        this.feedbacks.add(newFeedback);
+    }
 }

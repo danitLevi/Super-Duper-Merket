@@ -40,24 +40,31 @@
 
     <script src="components/login/login.js" type="text/javascript"></script>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="common/styleSheets/index.css">
+    <link rel="stylesheet" href="common/styleSheets/navbar.css">
 </head>
 <body>
 <div class="container">
-    <h1>Login</h1>
-    <br/>
-    <h2>Please enter a unique user name:</h2>
-
-    <form class="loginForm" method="GET" action="login">
-        <input type="text" name="username" required/>
+    <div style="margin-top: 10%">
+        <h1>Login</h1>
         <br/>
-        <input type="radio" name="userType" id="customer" value="Customer" checked>Customer</input>
-        <input type="radio" name="userType" id="storeOwner" value="storeOwner">Store owner</input>
-        <br/>
-        <button class="btn" type="submit">Login</button>
-        <span class="error"></span>
+        <h2>Please enter a unique user name:</h2>
 
-
-    </form>
+        <div class="form" >
+            <form class="loginForm" method="GET" action="login">
+                <input type="text" name="username"/>
+                <br/>
+                <input type="radio" name="userType" id="customer" value="Customer" style="margin: 2px" checked>Customer</input>
+                <input type="radio" name="userType" id="storeOwner" style="margin: 2px" value="storeOwner">Store owner</input>
+                <br/><br/>
+                <button class="btn" type="submit">Login</button>
+                <span class="error"></span>
+            </form>
+        </div>
+    </div>
 </div>
 </body>
 </html>

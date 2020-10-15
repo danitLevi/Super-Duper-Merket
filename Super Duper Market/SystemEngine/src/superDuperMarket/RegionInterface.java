@@ -3,6 +3,7 @@ package superDuperMarket;
 import DtoObjects.*;
 import Exceptions.DeleteItemFromItsOnlySellerException;
 import Exceptions.DeleteStoreOnlyItemException;
+import Exceptions.DoubleObjectInCoordinateException;
 import logic.Customer;
 import logic.Owner;
 
@@ -112,5 +113,12 @@ public interface RegionInterface {
     List<StoreInCalcDyanmicOrderDto>  getStoresInDynamicOrderDetails(Map<Integer, Map<Integer, Double>> itemsBag ,
                                                                      int orderXCoordinate,
                                                                      int orderYCoordinate);
+
+
+//    void importDataFromXmlFile(InputStream inpStream) throws JAXBException, ValueOutOfRangeException, StoreItemNotFoundInSystemException, ItemAlreadyExistInStoreException, DoubleObjectIdInSystemException, DoubleObjectInCoordinateException, ItemInSaleNotFoundInStoreException, ItemNotFoundInStoresException;
+    List<StoreOrder> getStoresInOrder(Integer orderId);
+    void addNewStoreToRegion(Owner owner, String storeName, int ppk, int xCoordinate, int yCoordinate, List<Sell> itemsList) throws DoubleObjectInCoordinateException;
+    Map<Integer, Sell> createItemIdToItemSellMap(List<Sell> itemsList);
+    int getNewStoreId();
 
 }

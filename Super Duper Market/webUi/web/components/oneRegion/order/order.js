@@ -212,12 +212,16 @@ function listenTosubmitOrder() {
             $.ajax({
                 url:SAVE_ORDER_IN_SESSION_URL,
                 method:'POST',
+// <<<<<<< HEAD:Super Duper Market/webUi/web/components/oneRegion/order/order.js
                 data:{items:JSON.stringify(itemsJson) ,
                     "dateInForm":date,
                 "xCoordinate":xCoordinate,
                 "yCoordinate":yCoordinate,
                 "storeId":selectedStoreId,
                 "isDynamic":isDynamic},
+// =======
+
+
                 success:function () {
                     if(isDynamic)
                     {
