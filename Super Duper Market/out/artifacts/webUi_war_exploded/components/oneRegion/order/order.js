@@ -6,7 +6,6 @@ var DELIVERY_COST_URL = buildUrlWithContextPath("getDeliveryCost");
 var SAVE_ORDER_IN_SESSION_URL = buildUrlWithContextPath("saveOrderInputInSession");
 
 
-
 function initializeOrderPage()
 {
     // at first computed is selected by default
@@ -135,7 +134,7 @@ function setItemsTable(itemsJson,isStatic) {
     // todo:check if location is invalid (on change and not only in saving ) add alert and set delivery to No Value
     function validateAndSetDeliveryCost() {
 
-    //todo : fix !always undifined
+
         if($("#xCoordinate").val()!="" && $("#yCoordinate").val()!="" )
         {
             setDeliveryCostFromValidCoordinates();
@@ -145,17 +144,20 @@ function setItemsTable(itemsJson,isStatic) {
             $("#deliveryCostVal").text("NO VALUE");
         }
     }
-    
+
+
     function setDeliveryCostFromValidCoordinates() {
         var selectedStoreId=$("#storesOptions").val();
-        var x=$("#xCoordinate").textContent;
-        var y=$("#yCoordinate").textContent;
+        var x=$("#xCoordinate").val();
+        var y=$("#yCoordinate").val();
 
         $.ajax({
             url: DELIVERY_COST_URL,
             data:{"storeId":selectedStoreId,"xCoordinate":x,"yCoordinate":y},
             success: function (response) {
-                $("#deliveryCostVal").text(response);
+                // $("#deliveryCostVal").text((response));
+
+                $("#deliveryCostVal").text(myFormatter.format(response) +" ₪");
             },
             error:function () {
                 $("#deliveryCostVal").text("NO VALUE");
@@ -166,7 +168,8 @@ function setItemsTable(itemsJson,isStatic) {
     function getItemsToOrderJson()
     {
         var quantityToOrderInputs=$(".itemToOrderAmount");
-        var itemsToOrderJson={items:[]};
+        // var itemsToOrderJson={items:[]};
+        var itemsToOrderJson=[];
         var counter=0;
         $.each(quantityToOrderInputs || [], function (index, currInput)
         {
@@ -174,7 +177,9 @@ function setItemsTable(itemsJson,isStatic) {
             var quantity=$(currInput).val();
             if(quantity!="0" && quantity!=undefined && quantity!="")
             {
-                itemsToOrderJson.items[counter]={"itemId":itemId ,"quantity":quantity};
+                // itemsToOrderJson.items[counter]={"itemId":itemId ,"quantity":quantity};
+                itemsToOrderJson[counter]={"itemId":itemId ,"quantity":quantity};
+
 
                 counter++;
                 // itemsToOrderJson.items.push({itemId:quantity});
@@ -186,39 +191,57 @@ function setItemsTable(itemsJson,isStatic) {
         return itemsToOrderJson;
     }
 
-
-// todo
 function listenTosubmitOrder() {
     $(".orderForm").submit(function ()
         {
-            console.log("ok");
+            var date=$("#orderDate").val();
+            var xCoordinate=$("#xCoordinate").val();
+            var yCoordinate=$("#yCoordinate").val();
             var itemsJson =getItemsToOrderJson();
-            // var itemsJson_to_send = $.serialize(itemsJson);
+            var selectedStoreId=$("#storesOptions").val();
+            var isDynamic;
 
+            if ($("#computed").is(":checked"))
+            {
+                isDynamic=true;
+            }
+            else
+            {
+                isDynamic=false;
+            }
             $.ajax({
                 url:SAVE_ORDER_IN_SESSION_URL,
                 method:'POST',
-                // contentType: 'application/json',
-                // dataType: 'json',
-            // data:{"itemsToOrder":itemsJson},
-                data:JSON.stringify({items:itemsJson.items}),
-                // contentType: false,
-                // processData: false,
+                data:{items:JSON.stringify(itemsJson) ,
+                    "dateInForm":date,
+                "xCoordinate":xCoordinate,
+                "yCoordinate":yCoordinate,
+                "storeId":selectedStoreId,
+                "isDynamic":isDynamic},
                 success:function () {
-                    console.log("ok");
+                    if(isDynamic)
+                    {
+                        openStoresInDynamicOrderWindow();
+                    }
+                    else
+                    {
+                        openSalesWindow();
+                    }
                 },
-                error:
-                function () {
-                    console.log("not ok");
-                }
 
                 });
             return false;
-        }
-
-    )
-
-
+        }    )
 }
 
+function openStoresInDynamicOrderWindow()
+{
+    $("#content").load("orderTemplates/storesInDynamicOrderDetails.html",handleStoresInDynamicOrderWindow);
+}
+
+function openSalesWindow()
+{
+    $("#content").load("orderTemplates/salesInOrder.html",handleSalesWindow);
+
+}
 

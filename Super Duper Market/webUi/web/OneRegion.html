@@ -35,15 +35,22 @@
     <script src="components/oneRegion/oneRegion.js"></script>
     <script src="components/oneRegion/items.js"></script>
     <script src="components/oneRegion/storesInRegion.js"></script>
-<!--<<<<<<< HEAD-->
-    <script src="components/oneRegion/order.js"></script>
-<!--=======-->
+
+
     <script src="components/oneRegion/managerFeedbacks.js"></script>
     <script src="components/oneRegion/addNewStore.js"></script>
     <script src="components/oneRegion/ordersHistoryForOwner.js"></script>
     <script src="components/oneRegion/ordersHistoryForCustomer.js"></script>
 
-<!--&gt;>>>>>> develop-->
+<!--    utils javascript-->
+    <script src="common/formatter.js"></script>
+<!--    order java scripts -->
+    <script src="components/oneRegion/order/order.js"></script>
+    <script src="components/oneRegion/order/storesInDynamicOrder.js"></script>
+    <script src="components/oneRegion/order/salesInOrder.js"></script>
+    <script src="components/Regions/uploadBtn.js"></script>
+
+
 </head>
 <body>
 
@@ -53,7 +60,9 @@
         <img src="common/resources/Logo.png" alt="Super Duper Market" id="logo" width="122" height="45">
     </div>
 
-    <a href="upload.html" class="btn align-middle btn-primary ml-auto mr-3 order-lg-last" type="button" id="uploadbtn">Upload</a>
+<!--    <a href="upload.html" class="btn align-middle btn-primary ml-auto mr-3 order-lg-last" type="button" id="uploadbtn">Upload</a>-->
+    <button class="btn align-middle btn-primary ml-auto mr-3 order-lg-last" id="uploadbtn">Upload</button>
+
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
     </button>

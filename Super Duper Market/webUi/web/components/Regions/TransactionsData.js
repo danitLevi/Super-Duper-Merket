@@ -1,5 +1,7 @@
 var TRANSACTIONS_TABLE_URL = buildUrlWithContextPath("transactionsData");
 
+var TRANSACTIONS_DATA_INTERVAL;
+
 
 $(function() {
     triggerTransactionsAjaxTimeInterval();
@@ -8,7 +10,7 @@ $(function() {
 
 function triggerTransactionsAjaxTimeInterval() {
 
-    setInterval(ajaxTransactionsData, 500);
+    TRANSACTIONS_DATA_INTERVAL=setInterval(ajaxTransactionsData, 500);
 }
 
 function ajaxTransactionsData() {

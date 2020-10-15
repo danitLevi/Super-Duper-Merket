@@ -6,6 +6,7 @@ public class SaleDto {
 private  final String name;
 private final double QuantityToBuy;
 private final int itemIdToBuy;
+
 private final List<OfferDto> offersToGet;
 private final String OptionToGet;
 

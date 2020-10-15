@@ -538,43 +538,43 @@ public class Region implements RegionInterface {
         return deliveryPrice;
     }
 
-//    @Override
-//    public Map<Integer, Map<Integer, Double>> getMinimalItemsBag(Map<Integer,Double> itemIdToAmount) {
-//        Map<Integer, Map<Integer, Double>>  itemsBag=new HashMap<>();
-//        double currPrice;
-//        double minPrice;
-//        int currMinStoreId =-1;
-//        Map<Integer, Double> itemIdToAmountInStore;
-//        for (Integer currItemId:itemIdToAmount.keySet())
-//        {
-//            minPrice=Double.MAX_VALUE;
-//
-//            for (Store currStore: storeIdToStore.values())
-//            {
-//                if(currStore.isItemIdExist(currItemId))
-//                {
-//                    currPrice=currStore.getItemPrice(currItemId);
-//                    if(currPrice<minPrice)
-//                    {
-//                        minPrice=currPrice;
-//                        currMinStoreId=currStore.getId();
-//                    }
-//                }
-//            }
-//            if (!itemsBag.containsKey(currMinStoreId))
-//            {
-//                itemIdToAmountInStore=new HashMap<>();
-//            }
-//            else
-//            {
-//                itemIdToAmountInStore=itemsBag.get(currMinStoreId);
-//            }
-//            itemIdToAmountInStore.put(currItemId,itemIdToAmount.get(currItemId));
-//            itemsBag.put(currMinStoreId,itemIdToAmountInStore);
-//        }
-//
-//        return  itemsBag;
-//    }
+    @Override
+    public Map<Integer, Map<Integer, Double>> getMinimalItemsBag(Map<Integer,Double> itemIdToAmount) {
+        Map<Integer, Map<Integer, Double>>  itemsBag=new HashMap<>();
+        double currPrice;
+        double minPrice;
+        int currMinStoreId =-1;
+        Map<Integer, Double> itemIdToAmountInStore;
+        for (Integer currItemId:itemIdToAmount.keySet())
+        {
+            minPrice=Double.MAX_VALUE;
+
+            for (Store currStore: storeIdToStore.values())
+            {
+                if(currStore.isItemIdExist(currItemId))
+                {
+                    currPrice=currStore.getItemPrice(currItemId);
+                    if(currPrice<minPrice)
+                    {
+                        minPrice=currPrice;
+                        currMinStoreId=currStore.getId();
+                    }
+                }
+            }
+            if (!itemsBag.containsKey(currMinStoreId))
+            {
+                itemIdToAmountInStore=new HashMap<>();
+            }
+            else
+            {
+                itemIdToAmountInStore=itemsBag.get(currMinStoreId);
+            }
+            itemIdToAmountInStore.put(currItemId,itemIdToAmount.get(currItemId));
+            itemsBag.put(currMinStoreId,itemIdToAmountInStore);
+        }
+
+        return  itemsBag;
+    }
 
     public List<StoreOrderDto> getStoreOrderDetails(int storeId)
     {
@@ -924,29 +924,61 @@ public class Region implements RegionInterface {
             return currStore.isItemInSale(itemId);
         }
 
-//        public Set<StoreInCalcDyanmicOrderDto> getStoresInCalcDynamicOrderdetails(Map<Integer, Map<Integer, Double>> minimalItemsBag,)
-//        {
-//            Set<StoreInCalcDyanmicOrderDto> details=new HashSet<>();
-//            StoreInCalcDyanmicOrderDto currStoreDetails;
-//
-//            for (Integer storeId : minimalItemsBag)
-//            {
-//                Store currStore=storeIdToStore.get(storeId);
-//                currStoreDetails=new StoreInCalcDyanmicOrderDto(storeId,
-//                                                                currStore.getName(),
-//                        currStore.getLocation().getX(),
-//                        currStore.getLocation().getY(),
-//                        currStore.get)
-//            }
-//        }
-
-//    public Set<SaleDto>
-
-    public Map<SaleDto,Integer> getStoreSalesInOrder(int storeId , Map<Integer,Double> itemIdToItemAmount)
+    public List<StoreInCalcDyanmicOrderDto>  getStoresInDynamicOrderDetails(Map<Integer, Map<Integer, Double>> itemsBag ,
+                                                                           int orderXCoordinate,
+                                                                           int orderYCoordinate)
     {
-        Store currStore=storeIdToStore.get(storeId);
-        return currStore.getSalesInOrderDetails(itemIdToItemAmount);
+
+        List<StoreInCalcDyanmicOrderDto> storesInDynamicOrderDetails=new ArrayList<>();
+        Coordinate orderLocation=new Coordinate(orderXCoordinate,orderYCoordinate);
+
+        StoreInCalcDyanmicOrderDto currStoreInDynamicOrderDetails;
+        for (Integer storeId:itemsBag.keySet())
+        {
+            Store currStore=storeIdToStore.get(storeId);
+
+            currStoreInDynamicOrderDetails=new StoreInCalcDyanmicOrderDto(currStore.getId(),
+                    currStore.getName(),
+                    currStore.getLocation().getX(),
+                    currStore.getLocation().getY(),
+                    currStore.getDistanceFromGivenLocation(orderLocation),
+                    currStore.getDeliveryPpk(),
+                    currStore.getDeliveryPrice(orderLocation),
+                    itemsBag.get(storeId).size(),
+                    currStore.getWantedItemsTotalPrice(itemsBag.get(storeId)));
+
+            storesInDynamicOrderDetails.add(currStoreInDynamicOrderDetails);
+        }
+
+        return storesInDynamicOrderDetails;
     }
+
+//    public Map<SaleDto,Integer> getStoreSalesInOrder(int storeId , Map<Integer,Double> itemIdToItemAmount)
+//    {
+//        Store currStore=storeIdToStore.get(storeId);
+//        return currStore.getSalesInOrderDetails(itemIdToItemAmount);
+//    }
+
+        public Map<String,Map<SaleDto,Integer>> getSalesInOrder(Map<Integer, Map<Integer, Double>> orderMinimalPriceBag)
+        {
+            Store currStore;
+            Map<String,Map<SaleDto,Integer>> storeNameToSaleToAmount=new HashMap<>();
+            Map<SaleDto,Integer> currStoreSaleToAmount=new HashMap<>();
+
+            for (Integer currStoreId:orderMinimalPriceBag.keySet())
+            {
+                currStore=storeIdToStore.get(currStoreId);
+                currStoreSaleToAmount=currStore.getSalesInOrderDetails(orderMinimalPriceBag.get(currStoreId));
+                if(currStoreSaleToAmount.size()!=0)
+                {
+                    storeNameToSaleToAmount.put(currStore.getName(),currStoreSaleToAmount);
+                }
+            }
+
+            return storeNameToSaleToAmount;
+        }
+
+
 
     public int getItemCheapestSellerId(int itemId)
     {
@@ -969,6 +1001,7 @@ public class Region implements RegionInterface {
 
         return currMinStoreId;
     }
+
 
     public Set<StoreInCalcDyanmicOrderDto>  getStoresInDynamicOrderDetails(Map<Integer, Map<Integer, Double>> itemsBag ,int customerId)
     {

@@ -88,7 +88,10 @@ public interface RegionInterface {
 
     boolean isItemInStoreInSale(int itemId,int storeId);
 
-    Map<SaleDto,Integer> getStoreSalesInOrder(int storeId , Map<Integer,Double> itemIdToItemAmount); //todo: continue !!!!
+//    Map<SaleDto,Integer> getStoreSalesInOrder(int storeId , Map<Integer,Double> itemIdToItemAmount); //todo: continue !!!!
+
+    Map<String,Map<SaleDto,Integer>> getSalesInOrder(Map<Integer, Map<Integer, Double>> orderMinimalPriceBag);
+
 
     int getItemCheapestSellerId(int itemId);
 
@@ -102,11 +105,12 @@ public interface RegionInterface {
                           Map<Integer,Map<Integer,Double>> dynamicStoreIdToOrderedItem,
                           Map<Integer, Map<OfferDto,Integer>> storeIdToItemsToOrderFromSales);
 
-//    boolean isUserExist(String userName);
-//    void addCustomer(String name);
-//    void addStoreOwner(String name);
-//    List<UserDto> getUsersDetails();
     String getRegionName();
     Owner getRegionOwner();
-//    void importDataFromXmlFile(InputStream inpStream) throws JAXBException, ValueOutOfRangeException, StoreItemNotFoundInSystemException, ItemAlreadyExistInStoreException, DoubleObjectIdInSystemException, DoubleObjectInCoordinateException, ItemInSaleNotFoundInStoreException, ItemNotFoundInStoresException;
+
+    Map<Integer, Map<Integer, Double>> getMinimalItemsBag(Map<Integer,Double> itemIdToAmount);
+    List<StoreInCalcDyanmicOrderDto>  getStoresInDynamicOrderDetails(Map<Integer, Map<Integer, Double>> itemsBag ,
+                                                                     int orderXCoordinate,
+                                                                     int orderYCoordinate);
+
 }

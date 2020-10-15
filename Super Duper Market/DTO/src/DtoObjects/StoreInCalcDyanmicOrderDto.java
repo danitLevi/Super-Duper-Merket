@@ -6,18 +6,18 @@ public class StoreInCalcDyanmicOrderDto {
     private final String name;
     private final int xCoordinate;
     private final int yCoordinate;
-    private final double distanceFromCustomer;
+    private final double distanceFromOrder;
     private final int deliveryPpk;
     private final double deliveryPrice;
     private  final int amountOfItemsTypes;
     private final double itemsTotalPrice;
 
-    public StoreInCalcDyanmicOrderDto(int id, String name, int xCoordinate, int yCoordinate, double distanceFromCustomer, int deliveryPpk, double deliveryPrice, int amountOfItemsTypes, double itemsTotalPrice) {
+    public StoreInCalcDyanmicOrderDto(int id, String name, int xCoordinate, int yCoordinate, double distanceFromOrder, int deliveryPpk, double deliveryPrice, int amountOfItemsTypes, double itemsTotalPrice) {
         this.id = id;
         this.name = name;
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
-        this.distanceFromCustomer = distanceFromCustomer;
+        this.distanceFromOrder = distanceFromOrder;
         this.deliveryPpk = deliveryPpk;
         this.deliveryPrice = deliveryPrice;
         this.amountOfItemsTypes = amountOfItemsTypes;
@@ -42,8 +42,8 @@ public class StoreInCalcDyanmicOrderDto {
         return yCoordinate;
     }
 
-    public double getDistanceFromCustomer() {
-        return distanceFromCustomer;
+    public double getDistanceFromOrder() {
+        return distanceFromOrder;
     }
 
     public int getDeliveryPpk() {

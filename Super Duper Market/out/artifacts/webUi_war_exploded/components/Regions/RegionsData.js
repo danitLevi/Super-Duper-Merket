@@ -1,6 +1,7 @@
 var REGIONS_BASE_DATA_URL = buildUrlWithContextPath("regionsBaseData");
 var REGION_PAGE_URL = buildUrlWithContextPath("regionPage");
 
+var REGIONS_DATA_INTERVAL;
 
 $(function() {
     // triggerAjaxRegionsData();
@@ -14,7 +15,7 @@ $(function() {
 // }
 function triggerAjaxTimeInterval() {
 
-    setInterval(ajaxRegionsBaseData, 500);
+    REGIONS_DATA_INTERVAL=setInterval(ajaxRegionsBaseData, 500);
 }
 
 function ajaxRegionsBaseData() {

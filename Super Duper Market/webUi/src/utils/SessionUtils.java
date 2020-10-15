@@ -1,6 +1,8 @@
 package utils;
 
 
+import DtoObjects.OrderInputToSaveInSessionDto;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -30,5 +32,17 @@ public class SessionUtils {
     }
     public static void clearSession (HttpServletRequest request) {
         request.getSession().invalidate();
+    }
+
+    public static void setOrderInput(HttpServletRequest request,OrderInputToSaveInSessionDto orderInput)
+    {
+        HttpSession session = request.getSession();
+        session.setAttribute(Constants.ORDER_INPUT,orderInput);
+    }
+
+    public static OrderInputToSaveInSessionDto getOrderInput (HttpServletRequest request) {
+        HttpSession session = request.getSession();
+         return (OrderInputToSaveInSessionDto) session.getAttribute(Constants.ORDER_INPUT);
+
     }
 }
