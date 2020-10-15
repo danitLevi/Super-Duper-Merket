@@ -1,8 +1,14 @@
 package servlets.oneRegionServlets.orderServlets;
 
 import DtoObjects.ItemToOrderInputDto;
+import DtoObjects.OrderInputToSaveInSessionDto;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import logic.SDMLogicInterface;
+import superDuperMarket.RegionInterface;
+import utils.Constants;
+import utils.ServletUtils;
+import utils.SessionUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,55 +34,67 @@ public class saveOrderDetailsInSessionServlet extends HttpServlet {
         processRequest(req,resp);
     }
 
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        RegionInterface region;
+
         Map<Integer, Map<Integer, Double>> orderMinimalPriceBag=new HashMap<>();
         Gson gson = new Gson();
-//        Array arr=gson.to
-//
-//        String arr= String.valueOf(request.getInputStream());
 
-        String arr=request.getParameter("items");
+        //get data
+        Date date= null;
+        String stringDate=request.getParameter(Constants.DATE);
 
+        try {
+            date = new SimpleDateFormat("yyyy-mm-dd").parse(stringDate);
+
+
+        int xCoordinate= Integer.parseInt(request.getParameter(Constants.X_COORDINATE));
+        int yCoordinate= Integer.parseInt(request.getParameter(Constants.Y_COORDINATE));
+        int storeId= Integer.parseInt(request.getParameter(Constants.STORE_ID));
+        String itemsToOrderArr=request.getParameter(Constants.ITEMS);
         Type type = new TypeToken<List<ItemToOrderInputDto>>() {}.getType();
-        List<ItemToOrderInputDto> listFromJson = gson.fromJson(arr, type);
+        List<ItemToOrderInputDto> inputItemsList = gson.fromJson(itemsToOrderArr, type);
 
+        Map<Integer,Double> itemsToOrderMap=convertListToMap(inputItemsList);
 
+        //save in session
+        synchronized (getServletContext()) {
+            SDMLogicInterface sdmLogic = ServletUtils.getSdmLogic(getServletContext());
+            String regionName= SessionUtils.getRegionName(request);
+            region=sdmLogic.getRegionByName(regionName);
+        }
 
-//        ObjectMapper mapper = new ObjectMapper();
-//        itemToOrderInputDto dto = mapper.readValue(sortJson, SortDto.class);
+        boolean isDynamic= Boolean.parseBoolean(request.getParameter(Constants.IS_DYNAMIC));
+        if(isDynamic)
+        {
+            orderMinimalPriceBag=region.getMinimalItemsBag(itemsToOrderMap);
+        }
+        else
+        {
+            orderMinimalPriceBag.put(storeId,itemsToOrderMap);
+        }
 
+        OrderInputToSaveInSessionDto orderInput=new OrderInputToSaveInSessionDto(orderMinimalPriceBag,date,isDynamic,storeId,xCoordinate,yCoordinate);
 
-//        JsonNode jsonNode = objectMapper.readTree(s);
-//        JsonNode node = jsonNode.get(0);
-//        String property = node.get("property").asText();
-//        String direction = node.get("direction").asText();
+        SessionUtils.setOrderInput(request,orderInput);
 
-//        JSONObject json = new JSONObject(jsonString);
-//
-//        ArrayList<ItemInStoreOrderDto> list = ArrayUtil.convert(jArray);
+        } catch (ParseException e) {
+            response.sendError(406 );
+        }
+    }
 
-//        ArrayList<ItemInStoreOrderDto> jsonArray=
-        //find bag
-//
-//        response.setContentType("application/json");
-//        try (PrintWriter out = response.getWriter())
-//        {
-//            Gson gson = new Gson();
-//            List<StoreDto> storesDetailsList=null;
-//
-//            synchronized (getServletContext()) {
-//                SDMLogicInterface sdmLogic = ServletUtils.getSdmLogic(getServletContext());
-//                String regionName= SessionUtils.getRegionName(request);
-//                RegionInterface region=sdmLogic.getRegionByName(regionName);
-//                storesDetailsList = region.getStoresDetails();
-//            }
-//            String json = gson.toJson(storesDetailsList);
-//            out.println(json);
-//            out.flush();
-//        }
+    private Map<Integer,Double> convertListToMap(List<ItemToOrderInputDto> itemsList)
+    {
+        Map<Integer,Double> itemsToOrderMap=new HashMap<>();
+        for (ItemToOrderInputDto currItem:itemsList)
+        {
+            itemsToOrderMap.put(currItem.getItemId(),currItem.getQuantity());
+        }
 
+        return itemsToOrderMap;
     }
 }
+
+

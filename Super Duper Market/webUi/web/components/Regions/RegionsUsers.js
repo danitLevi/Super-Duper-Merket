@@ -1,5 +1,4 @@
 var USER_LIST_URL = buildUrlWithContextPath("userslist");
-var REMOVE_USER_URL = buildUrlWithContextPath("removeUser");
 
 
 function refreshUsersList(users) {

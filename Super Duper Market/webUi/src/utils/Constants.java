@@ -17,6 +17,18 @@ public class Constants {
     public static final String SESSION = "mySession";
     public static final String REGION_NAME = "region name";
     public static final String STORE_ID = "storeId";
+    public static final String ITEM_ID = "itemId";
+
+
+    public static final String X_COORDINATE = "xCoordinate";
+    public static final String Y_COORDINATE = "yCoordinate";
+    public static final String IS_DYNAMIC = "isDynamic";
+    public static final String ITEMS = "items";
+
+    public static final String ORDER_INPUT = "orderInput";
+
+
+
 
 
 }

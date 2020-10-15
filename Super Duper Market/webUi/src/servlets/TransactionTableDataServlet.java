@@ -33,13 +33,17 @@ public class TransactionTableDataServlet extends HttpServlet {
             Gson gson = new Gson();
             String userName= SessionUtils.getUsername(request);
             List<TransactionDto> transactionsDetails=null;
+
             synchronized (getServletContext()) {
                 SDMLogicInterface sdmLogic = ServletUtils.getSdmLogic(getServletContext());
                 transactionsDetails = sdmLogic.getTransactionsDetails(userName);
+
             }
+
             String json = gson.toJson(transactionsDetails);
             out.println(json);
             out.flush();
+
         }
     }
 }

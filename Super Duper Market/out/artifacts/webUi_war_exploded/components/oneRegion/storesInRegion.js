@@ -23,7 +23,7 @@ function setStoresInRegionCards(storesJson)
     $("#storesData").empty();
 
     $.each(storesJson || [], function (index, storeData) {
-        $("#storesData").add("StoreCardTemplate.html");
+        // $("#storesData").add("StoreCardTemplate.html");
 
         $('<div class="card shadow p-3  m-4 bg-white rounded" id="oneStoreCard">'+
             <!--        <img class="card-img-top user-image" alt="User image" src="common/images/cards/request_icon.svg">-->

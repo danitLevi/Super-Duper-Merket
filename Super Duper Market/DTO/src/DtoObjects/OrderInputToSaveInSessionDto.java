@@ -1,6 +1,5 @@
 package DtoObjects;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.Map;
 
@@ -12,7 +11,7 @@ public class OrderInputToSaveInSessionDto {
 //    private int customerId;
 //    private String customerDetails;
     private Date date; //local date ?
-    private boolean isStaticOrder;
+    private boolean isDynamicOrder;
 
     private int storeId;
     private int xCoordinate;
@@ -20,20 +19,20 @@ public class OrderInputToSaveInSessionDto {
 
 
 
-    public OrderInputToSaveInSessionDto(Map<Integer, Map<Integer, Double>> orderMinimalPriceBag, Date date, boolean isStaticOrder, int storeId, int xCoordinate, int yCoordinate) {
+    public OrderInputToSaveInSessionDto(Map<Integer, Map<Integer, Double>> orderMinimalPriceBag, Date date, boolean isDynamicOrder, int storeId, int xCoordinate, int yCoordinate) {
         this.orderMinimalPriceBag = orderMinimalPriceBag;
         this.date = date;
-        this.isStaticOrder = isStaticOrder;
+        this.isDynamicOrder = isDynamicOrder;
         this.storeId = storeId;
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
     }
 
     //store id not provided
-    public OrderInputToSaveInSessionDto(Map<Integer, Map<Integer, Double>> orderMinimalPriceBag, Date date, boolean isStaticOrder, int xCoordinate, int yCoordinate) {
+    public OrderInputToSaveInSessionDto(Map<Integer, Map<Integer, Double>> orderMinimalPriceBag, Date date, boolean isDynamicOrder, int xCoordinate, int yCoordinate) {
         this.orderMinimalPriceBag = orderMinimalPriceBag;
         this.date = date;
-        this.isStaticOrder = isStaticOrder;
+        this.isDynamicOrder = isDynamicOrder;
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
         storeId= NO_VALUE;
@@ -51,8 +50,8 @@ public class OrderInputToSaveInSessionDto {
         return date;
     }
 
-    public boolean isStaticOrder() {
-        return isStaticOrder;
+    public boolean isDynamicOrder() {
+        return isDynamicOrder;
     }
 
     public int getStoreId() {

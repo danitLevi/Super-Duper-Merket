@@ -70,6 +70,5 @@ public class Sale {
             currSaleOffersDetail.add(currOferDetails);
         }
         return new SaleDto(name,this.ifYouBuy.getQuantity(),this.ifYouBuy.getItemId(),currSaleOffersDetail,this.thenYouGet.getOperator());
-
     }
 }

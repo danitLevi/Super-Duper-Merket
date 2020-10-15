@@ -3,7 +3,12 @@ package logic;
 import DtoObjects.*;
 import Exceptions.*;
 import generatedClassesJaxb.SuperDuperMarketDescriptor;
+//<<<<<<< HEAD
+//import superDuperMarket.Order;
+//import superDuperMarket.Region;
+//=======
 import superDuperMarket.*;
+//>>>>>>> bd26cd2d1ef95b2547d381cb4a4664ea48d6d806
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -15,27 +20,27 @@ import java.util.*;
 
 public class SDMLogic implements SDMLogicInterface {
 
-    private Map<String, User> userIdToUser; // todo: to separate to customers and store owners ??
+    private Map<String, User> userNameToUser; // todo: to separate to customers and store owners ??
     Set<Region> regions;
 
     public SDMLogic()
     {
-        this.userIdToUser=new HashMap<>();
+        this.userNameToUser =new HashMap<>();
         this.regions=new HashSet<>();
     }
-    public SDMLogic(Map<Integer, User> userIdToUser, Set<Region> regions) {
-        this.userIdToUser = new HashMap<>();
+    public SDMLogic(Map<Integer, User> userNameToUser, Set<Region> regions) {
+        this.userNameToUser = new HashMap<>();
         this.regions = new HashSet<>();
     }
 
 
 
-    public Map<String, User> getUserIdToUser() {
-        return userIdToUser;
+    public Map<String, User> getUserNameToUser() {
+        return userNameToUser;
     }
 
-    public void setUserIdToUser(Map<String, User> userIdToUser) {
-        this.userIdToUser = userIdToUser;
+    public void setUserNameToUser(Map<String, User> userNameToUser) {
+        this.userNameToUser = userNameToUser;
     }
 
     public Set<Region> getRegions() {
@@ -49,7 +54,7 @@ public class SDMLogic implements SDMLogicInterface {
     public void saveOrder(String regionName , int customerId)
     {
         Region SDMRegionObj= getRegionByName(regionName);
-        Customer customer= (Customer) userIdToUser.get(customerId);
+        Customer customer= (Customer) userNameToUser.get(customerId);
         //todo save order (and add customer )
         //SDMRegionObj.saveOrder(customer)
     }
@@ -79,7 +84,7 @@ public class SDMLogic implements SDMLogicInterface {
 
     public List<FeedbackDto> getOwnerFeedbackDetailsDetails(String ownerName)
     {
-        Owner owner= (Owner) userIdToUser.get(ownerName);
+        Owner owner= (Owner) userNameToUser.get(ownerName);
         return owner.getFeedbacksDetails();
     }
 
@@ -95,7 +100,7 @@ public class SDMLogic implements SDMLogicInterface {
     public List<OrderDto> getCustomerOrderHistory(String customerName)
     {
         List<OrderDto> customerOrdersList = new ArrayList<>();
-        Customer customer = (Customer) userIdToUser.get(customerName);
+        Customer customer = (Customer) userNameToUser.get(customerName);
 
         Map<Integer, String> orders = customer.getOrderIdToRegionName();
 
@@ -129,7 +134,13 @@ public class SDMLogic implements SDMLogicInterface {
 
     public boolean isUserExist(String userName)
     {
-        return userIdToUser.containsKey(userName.toLowerCase());
+        Map<String,User> lowerCaseUserNameToUser=new HashMap<>();
+        for(String currUserName:userNameToUser.keySet())
+        {
+            lowerCaseUserNameToUser.put(currUserName.toLowerCase(), userNameToUser.get(currUserName));
+        }
+
+        return (lowerCaseUserNameToUser.containsKey(userName.toLowerCase()));
     }
 
     public void addCustomer(String name)
@@ -137,18 +148,19 @@ public class SDMLogic implements SDMLogicInterface {
         if(!isUserExist(name))
         {
             Customer newCustomer=new Customer(name);
-            userIdToUser.put(newCustomer.getName().toLowerCase(),newCustomer);
+            userNameToUser.put(newCustomer.getName(),newCustomer);
         }
         else
             throw new UserAlreadyExsistException(name);
 
     }
+
     public void addOwner(String name)
     {
         if(!isUserExist(name))
         {
             Owner newOwner =new Owner(name);
-            userIdToUser.put(newOwner.getName().toLowerCase(), newOwner);
+            userNameToUser.put(newOwner.getName(), newOwner);
         }
         else
             throw new UserAlreadyExsistException(name);
@@ -160,7 +172,7 @@ public class SDMLogic implements SDMLogicInterface {
         List<UserDto> usersDetails=new LinkedList<>();
         UserDto currUserDetails;
         String roleStr="";
-        for (User currUser : userIdToUser.values())
+        for (User currUser : userNameToUser.values())
         {
             if (currUser instanceof Customer )
             {
@@ -232,7 +244,7 @@ public class SDMLogic implements SDMLogicInterface {
 
     public Owner getOwner(String ownerName)
     {
-        return (Owner) userIdToUser.get(ownerName);
+        return (Owner) userNameToUser.get(ownerName);
     }
 
     public List<RegionBaseDataDto> getAllRegionsBaseData()
@@ -255,20 +267,20 @@ public class SDMLogic implements SDMLogicInterface {
 
     public void chargeCustomerBalance(String customerName, double amountToAdd, Date chargeDate)
     {
-        Customer customer= (Customer) userIdToUser.get(customerName);
+        Customer customer= (Customer) userNameToUser.get(customerName);
         customer.chargeBalance(amountToAdd,chargeDate);
     }
 
     public double getBalance(String userName)
     {
-        User currUser=  userIdToUser.get(userName);
+        User currUser=  userNameToUser.get(userName);
         return currUser.getCurrBalance();
     }
 
     public List<TransactionDto> getTransactionsDetails(String userName)
     {
-        Set<TransactionDto> CustomerTransactionsDetails=new HashSet<>();
-        User currUser= userIdToUser.get(userName);
+//        Set<TransactionDto> CustomerTransactionsDetails=new HashSet<>();
+        User currUser= userNameToUser.get(userName);
         return currUser.getTransactionsDetails();
 
     }
@@ -288,7 +300,7 @@ public class SDMLogic implements SDMLogicInterface {
 
     public Owner getOwnerByName(String ownerName)
     {
-        for (User curruser:userIdToUser.values())
+        for (User curruser:userNameToUser.values())
         {
             if(curruser.getName().equals(ownerName))
                 return (Owner)curruser;
