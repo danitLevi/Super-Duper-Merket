@@ -198,12 +198,9 @@ function listenTosubmitOrder() {
             $.ajax({
                 url:SAVE_ORDER_IN_SESSION_URL,
                 method:'POST',
-                // contentType: 'application/json',
-                // dataType: 'json',
-            // data:{"itemsToOrder":itemsJson},
-                data:JSON.stringify({items:itemsJson.items}),
-                // contentType: false,
-                // processData: false,
+
+                data:{items:JSON.stringify(itemsJson.items)},
+
                 success:function () {
                     console.log("ok");
                 },

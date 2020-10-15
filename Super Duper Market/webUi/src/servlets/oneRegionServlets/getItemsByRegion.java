@@ -1,4 +1,4 @@
-package servlets.addStoreServlets;
+package servlets.oneRegionServlets;
 
 import DtoObjects.ItemInSystemDto;
 import com.google.gson.Gson;
@@ -16,9 +16,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(name = "servlets.oneRegionServlets.getAllRegionsNames", urlPatterns = {"/getAllRegionsNames"})
+@WebServlet(name = "servlets.oneRegionServlets.getItemsByRegion", urlPatterns = {"/itemByRegion"})
 
-public class getAllRegionsNames extends HttpServlet {
+public class getItemsByRegion extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         processRequest(req,resp);
@@ -27,17 +27,19 @@ public class getAllRegionsNames extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter())
         {
             Gson gson = new Gson();
-            List<String> regionsNames=null;
+            List<ItemInSystemDto> itemsDetailsList=null;
             synchronized (getServletContext()) {
                 SDMLogicInterface sdmLogic = ServletUtils.getSdmLogic(getServletContext());
-                regionsNames = sdmLogic.getRegionsNames();
+                String regionName= request.getParameter("region");
+                RegionInterface region=sdmLogic.getRegionByName(regionName);
+                itemsDetailsList = region.getItemsDetails();
             }
-
-            String json = gson.toJson(regionsNames);
+            String json = gson.toJson(itemsDetailsList);
             out.println(json);
             out.flush();
         }

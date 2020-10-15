@@ -1,4 +1,4 @@
-var STORES_DATA_URL = buildUrlWithContextPath("stores");
+var STORES_DATA_URL = buildUrlWithContextPath("storesInRegion");
 
 function triggerStoresAjaxTimeInterval() {
     setInterval(ajaxStoresData, 500);

@@ -3,16 +3,14 @@ package logic;
 import DtoObjects.*;
 import Exceptions.*;
 import generatedClassesJaxb.SuperDuperMarketDescriptor;
-import superDuperMarket.Order;
-import superDuperMarket.Region;
-import superDuperMarket.Store;
-import superDuperMarket.StoreOrder;
+import superDuperMarket.*;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.util.*;
 
 public class SDMLogic implements SDMLogicInterface {
@@ -275,4 +273,26 @@ public class SDMLogic implements SDMLogicInterface {
 
     }
 
+    public List<StoreOrder> getOrderStores(Integer orderId, String regionName){
+        Region region = getRegionByName(regionName);
+        return region.getStoresInOrder(orderId);
+    }
+
+    public void addFeedbackToOwner(String regionName, String customer, Date date, Integer rate, String review,int storeid)
+    {
+        Region region = getRegionByName(regionName);
+        Store store = region.getStoreIdToStore().get(storeid);
+        Owner currUser= store.getStoreOwner();
+        currUser.addFeedback(customer, date, rate, review, store.getName());
+    }
+
+    public Owner getOwnerByName(String ownerName)
+    {
+        for (User curruser:userIdToUser.values())
+        {
+            if(curruser.getName().equals(ownerName))
+                return (Owner)curruser;
+        }
+        return null;
+    }
 }

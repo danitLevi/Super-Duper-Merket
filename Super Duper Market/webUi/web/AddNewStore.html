@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Popper JS -->
@@ -11,7 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<!--    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">-->
     <link rel="stylesheet" href="common/styleSheets/form.css">
     <!--JavaScript -->
     <script src="components/oneRegion/addNewStore.js"></script>
@@ -33,7 +32,6 @@
                     </div>
                 </div>
                 <br/>
-                <br/>
 
                 <div class="form-group">
                     <label for="storeName" class="col-sm-2 control-label">Name:</label>
@@ -42,28 +40,28 @@
                     </div>
                 </div>
                 <br/>
-                <br/>
 
                 <div class="form-group">
                     <label for="storePPK" class="col-sm-2 control-label">Delivery PPK:</label>
                     <div class="col-sm-3">
-                        <input type="number" id="storePPK" min="0" step="0.01" class="form-control" placeholder="Delivery PPK" required>
+                        <input type="number" id="storePPK" min="0" step="1" class="form-control" placeholder="Delivery PPK" required>
                     </div>
                 </div>
-                <br/>
                 <br/>
 
-                <div class="form-group ">
-                    <label for="x" class="col-sm-2 control-label">Location</label>
-                    <div class="col-sm-3">
-                        <input type="number" id="x" min="1" max="50" step="1" placeholder="X Coordinate" class="form-control"required>
+                <label class="col-sm-2 control-label">Location:</label>
+                <div class="row ml-0">
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <div class="form-group ">
+                            <input type="number" id="x" min="1" max="50" step="1" placeholder="X Coordinate" class="form-control"required>
+                        </div>
                     </div>
-                    <div class="col-sm-3">
-                        <input type="number" id="y" min="1" max="50" step="1"  placeholder="Y Coordinate" class="form-control" required>
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <div class="form-group">
+                            <input type="number" id="y" min="1" max="50" step="1"  placeholder="Y Coordinate" class="form-control" required>
+                        </div>
                     </div>
                 </div>
-                <br/>
-                <br/>
 
                 <!--items in store table -->
                 <div class="row">
@@ -87,15 +85,12 @@
                 <!--submit-->
                 <div class="form-group col-md-6">
                     <button type="submit" class="btn btn-primary mb-2" id="addStoreBtn">Add Store</button>
+                    <!--massage-->
+                    <span id="newStoreMsg"></span>
                 </div>
 
             </form> <!-- /form -->
-
-
         </div> <!-- ./container -->
-
-
-
     </div>
 </div>
 </body>

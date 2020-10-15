@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!--    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">-->
+    <link rel="stylesheet" href="common/styleSheets/form.css">
+    <link rel="stylesheet" href="common/styleSheets/stars.css">
+    <!-- Latest compiled JavaScript -->
+    <script src="components/oneRegion/fillFeedback.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<div>
+    <h2 >Feedback</h2>
+    <span class="noStoreFeedbacks"></span>
+    <div id="FeedbackContent">
+        <div class="container">
+            <form id="feedbackForm" method="POST" role="form" >
+                <div class="form-group" >
+                    <label for="storeFromOrder" class="control-label col-sm-2">Store:</label>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="storeFromOrder" >
+                            <!--     TODO: ADD OPTIONS-->
+                        </select>
+                    </div>
+                </div>
+                <br/>
+
+                <div class="form-group" >
+                <label for="rating" class="control-label col-2">Rating:</label>
+                <span id="count-existing">no</span> stars
+                <div class="rating col-2" id="rating">
+                    <input type="radio" name="rating" value="5" id="5">
+                    <label for="5">☆</label>
+                    <input type="radio" name="rating" value="4" id="4">
+                    <label for="4">☆</label>
+                    <input type="radio" name="rating" value="3" id="3">
+                    <label for="3">☆</label>
+                    <input type="radio" name="rating" value="2" id="2">
+                    <label for="2">☆</label>
+                    <input type="radio" name="rating" value="1" id="1">
+                    <label for="1">☆</label>
+                </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="review" class="col-sm-2 control-label">Review:</label>
+                    <div class="col-sm-4">
+                        <textarea cols="60" id="review" style="resize:horizontal"  name="comment" placeholder="Share your thoughts..." rows="5"></textarea>
+                    </div>
+                </div>
+                <br/><br/>
+
+
+                <div class="row">
+                <!--submit-->
+                <div class="form-group col-1">
+                    <button type="submit" class="btn btn-primary mb-2" id="submitFeedback">Submit</button>
+                </div>
+
+                <!--skip-->
+                <div class="form-group col-1">
+                    <button class="btn btn-primary mb-2" id="skipFeedback">Skip</button>
+                </div>
+
+                <!--massage-->
+                <span id="FeedbackMsg" class="col-2"></span>
+                </div>
+
+            </form> <!-- /form -->
+        </div> <!-- ./container -->
+    </div>
+</div>
+</body>
+</html>
