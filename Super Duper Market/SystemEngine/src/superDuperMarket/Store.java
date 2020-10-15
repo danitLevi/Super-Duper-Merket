@@ -56,6 +56,17 @@ public class Store implements Serializable {
         initializeSales(sdmStore.getSDMDiscounts());
     }
 
+    public Store(int id, String name, int deliveryPpk, Coordinate location, Map<Integer, Sell> itemIdToItemSell, Owner storeOwner) {
+        this.id = id;
+        this.name = name;
+        this.deliveryPpk = deliveryPpk;
+        this.location = location;
+        this.itemIdToItemSell = itemIdToItemSell;
+        this.orderIds =new HashSet<>();
+        this.sales=new HashSet<>();
+        this.storeOwner = storeOwner;
+    }
+
     public Owner getStoreOwner() {
         return storeOwner;
     }

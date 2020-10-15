@@ -3,6 +3,7 @@ package logic;
 import DtoObjects.*;
 import Exceptions.*;
 import superDuperMarket.Region;
+import superDuperMarket.StoreOrder;
 
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
@@ -26,4 +27,7 @@ public interface SDMLogicInterface {
     List<FeedbackDto> getOwnerFeedbackDetailsDetails(String ownerName);
     List<StoreOrderDto> getStoreOrderHistory(int storeId, String regionName);
     List<OrderDto> getCustomerOrderHistory(String customerName);
-    }
+    List<StoreOrder> getOrderStores(Integer orderId, String regionName);
+    void addFeedbackToOwner(String regionName, String customer, Date date, Integer rate, String review,int storeid);
+    Owner getOwnerByName(String ownerName);
+}

@@ -26,7 +26,7 @@ public class Order implements Serializable
         this.storeIdToStoreOrder = new HashMap<>();
         this.isDynamicOrder=isDynamicOrder;
         this.customer=customer;
-
+        this.regionName=regionName;
         customer.addOrder(id, regionName);
     }
     public static void setNextId(int nextId) {

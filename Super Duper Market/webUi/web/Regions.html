@@ -33,6 +33,11 @@
     <script src="components/Regions/AccountManager.js"></script>
     <script src="components/Regions/TransactionsData.js"></script>
 
+    <!-- CSS-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="common/styleSheets/form.css">
 </head>
 <body>
 <!--<h1>Stores</h1>-->
@@ -90,8 +95,8 @@
 
 <div class="row">
     <!--users -->
-    <div class="col-sm-3 main-body pt-5 mr-3 online-users">
-            <div class="card border-0 h-100 mb-4">
+    <div class=" main-body pt-5 mr-3 online-users">
+            <div class="card border-0 h-100 mb-4 w-100">
                 <div class="card-body">
                     <h3 class="card-title">Online users</h3>
                     <ul id="userslist">
@@ -102,10 +107,11 @@
     </div>
 
     <!--regions table -->
-    <div class="col-md-9 ">
-        <h3 style="margin-left: 2rem">Regions</h3>
-        <div class="table-responsive " >
-            <table class="table table-striped table-sm table-hover col-sm-auto">
+    <form>
+    <div class="col-12 ml-3" style="margin-top: 100px">
+        <h3>Regions</h3>
+        <div class="table-responsive" >
+            <table class="table table-sm table-hover col-sm-auto">
                 <thead>
                 <tr>
                     <th >Owner name</th>
@@ -114,6 +120,7 @@
                     <th>Stores amount</th>
                     <th>Orders amount</th>
                     <th>Order average price </th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody id="regionsTableData">
@@ -121,6 +128,7 @@
             </table>
         </div>
     </div>
+    </form>
 </div>
 
 <!--Transactions area -->
@@ -131,14 +139,14 @@
             <p class="text-muted">Your current balance is <span class="balance"></span> <span> ₪</span></p>
             <form id="accountForm" method="POST" action="charge">
                 <div class="form-row">
-                    <div class="form-group col-md-3">
+                    <div class="form-group col-md-2">
                         <input class="form-control form-control-md" type="number" min="0"  step="0.01" placeholder="Amount to charge"
                                name="amountToCharge" id="amountToCharge" required>
                     </div>
                     <div class="form-group row">
 <!--                        <label for="date-input" class="col-2 col-form-label">Date</label>-->
 
-                        <div class="col-11 " >
+                        <div class="col-12 " >
                             <input class="form-control" type="date" name="dateInForm"  id="date-input" required>
                         </div>
                     </div>
@@ -156,7 +164,7 @@
 <div class="row">
     <h4>Transactions details</h4>
     <div class="table-responsive " >
-        <table class="table table-striped table-sm table-hover col-sm-auto">
+        <table class="table table-sm table-hover col-sm-auto">
             <thead>
             <tr>
                 <th>Type</th>

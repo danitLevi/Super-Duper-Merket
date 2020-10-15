@@ -19,7 +19,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<!--    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">-->
     <link rel="stylesheet" href="common/styleSheets/form.css">
 
 <!--    <script src="common/context-path-helper.js"></script>-->
@@ -37,7 +37,7 @@
         <div class="container">
             <form class="orderForm" role="form">
 
-                <div class="form-group">
+                <div class="form-row">
                     <label for="orderDate" class="col-sm-2 control-label">Date:</label>
                     <div class="col-sm-3">
                         <input type="date" id="orderDate" class="form-control" required>
@@ -47,7 +47,7 @@
                 <br/>
                 <br/>
 
-                <div class="form-group ">
+                <div class="form-row ">
 <!--                   todo: need for -->
                     <label for="xCoordinate" class="col-sm-2 control-label">Location: </label>
                     <div class="col-sm-3">
@@ -60,16 +60,30 @@
                 <br/>
                 <br/>
 
-                <div class="form-group">
+<!--                <label class="col-sm-2 control-label">Location:</label>-->
+<!--                <div class="row ml-0">-->
+<!--                    <div class="col-sm-3 col-md-3 col-lg-3">-->
+<!--                        <div class="form-group ">-->
+<!--                            <input type="number" id="xCoordinate" min="1" max="50" step="1" placeholder="X Coordinate" class="form-control"required>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-sm-3 col-md-3 col-lg-3">-->
+<!--                        <div class="form-group">-->
+<!--                            <input type="number" id="yCoordinate" min="1" max="50" step="1"  placeholder="Y Coordinate" class="form-control" required>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+                <div class="form-row">
                     <label for="orderType" class="control-label col-sm-2">Order type:</label>
-                    <div class="col-sm-6">
+                    <div class="col-6">
                         <div id="orderType" class="row">
-                            <div class="col-sm-5">
+                            <div class="col-5">
                                 <label  class="radio-inline ">
                                     <input type="radio" class="radioButtonsToClick" name="orderType"  id="computed" value="dynamic" checked>computed minimal order
                                 </label>
                             </div>
-                            <div class="col-sm-5">
+                            <div class="col-5">
                                 <label class="radio-inline">
                                     <input type="radio" name="orderType" class="radioButtonsToClick" id="static" value="static">regular order
                                 </label>
@@ -81,9 +95,9 @@
                 <br/>
                 <br/>
 
-                <div class="form-group" id="staticOrderAddition" >
+                <div class="form-row" id="staticOrderAddition" >
                     <label for="storesOptions" class="control-label col-sm-2">store to order from:</label>
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                         <select class="form-control" id="storesOptions" >
 
                         </select>
