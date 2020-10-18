@@ -120,5 +120,5 @@ public interface RegionInterface {
     void addNewStoreToRegion(Owner owner, String storeName, int ppk, int xCoordinate, int yCoordinate, List<Sell> itemsList) throws DoubleObjectInCoordinateException;
     Map<Integer, Sell> createItemIdToItemSellMap(List<Sell> itemsList);
     int getNewStoreId();
-
+    OrderSummaryDto getOrderSummaryData(OrderInputToSaveInSessionDto orderData);
 }

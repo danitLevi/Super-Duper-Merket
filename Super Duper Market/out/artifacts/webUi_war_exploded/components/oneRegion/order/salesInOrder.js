@@ -46,3 +46,7 @@ function setSalesData(StoreNameToStoreSaleToAmountJson) {
 
     }
 }
+
+function getItemDetails() {
+
+}
