@@ -12,13 +12,51 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- JavaScript -->
     <script src="components/oneRegion/orderSummary.js"></script>
+    <!-- CSS-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="common/styleSheets/form.css">
 </head>
 <body>
 
 <div>
+    <div id="OrderSummaryContent">
     <h2 >Order Summary</h2>
-    <div class="container-fluid">
-        <div class="row" id="orderSummary">
+        <div class="container">
+            <form id="orderSummaryForm" method="POST" action="order" >
+                <div id="orderSummary">
+
+                </div>
+
+                <!--order total data-->
+                <div class="row">
+                <b class="font-weight-bold">Total items price: </b>
+                <span  class="col-1" id="totalItemsPrice"></span>
+
+                <b class="font-weight-bold">Total deliveries price: </b>
+                <span  class="col-1" id="totalDeliveryPrice"></span>
+
+                <b class="font-weight-bold">Total order price: </b>
+                <span  class="col-1" id="totalOrderPrice"></span>
+                </div>
+
+                <!--approve order-->
+                <div class="row">
+                    <!--submit-->
+                    <div class="form-group col-1">
+                        <button type="submit" class="btn btn-primary mb-2" id="submitOrder">Save</button>
+                    </div>
+
+                    <!--cancel-->
+                    <div class="form-group col-1">
+                        <button class="btn btn-danger mb-2" id="cancelOrder">Cancel</button>
+                    </div>
+
+                    <!--massage-->
+                    <span id="SaveOrderMsg" class="col-2"></span>
+                </div>
+            </form>
         </div>
     </div>
 </div>
