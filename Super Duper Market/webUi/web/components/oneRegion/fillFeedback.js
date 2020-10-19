@@ -1,6 +1,7 @@
 var ORDER_STORES_URL =  buildUrlWithContextPath("storesInOrder");
 var SAVE_FEEDBACK_URL =  buildUrlWithContextPath("saveFeedback");
 
+var SAVE_ALERT_TO_SHOW_URL =  buildUrlWithContextPath("saveAlertToShowLater");
 
 function initializeFeedbackPage() {
     ajaxOrderStoreOptionsData();
@@ -39,21 +40,38 @@ function handleSubmit() {
         var storeId= store.substr(0, store.indexOf(' ')); //Get selected store id
         var rate = $("#count-existing").text(); //Get rate
         var review = $("#review").val(); //Get text review
-
+        var feedbackData={store: storeId, rate: rate, review: review};
         $.ajax({
             url:SAVE_FEEDBACK_URL,
             method:'POST',
-            data:{store: storeId, rate: rate, review: review},
+            data:feedbackData,
             success:function () {
                 //Remove reviewed store from list
                 var itemSelectorOption = $('#storeFromOrder option:selected');
                 itemSelectorOption.remove();
                 $("#FeedbackMsg").text(" Feedback added successfully!");
-
+                triggerSaveAlertMsgToShow(feedbackData);
             }
         });
         return false;
     })
+}
+
+function triggerSaveAlertMsgToShow(feedbackData) {
+
+    $.extend(feedbackData,{alertType:"feedback"});
+    $.ajax({
+        url:SAVE_ALERT_TO_SHOW_URL,
+        method:'POST',
+        data:feedbackData,
+        // success:function () {
+        //     //Remove reviewed store from list
+        //     var itemSelectorOption = $('#storeFromOrder option:selected');
+        //     itemSelectorOption.remove();
+        //     $("#FeedbackMsg").text(" Feedback added successfully!");
+        //
+        // }
+    });
 }
 
 //Empty page if customer doesnt want to give feedback

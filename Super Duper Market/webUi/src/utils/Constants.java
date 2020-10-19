@@ -27,6 +27,14 @@ public class Constants {
 
     public static final String ORDER_INPUT = "orderInput";
 
+    public static final String ALERTS_MANAGER_ATTRIBUTE = "alertsManager";
+    public static final int INT_PARAMETER_ERROR = Integer.MIN_VALUE;
+    public static final String  ALL_USERS="All-Users";
+    public static final String  USER_VERSION="version";
+
+//    public static final String  ALERT_MSG="alertMsg";
+    public static final String  STORES="stores";
+    public static final String  ALERT_TYPE="alertType";
 
 
 

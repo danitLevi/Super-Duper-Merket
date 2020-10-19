@@ -4,19 +4,19 @@ import java.util.List;
 
 public class SaleDto {
 private  final String name;
-private final double QuantityToBuy;
+private final double quantityToBuy;
 private final int itemIdToBuy;
 
 private final List<OfferDto> offersToGet;
-private final String OptionToGet;
+private final String optionToGet;
 
     public SaleDto(String name, double quantityToBuy, int itemIdToBuy, List<OfferDto> offersToGet, String optionToGet) {
         this.name = name;
-        QuantityToBuy = quantityToBuy;
+        this.quantityToBuy = quantityToBuy;
         this.itemIdToBuy = itemIdToBuy;
 
         this.offersToGet = offersToGet;
-        OptionToGet = optionToGet;
+        this.optionToGet = optionToGet;
     }
 
     public String getName() {
@@ -24,7 +24,7 @@ private final String OptionToGet;
     }
 
     public double getQuantityToBuy() {
-        return QuantityToBuy;
+        return quantityToBuy;
     }
 
     public int getItemIdToBuy() {
@@ -36,6 +36,6 @@ private final String OptionToGet;
     }
 
     public String getOptionToGet() {
-        return OptionToGet;
+        return optionToGet;
     }
 }

@@ -54,6 +54,7 @@ public class saveOrderDetailsInSessionServlet extends HttpServlet {
         int yCoordinate= Integer.parseInt(request.getParameter(Constants.Y_COORDINATE));
         int storeId= Integer.parseInt(request.getParameter(Constants.STORE_ID));
         String itemsToOrderArr=request.getParameter(Constants.ITEMS);
+
         Type type = new TypeToken<List<ItemToOrderInputDto>>() {}.getType();
         List<ItemToOrderInputDto> inputItemsList = gson.fromJson(itemsToOrderArr, type);
 

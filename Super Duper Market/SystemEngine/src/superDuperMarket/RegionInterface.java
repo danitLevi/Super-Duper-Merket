@@ -91,7 +91,7 @@ public interface RegionInterface {
 
 //    Map<SaleDto,Integer> getStoreSalesInOrder(int storeId , Map<Integer,Double> itemIdToItemAmount); //todo: continue !!!!
 
-    Map<String,Map<SaleDto,Integer>> getSalesInOrder(Map<Integer, Map<Integer, Double>> orderMinimalPriceBag);
+    Map<Integer, Map<SaleDto, Integer>> getSalesInOrder(Map<Integer, Map<Integer, Double>> orderMinimalPriceBag);
 
 
     int getItemCheapestSellerId(int itemId);
@@ -120,5 +120,6 @@ public interface RegionInterface {
     void addNewStoreToRegion(Owner owner, String storeName, int ppk, int xCoordinate, int yCoordinate, List<Sell> itemsList) throws DoubleObjectInCoordinateException;
     Map<Integer, Sell> createItemIdToItemSellMap(List<Sell> itemsList);
     int getNewStoreId();
+    String getStoreOwnerName(int storeId);
 
 }

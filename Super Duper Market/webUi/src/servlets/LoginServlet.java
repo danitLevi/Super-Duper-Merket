@@ -59,8 +59,9 @@ public class LoginServlet extends HttpServlet {
                                 out.flush();
                                 return;
                             }
-                            request.getSession(true).setAttribute(Constants.USERNAME, userNameFromParameter);
-                            request.getSession(true).setAttribute(Constants.USER_TYPE, userTypeFromParameter);
+
+                            SessionUtils.saveUserDetailsInSession(request,userNameFromParameter,userTypeFromParameter);
+
                             out.print(Constants.REGIONS_PAGE);
 //                            response.sendRedirect(Constants.STORES_PAGE); //?
                             out.flush();

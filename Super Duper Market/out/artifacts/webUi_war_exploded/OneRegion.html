@@ -28,22 +28,22 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+    <!--JavaScript -->
     <script src="common/context-path-helper.js"></script>
     <script src="components/oneRegion/oneRegion.js"></script>
     <script src="components/oneRegion/items.js"></script>
     <script src="components/oneRegion/storesInRegion.js"></script>
-<<<<<<< HEAD
 
-
-=======
-    <script src="components/oneRegion/order.js"></script>
->>>>>>> bd26cd2d1ef95b2547d381cb4a4664ea48d6d806
     <script src="components/oneRegion/managerFeedbacks.js"></script>
     <script src="components/oneRegion/addNewStore.js"></script>
     <script src="components/oneRegion/ordersHistoryForOwner.js"></script>
     <script src="components/oneRegion/ordersHistoryForCustomer.js"></script>
-    <!--JavaScript -->
+
     <script src="components/oneRegion/fillFeedback.js"></script>
+
+    <script src="common/alerts.js"></script>
+
+
     <!-- CSS-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -51,7 +51,7 @@
     <link rel="stylesheet" href="common/styleSheets/form.css">
     <link rel="stylesheet" href="common/styleSheets/OneRegion.css">
 
-<<<<<<< HEAD
+
 <!--    utils javascript-->
     <script src="common/formatter.js"></script>
 <!--    order java scripts -->
@@ -61,8 +61,7 @@
     <script src="components/Regions/uploadBtn.js"></script>
 
 
-=======
->>>>>>> bd26cd2d1ef95b2547d381cb4a4664ea48d6d806
+
 </head>
 <body>
 
@@ -109,6 +108,27 @@
 
 <div class="container-fluid" id="content">
 
+</div>
+
+
+<!-- modal-->
+<div class="modal" id="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="msg"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 

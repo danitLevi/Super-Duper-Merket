@@ -26,6 +26,7 @@
 
 <!--    javascripts -->
     <script src="components/UploadPage/UploadPage.js"></script>
+    <script src="common/alerts.js"></script>
 
 <!--    <script src="components/Regions/RegionsData.js"></script>-->
 <!--    <script src="components/Regions/TransactionsData.js"></script>-->
@@ -69,6 +70,27 @@
 <!--        <button class="btn btn-lg btn-primary btn-block" type="submit">Upload</button>-->
         <input type="Submit" value="Upload File"><br>
     </form>
+</div>
+
+
+<!--modal-->
+<div class="modal" id="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="msg"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>
