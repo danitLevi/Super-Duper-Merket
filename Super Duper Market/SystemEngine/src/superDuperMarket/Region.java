@@ -1249,9 +1249,46 @@ public Set<ItemInStoreOrderDto> getWantedItemsInStoreDetails(int storeId,Map<Int
         return ++lastId;
     }
 
-    public String getStoreOwnerName(int storeId)
-    {
-        Store currStore=storeIdToStore.get(storeId);
+//<<<<<<< HEAD
+    public String getStoreOwnerName(int storeId) {
+        Store currStore = storeIdToStore.get(storeId);
         return currStore.getStoreOwner().getName();
+    }
+//=======
+
+    public OrderSummaryDto getOrderSummaryData(OrderInputToSaveInSessionDto orderData)
+    {
+        Set<OrderSummaryDto> orderSummary = new HashSet<>();
+        Map<Integer, Map<Integer, Double>> orderMinimalPriceBag = orderData.getOrderMinimalPriceBag();
+
+        for (Integer storeId : orderMinimalPriceBag.keySet())
+        {
+            Store currStore = storeIdToStore.get(storeId);
+            Map<Integer, Double> currStoreOrderItems = (Map<Integer, Double>) orderMinimalPriceBag.values();
+
+            Set<ItemInStoreOrderDto> itemInStoreOrderDtoSet = new HashSet<>();
+            for(Integer itemId : currStoreOrderItems.keySet())
+            {
+                Item currItem = itemIdToItems.get(itemId);
+
+                ItemInStoreOrderDto newStoreOrderItem = new ItemInStoreOrderDto(
+                        itemId, currItem.getName(), currItem.getPurchaseCategory(),
+                        currStoreOrderItems.get(itemId), currStore.getItemPrice(itemId),
+                        (currStore.getItemPrice(itemId)*currStoreOrderItems.get(itemId)),
+                        currStore.isItemInSale(itemId), currStore.getName());
+
+                itemInStoreOrderDtoSet.add(newStoreOrderItem);
+            }
+
+//TODO: FUNCTION FOR TOTAL PRICE + CHANGE IN CONSTRUCTOR
+            OrderSummaryDto storeOrderSummary = new OrderSummaryDto(
+                    storeId, currStore.getName(), currStore.getDeliveryPpk(),
+                    currStore.getDistanceFromGivenLocation(new Coordinate(orderData.getxCoordinate(),orderData.getyCoordinate())),
+                    2, itemInStoreOrderDtoSet
+            );
+        }
+
+        return null;
+//>>>>>>> 0556a5f2cc696f8cf1f53aa80877064f3d9a7884
     }
 }

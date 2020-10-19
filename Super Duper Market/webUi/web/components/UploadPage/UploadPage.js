@@ -1,7 +1,8 @@
 $(function() { // onload...do
 
     handleUploadSubmit();
-
+    //displaySuccessMessage();
+    modalOnClick();
 });
 
 function handleUploadSubmit() {
@@ -21,7 +22,8 @@ function handleUploadSubmit() {
             timeout: 4000,
             success: function (resp) {
                 if (resp === "Regions.html") {
-                    window.location.assign(resp);
+                    displaySuccessMessage();
+                    //window.location.assign(resp);
 
                     // window.$("#iChanged").text("!!!");
 
@@ -36,5 +38,16 @@ function handleUploadSubmit() {
         });
         return false
     })
+}
 
+function displaySuccessMessage() {
+    var message = "New reagion added to the system"
+    $(".success-modal-body").text(message);
+    $("#success-modal").modal("show");
+}
+
+function modalOnClick(){
+        $(".close").click(function() {
+        window.location.assign("Regions.html");
+    })
 }

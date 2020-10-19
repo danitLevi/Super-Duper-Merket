@@ -165,6 +165,7 @@ function getOffersOptions(saleDetails) {
             str+='</ul>';
 
     }
+<<<<<<< HEAD
 
     return str;
 }
@@ -269,3 +270,10 @@ function handleContinueButtonInSalesWindow() {
 
     })
 }
+=======
+}
+
+function getItemDetails() {
+
+}
+>>>>>>> 0556a5f2cc696f8cf1f53aa80877064f3d9a7884
