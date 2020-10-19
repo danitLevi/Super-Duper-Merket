@@ -959,10 +959,10 @@ public class Region implements RegionInterface {
 //        return currStore.getSalesInOrderDetails(itemIdToItemAmount);
 //    }
 
-        public Map<String,Map<SaleDto,Integer>> getSalesInOrder(Map<Integer, Map<Integer, Double>> orderMinimalPriceBag)
+        public Map<Integer, Map<SaleDto, Integer>> getSalesInOrder(Map<Integer, Map<Integer, Double>> orderMinimalPriceBag)
         {
             Store currStore;
-            Map<String,Map<SaleDto,Integer>> storeNameToSaleToAmount=new HashMap<>();
+            Map<Integer,Map<SaleDto,Integer>> storeIDToSaleToAmount=new HashMap<>();
             Map<SaleDto,Integer> currStoreSaleToAmount=new HashMap<>();
 
             for (Integer currStoreId:orderMinimalPriceBag.keySet())
@@ -971,11 +971,11 @@ public class Region implements RegionInterface {
                 currStoreSaleToAmount=currStore.getSalesInOrderDetails(orderMinimalPriceBag.get(currStoreId));
                 if(currStoreSaleToAmount.size()!=0)
                 {
-                    storeNameToSaleToAmount.put(currStore.getName(),currStoreSaleToAmount);
+                    storeIDToSaleToAmount.put(currStoreId,currStoreSaleToAmount);
                 }
             }
 
-            return storeNameToSaleToAmount;
+            return storeIDToSaleToAmount;
         }
 
 
@@ -1249,6 +1249,13 @@ public Set<ItemInStoreOrderDto> getWantedItemsInStoreDetails(int storeId,Map<Int
         return ++lastId;
     }
 
+//<<<<<<< HEAD
+    public String getStoreOwnerName(int storeId) {
+        Store currStore = storeIdToStore.get(storeId);
+        return currStore.getStoreOwner().getName();
+    }
+//=======
+
     public OrderSummaryDto getOrderSummaryData(OrderInputToSaveInSessionDto orderData)
     {
         Set<OrderSummaryDto> orderSummary = new HashSet<>();
@@ -1282,5 +1289,6 @@ public Set<ItemInStoreOrderDto> getWantedItemsInStoreDetails(int storeId,Map<Int
         }
 
         return null;
+//>>>>>>> 0556a5f2cc696f8cf1f53aa80877064f3d9a7884
     }
 }

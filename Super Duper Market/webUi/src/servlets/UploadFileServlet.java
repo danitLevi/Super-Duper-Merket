@@ -39,32 +39,56 @@ public class UploadFileServlet extends HttpServlet {
 
         //todo: sync
         try (PrintWriter out = response.getWriter()){
-            sdmLogic.importDataFromXmlFile(part.getInputStream(),usernameFromSession);
-            out.print(Constants.REGIONS_PAGE);     //On success.
+
+            try {
+                sdmLogic.importDataFromXmlFile(part.getInputStream(),usernameFromSession);
+                out.print(Constants.REGIONS_PAGE);     //On success.
+
+            } catch (InvalidFileExtension invalidFileExtension) {
+                out.print("my error");
+            } catch (JAXBException e) {
+                out.print("my error");
+            } catch (ItemNotFoundInStoresException e) {
+                out.print("my error");
+            } catch (ValueOutOfRangeException e) {
+                out.print("my error");
+            } catch (StoreItemNotFoundInSystemException e) {
+                out.print("my error");
+            } catch (ItemAlreadyExistInStoreException e) {
+                out.print("my error");
+            } catch (DoubleObjectIdInSystemException e) {
+                out.print("my error");
+            } catch (DoubleObjectInCoordinateException e) {
+                out.print("my error");
+            } catch (ItemInSaleNotFoundInStoreException e) {
+                out.print("my error");
+            } catch (RegionAlreadyExistException e) {
+                out.print("my error");
+            }
             out.flush();
         }
 
-        catch (JAXBException e) {
-            e.printStackTrace();
-        } catch (ValueOutOfRangeException e) {
-            e.printStackTrace();
-        } catch (StoreItemNotFoundInSystemException e) {
-            e.printStackTrace();
-        } catch (ItemAlreadyExistInStoreException e) {
-            e.printStackTrace();
-        } catch (DoubleObjectIdInSystemException e) {
-            e.printStackTrace();
-        } catch (DoubleObjectInCoordinateException e) {
-            e.printStackTrace();
-        } catch (ItemInSaleNotFoundInStoreException e) {
-            e.printStackTrace();
-        } catch (ItemNotFoundInStoresException e) {
-            e.printStackTrace();
-        } catch (InvalidFileExtension invalidFileExtension) {
-            invalidFileExtension.printStackTrace();
-        } catch (RegionAlreadyExistException e) {
-            e.printStackTrace();
-        }
+//        catch (JAXBException e) {
+//            e.printStackTrace();
+//        } catch (ValueOutOfRangeException e) {
+//            out.print("myError");
+//        } catch (StoreItemNotFoundInSystemException e) {
+//            e.printStackTrace();
+//        } catch (ItemAlreadyExistInStoreException e) {
+//            e.printStackTrace();
+//        } catch (DoubleObjectIdInSystemException e) {
+//            e.printStackTrace();
+//        } catch (DoubleObjectInCoordinateException e) {
+//            e.printStackTrace();
+//        } catch (ItemInSaleNotFoundInStoreException e) {
+//            e.printStackTrace();
+//        } catch (ItemNotFoundInStoresException e) {
+//            e.printStackTrace();
+//        } catch (InvalidFileExtension invalidFileExtension) {
+//            invalidFileExtension.printStackTrace();
+//        } catch (RegionAlreadyExistException e) {
+//            e.printStackTrace();
+//        }
 
 
     }

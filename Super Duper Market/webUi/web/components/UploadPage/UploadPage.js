@@ -30,8 +30,9 @@ function handleUploadSubmit() {
                     // $("#theModal").modal('show');
 
                 } else {
-                    //todo alert
-                    // $(".error").text(resp);
+                    $('#modal').modal({keyboard: true });
+                    $('#modal').find('#msg').text(resp);
+                    $('#modal').find('#modalTitle').text("Error");
                 }
             }
         });

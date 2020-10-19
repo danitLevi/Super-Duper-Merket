@@ -19,6 +19,15 @@ public class SessionUtils {
         return sessionAttribute != null ? sessionAttribute.toString() : null;
     }
 
+    //set user details in session
+    public  static void saveUserDetailsInSession(HttpServletRequest request , String userNameFromParameter,String userTypeFromParameter )
+    {
+        request.getSession(true).setAttribute(Constants.USERNAME, userNameFromParameter);
+        request.getSession(true).setAttribute(Constants.USER_TYPE, userTypeFromParameter);
+        request.getSession(false).setAttribute(Constants.USER_VERSION, 0);
+    }
+
+
     public static void setRegionName(HttpServletRequest request,String regionName)
     {
         HttpSession session = request.getSession();
@@ -45,4 +54,17 @@ public class SessionUtils {
          return (OrderInputToSaveInSessionDto) session.getAttribute(Constants.ORDER_INPUT);
 
     }
+
+    public static int  getVersion(HttpServletRequest request)
+    {
+        HttpSession session = request.getSession();
+        return (int) session.getAttribute(Constants.USER_VERSION);
+    }
+    public static void setVersion(HttpServletRequest request,int newVersion)
+    {
+        HttpSession session = request.getSession();
+        session.setAttribute(Constants.USER_VERSION,newVersion);
+    }
+
+
 }

@@ -1,4 +1,4 @@
-package servlets.oneRegionServlets.orderServlets;
+package servlets.oneRegionServlets.orderServlets.sale;
 
 import DtoObjects.OrderInputToSaveInSessionDto;
 import DtoObjects.SaleDto;
@@ -21,7 +21,7 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet(name = "servlets.oneRegionServlets.orderServlets.getSalesInOrderServlet", urlPatterns = {"/salesInOrder"})
+@WebServlet(name = "servlets.oneRegionServlets.orderServlets.sale.getSalesInOrderServlet", urlPatterns = {"/salesInOrder"})
 
 public class getSalesInOrderServlet extends HttpServlet {
 
@@ -50,16 +50,16 @@ public class getSalesInOrderServlet extends HttpServlet {
             }
             OrderInputToSaveInSessionDto orderInput=SessionUtils.getOrderInput(request);
 
-            Map<String, Map<SaleDto,Integer>> storeNameToStoreSaleToAmount= region.getSalesInOrder(orderInput.getOrderMinimalPriceBag());
+            Map<Integer, Map<SaleDto,Integer>> storeIDToStoreSaleToAmount= region.getSalesInOrder(orderInput.getOrderMinimalPriceBag());
 
-            if(storeNameToStoreSaleToAmount.size()==0)
+            if(storeIDToStoreSaleToAmount.size()==0)
             {
                 out.println("No Sales");
 
             }
             else
             {
-                String SalesJson = gson.toJson(storeNameToStoreSaleToAmount);
+                String SalesJson = gson.toJson(storeIDToStoreSaleToAmount);
                 out.println(SalesJson);
             }
             out.flush();
