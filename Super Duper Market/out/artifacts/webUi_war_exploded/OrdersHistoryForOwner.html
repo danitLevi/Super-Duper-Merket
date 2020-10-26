@@ -2,42 +2,71 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- Popper JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!--    &lt;!&ndash; jQuery library &ndash;&gt;-->
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+<!--    &lt;!&ndash; Popper JS &ndash;&gt;-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>-->
+<!--    &lt;!&ndash; Latest compiled and minified CSS &ndash;&gt;-->
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">-->
+<!--    &lt;!&ndash; Latest compiled JavaScript &ndash;&gt;-->
+<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>-->
     <!-- JavaScript -->
-    <script src="components/oneRegion/ordersHistoryForOwner.js"></script>
+<!--    <script src="components/oneRegion/ordersHistoryForOwner.js"></script>-->
 </head>
 <body>
 
 <div>
-    <h2 >Orders history</h2><br/>
+    <h2 class="m-3" >Orders history</h2>
 
-    <div class="container">
-        <form id="chooseStoreForm" method="POST" action="chooseStore">
-        <div class="form-group" >
+    <div class="container" id="ownerOrdersHistoryContent">
+<!--        <form id="chooseStoreForm" method="POST" action="chooseStore">-->
+<!--        <div class=" m-3" >-->
             <div class="row" >
-                <label for="ownerStores" class="control-label col-1">Store:</label>
+                <label for="ownerStores" class="control-label col-1 font-weight-bold">Store:</label>
                 <div class="col-sm-4">
                     <select class="form-control" id="ownerStores" >
-                        <!--     TODO: ADD OPTIONS-->
+
                     </select>
                 </div>
             </div>
-        </div>
+
+
+
+<!--        </div>-->
         <br/><br/>
-        <span class="noOrdersInStore"></span>
-        </form>
-    </div>
 
-    <div id="ordersHistoryForOwner">
-    </div>
+<!--        owner orders history data-->
+        <div id="ordersHistoryForOwnerPage" class="m-3">
 
+            <!--        orders table-->
+            <div class="table-responsive">
+                <table class="table table-striped table-sm table-hover col-sm-auto ">
+                    <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Order date</th>
+                        <th scope="col">Customer name</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Items amount</th>
+                        <th scope="col">Items total cost</th>
+                        <th scope="col">Delivery cost</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+
+                    <tbody id="OwnerStoreOrdersData">
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+
+
+
+
+    </div>
 </div>
 
 </body>

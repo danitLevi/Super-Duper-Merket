@@ -3,8 +3,6 @@ var ITEM_DATA_URL = buildUrlWithContextPath("itemData");
 var SAVE_USED_SALE_URL = buildUrlWithContextPath("saveUsedSale");
 var STORE_NAME_URL = buildUrlWithContextPath("getStoreName");
 
-
-
 function handleSalesWindow()
 {
     showSales();
@@ -21,36 +19,37 @@ function showSales() {
     });
 }
 
-function setSalesData(StoreNameToStoreSaleToAmountJson) {
+function setSalesData(StoreIdToStoreSaleToAmountJson) {
 
-    if(StoreNameToStoreSaleToAmountJson =="No Sales")
+    if(StoreIdToStoreSaleToAmountJson =="No Sales")
     {
-        // todo : add no sales img
-        $(
-            '<h1>No sales</h1>\n'
-         ).appendTo($("#salesData"));
+        showNoSales();
+        // $(
+        //     '<h1>No sales</h1>\n'
+        //  ).appendTo($("#salesData"));
     }
 
     else
     {
-        var usedSales=[];
-        $.each(StoreNameToStoreSaleToAmountJson || [], function (storeId, SaleInOneStoreData) {
+        $.each(StoreIdToStoreSaleToAmountJson || [], function (storeId, SaleInOneStoreData) {
             var storeName=getStoreNameAjax(storeId) ;
 
-            $('<div class="container storeContainer" >\n' +
-                '        <h1 class="store" id="'+storeId+'">'+storeName+'</h1>\n' +
-                '        <div class="h-divider">\n' +
-                '            <div class="shadow"></div>\n' +
-                '        </div>\n' +
+            $('<div class="container storeContainer" id="store'+storeId+'" >\n' +
+                '        <h1 class="store border-bottom border-gray pb-2 mb-0" >'+storeName+'</h1>\n' +
+                // '        <div class="h-divider">\n' +
+                // '            <div class="shadow"></div>\n' +
+                // '        </div>\n' +
                 '    <br/>\n' +
-                '    <div class="row mb-3 text-center" id="salesCards">').appendTo($("#salesData"));
+                '    <div class="row mb-3 text-center" id="storeSalesCards">').appendTo($("#salesData"));
+
 
             $.each(SaleInOneStoreData || [], function (index, sale) {
-
-                var saleDetails=sale[0];
-                var saleAmount=sale[1];
-                var itemToBuyDetails=getItemDetails(saleDetails.itemIdToBuy);
-                var p=itemToBuyDetails.purchaseCategory;
+                let currStoreElement=$("#store"+storeId+"");
+                let currStoreSalesCards=currStoreElement.find("#storeSalesCards")
+                let saleDetails=sale[0];
+                let saleAmount=sale[1];
+                let itemToBuyDetails=getItemDetails(saleDetails.itemIdToBuy);
+                let p=itemToBuyDetails.purchaseCategory;
                 $('        <div class="card w-25 m-3 shadow-sm rounded" id="card'+index+'">\n' +
                     '                <img class="card-img-top" src="common/resources/saleSmall.jpg" alt="sale">\n' +
                     '                <div class="card-body">\n' +
@@ -67,7 +66,7 @@ function setSalesData(StoreNameToStoreSaleToAmountJson) {
                     '                        </li>\n' +
 
                     '                        <span>And get </span>\n' +
-                                            getOffersOptions(saleDetails)+
+                    getOffersOptions(saleDetails)+
 
                     '                    </li>\n' +
                     '                    </ul>\n' +
@@ -78,24 +77,27 @@ function setSalesData(StoreNameToStoreSaleToAmountJson) {
                     '                <div class="card-footer">\n' +
                     '                    <span>Approval times to use: </span> <span id="approvedAmountSpan">'+saleAmount+'</span>\n' +
                     '                </div>\n' +
-                    '        </div>').appendTo($("#salesCards"));
+                    '        </div>').appendTo($(currStoreSalesCards));
 
                 // $(this).css("background-color","blue");
-                        // let currCard = $(this).closest(".card");
-                        let currCardId="#card"+index+""
-                        let currStoreId=storeId;
-                        let currCard =$(currCardId);
-                        let currForm=$(currCard).find("#saleForm");
-                        $(currForm).submit({"saleDetails":saleDetails ,"storeId":currStoreId},function handleUseSaleClick(event) {
-                            let currSaleDetails = event.data.saleDetails;
-                            let currStoreId=event.data.storeId
-                            let currCard = $(this).closest(".card");
-                            // let storeId=$(this).closest(".store").attr("id");
-                            handleApprovalAmount(currCard);
-                            saveUsedSales(currCard,saleDetails,storeId);
+                // let currCard = $(this).closest(".card");
+                // let currCardId="#card"+index+""
+                // let currStoreId=storeId;
+                // let currCard =$(currCardId);
 
-                            return false;
-                        });
+
+                let currCard =currStoreElement.find("#card"+index+"");
+                let currForm=$(currCard).find("#saleForm");
+                $(currForm).submit({"saleDetails":saleDetails ,"storeId":storeId},function handleUseSaleClick(event) {
+                    let currSaleDetails = event.data.saleDetails;
+                    let currStoreId=event.data.storeId
+                    let currCard = $(this).closest(".card");
+                    // let storeId=$(this).closest(".store").attr("id");
+                    handleApprovalAmount(currCard);
+                    saveUsedSales(currCard,saleDetails,storeId);
+
+                    return false;
+                });
 
             });
 
@@ -121,20 +123,20 @@ function getItemDetails(itemId) {
 }
 
 function getUnitOrKg(itemDetails) {
-if(itemDetails.purchaseCategory=='Quantity')
-    return ' unit'
-else
-    return ' KG'
+    if(itemDetails.purchaseCategory=='Quantity')
+        return ' unit'
+    else
+        return ' KG'
 }
 
 function getOffersOptions(saleDetails) {
-   let offerOption=saleDetails.optionToGet;
+    let offerOption=saleDetails.optionToGet;
     let str="";
 
     if(offerOption=='ONE-OF')
     {
         str='<span ><b>One</b> of the following:</span>'
-        +'<div class="form-group">\n' +
+            +'<div class="form-group">\n' +
             '  <select class="form-control" id="offers" required>' +
             '     <option value="" selected disabled>Please select an option to get</option>';
 
@@ -154,26 +156,25 @@ function getOffersOptions(saleDetails) {
         if (offerOption=='ALL-OR-NOTHING' ) {
             str = '<span ><b>All</b> of the following:</span>';
         }
-            str+='<ul class="list-unstyled mt-3 mb-4" id="offers" value="'+saleDetails.offersToGet+'">';
+        str+='<ul class="list-unstyled mt-3 mb-4" id="offers" value="'+saleDetails.offersToGet+'">';
 
-            $.each(saleDetails.offersToGet || [], function (index, offerDetails)
-            {
-              let itemInOfferDetails=getItemDetails(offerDetails.itemId);
-              str+='<li>'+getOfferStr(offerDetails,itemInOfferDetails)+'</li>';
-            });
+        $.each(saleDetails.offersToGet || [], function (index, offerDetails)
+        {
+            let itemInOfferDetails=getItemDetails(offerDetails.itemId);
+            str+='<li>'+getOfferStr(offerDetails,itemInOfferDetails)+'</li>';
+        });
 
-            str+='</ul>';
+        str+='</ul>';
 
     }
-<<<<<<< HEAD
 
     return str;
 }
 
 function getOfferStr(offerDetails,itemInOfferDetails) {
     return('<span>'+ offerDetails.quantity +' ' +getUnitOrKg(itemInOfferDetails) +' of '+itemInOfferDetails.name+'-'
-    +offerDetails.forAdditional+ '₪ per '+getUnitOrKg(itemInOfferDetails) +'</span> '
-)
+        +offerDetails.forAdditional+ '₪ per '+getUnitOrKg(itemInOfferDetails) +'</span> '
+    )
 
 }
 
@@ -186,14 +187,21 @@ function handleApprovalAmount(currCard) {
     if(newApprovedAmount==0)
     {
 
-        let cards=$(currCard).closest("#salesCards");
+        let cards=$(currCard).closest("#storeSalesCards");
         if(cards.children().length == 1 )
         {
             let storeContainer=$(currCard).closest(".storeContainer")
             storeContainer.remove();
+            //
+            // let salesData=$(currCard).closest("#salesData");
+            // if(salesData.children.length==0)
+            // $("#salesData").first()[0].remove(".storeContainer");
+            // let salesData=$(currCard).closest("#salesData");
+            // if(salesData.first().length==0)
 
-            let salesData=$(currCard).closest("#salesData");
-            if(salesData.children.length==0)
+            //todo: not working
+            let salesData=$("#salesData");
+            if(salesData.first().children.length==0)
             {
                 showNoSales();
             }
@@ -201,6 +209,8 @@ function handleApprovalAmount(currCard) {
         $(currCard).remove();
     }
 }
+
+// todo : add no sales img
 
 function showNoSales() {
     $(
@@ -260,20 +270,11 @@ function getStoreNameAjax(storeId) {
     return storeName;
 }
 
-
-
 function handleContinueButtonInSalesWindow() {
 
     $("#continueButton").click(function () {
         // $("#content").load("orderTemplates/orderSummary.html",handleOrderSummaryWindow);
-        $("#content").load("orderTemplates/orderSummary.html");
+        $("#content").load("orderTemplates/orderSummary.html",handleOrderSummaryWindow);
 
     })
 }
-=======
-}
-
-function getItemDetails() {
-
-}
->>>>>>> 0556a5f2cc696f8cf1f53aa80877064f3d9a7884

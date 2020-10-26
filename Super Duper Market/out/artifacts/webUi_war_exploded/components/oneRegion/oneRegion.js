@@ -53,14 +53,14 @@ function initializeAddNewStore(){
 function OwnerOrdersHistoryClicked() {
     $("#ordersFromStorePage").click(function () {
         $("#content").load("OrdersHistoryForOwner.html",initializeOrdersHistoryForOwner);
-        getOwnerOrderHistory();
+
     })
 }
 
 function CustomerOrdersHistoryClicked() {
     $("#orderHistoryPage").click(function () {
-        $("#content").load("OrdersHistoryForCustomer.html");
-        triggerCustomerOrdersAjaxTimeInterval();
+        $("#content").load("OrdersHistoryForCustomer.html",handleCustomerOrdersHistoryWindow);
+
     })
 }
 
@@ -82,9 +82,7 @@ function ajaxSetMenuByUserType() {
             {
                 $("<button type='button' class='btn btn-info btn-rounded' id='ordersFromStorePage'>Orders from my stores</button>" +
                     "<button type='button' class='btn btn-info btn-rounded' id='feedbacksPage'>Feedbacks</button>" +
-                    "<button type='button' class='btn btn-info btn-rounded' id='newStorePage'>Open new store</button>"+
-                "<button type='button' class='btn btn-info btn-rounded' id='FillFeedbackPage'>FillFeedback</button>"  //TODO:DELETE ALONA
-
+                    "<button type='button' class='btn btn-info btn-rounded' id='newStorePage'>Open new store</button>"
             ).appendTo($("#oneRegionMenu"));
                 ManagerFeedbacksClicked();
                 AddNewStoreClicked();

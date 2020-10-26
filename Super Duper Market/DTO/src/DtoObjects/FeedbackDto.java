@@ -1,5 +1,6 @@
 package DtoObjects;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -7,14 +8,18 @@ import java.util.Date;
 public class FeedbackDto {
 
     private String name;
-    private Date date;
+    private String strDate;
     private int rate;
     private String feedbackText;
 
 
     public FeedbackDto(String name, Date date, int rate, String feedbackText) {
         this.name = name;
-        this.date = date;
+
+        String pattern = "dd/MM/yyyy";
+        DateFormat df = new SimpleDateFormat(pattern);
+        this.strDate = df.format(date);
+
         this.rate = rate;
         this.feedbackText = feedbackText;
     }
@@ -23,8 +28,8 @@ public class FeedbackDto {
         return name;
     }
 
-    public Date getDate() {
-        return date;
+    public String getDate() {
+        return strDate;
     }
 
     public int getRate() {

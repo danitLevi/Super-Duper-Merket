@@ -1,48 +1,53 @@
 package DtoObjects;
 
-import java.util.Date;
-import java.util.Map;
 import java.util.Set;
 
 public class OrderSummaryDto {
+    private final String orderDate;
+    private final int orderXCoordinate;
+    private final int orderYCoordinate;
 
-    private int storeId;
-    private String storeName;
-    private int ppk;
-    private double distance;
-    private double totalOrderPrice;
-    Set<ItemInStoreOrderDto> ItemInStoreOrder;
+    private final Set<OneStoreInOrderSummaryDto> storesInOrderSummary;
 
-    public OrderSummaryDto(int storeId, String storeName, int ppk, double distance, double totalOrderPrice, Set<ItemInStoreOrderDto> itemInStoreOrder) {
-        this.storeId = storeId;
-        this.storeName = storeName;
-        this.ppk = ppk;
-        this.distance = distance;
-        this.totalOrderPrice = totalOrderPrice;
-        ItemInStoreOrder = itemInStoreOrder;
+    private final double itemsTotalPrice;
+    private final double deliveryTotalPrice;
+    private final double orderTotalPrice;
+
+    public OrderSummaryDto(String orderDate, int orderXCoordinate, int orderYCoordinate, Set<OneStoreInOrderSummaryDto> storesInOrderSummary, double itemsTotalPrice, double deliveryTotalPrice, double orderTotalPrice) {
+        this.orderDate = orderDate;
+        this.orderXCoordinate = orderXCoordinate;
+        this.orderYCoordinate = orderYCoordinate;
+        this.storesInOrderSummary = storesInOrderSummary;
+        this.itemsTotalPrice = itemsTotalPrice;
+        this.deliveryTotalPrice = deliveryTotalPrice;
+        this.orderTotalPrice = orderTotalPrice;
     }
 
-    public int getStoreId() {
-        return storeId;
+    public String getOrderDate() {
+        return orderDate;
     }
 
-    public String getStoreName() {
-        return storeName;
+    public int getOrderXCoordinate() {
+        return orderXCoordinate;
     }
 
-    public int getPpk() {
-        return ppk;
+    public int getOrderYCoordinate() {
+        return orderYCoordinate;
     }
 
-    public double getDistance() {
-        return distance;
+    public Set<OneStoreInOrderSummaryDto> getStoresInOrderSummary() {
+        return storesInOrderSummary;
     }
 
-    public double getTotalOrderPrice() {
-        return totalOrderPrice;
+    public double getItemsTotalPrice() {
+        return itemsTotalPrice;
     }
 
-    public Set<ItemInStoreOrderDto> getItemInStoreOrder() {
-        return ItemInStoreOrder;
+    public double getDeliveryTotalPrice() {
+        return deliveryTotalPrice;
+    }
+
+    public double getOrderTotalPrice() {
+        return orderTotalPrice;
     }
 }

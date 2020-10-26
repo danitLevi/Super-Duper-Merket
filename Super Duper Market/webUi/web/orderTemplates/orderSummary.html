@@ -24,39 +24,45 @@
     <div id="OrderSummaryContent">
     <h2 >Order Summary</h2>
         <div class="container">
-            <form id="orderSummaryForm" method="POST" action="order" >
-                <div id="orderSummary">
+            <div class="row">
+
+            <b >Date:</b>
+            <span id="orderDate">date</span>
+
+            <b >Location:</b>
+            <span id="orderLocation">location</span>
+
+            </div>
+
+<!--            todo: need form ?maybe delete -->
+<!--            <form id="orderSummaryForm" method="POST" action="order" >-->
+                <div id="storesInOrderCards">
 
                 </div>
 
                 <!--order total data-->
                 <div class="row">
                 <b class="font-weight-bold">Total items price: </b>
-                <span  class="col-1" id="totalItemsPrice"></span>
+                <span  id="totalItemsPrice"></span>
 
                 <b class="font-weight-bold">Total deliveries price: </b>
-                <span  class="col-1" id="totalDeliveryPrice"></span>
+                <span  id="totalDeliveryPrice"></span>
 
                 <b class="font-weight-bold">Total order price: </b>
-                <span  class="col-1" id="totalOrderPrice"></span>
+                <span  id="totalOrderPrice"></span>
                 </div>
 
-                <!--approve order-->
+                <!--cancel or confirm order-->
                 <div class="row">
-                    <!--submit-->
-                    <div class="form-group col-1">
-                        <button type="submit" class="btn btn-primary mb-2" id="submitOrder">Save</button>
-                    </div>
-
-                    <!--cancel-->
-                    <div class="form-group col-1">
-                        <button class="btn btn-danger mb-2" id="cancelOrder">Cancel</button>
+                    <div >
+                        <button  class="btn btn-primary m-2" id="confirmOrder">Confirm</button>
+                        <button class="btn btn-danger m-2" id="cancelOrder">Cancel</button>
                     </div>
 
                     <!--massage-->
                     <span id="SaveOrderMsg" class="col-2"></span>
                 </div>
-            </form>
+<!--            </form>-->
         </div>
     </div>
 </div>

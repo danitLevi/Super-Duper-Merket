@@ -48,11 +48,17 @@ public class SaveAlertToShowLaterServlet extends HttpServlet {
             switch (alertType) {
 
                 case "order":
+                    saveOrderAlert();// TODO
                 break;
-                case "feedback":saveFeedbackAlert(request,region);
+                case "feedback":
+                    saveFeedbackAlert(request,region);
                     break;
-//                case "newStore":
-//                case "upload":
+                case "newStore":
+                    saveNewStoreAlert();// TODO
+                    break;
+                case "upload":
+                    saveUploadAlert(request);
+                    break;
 
             }
 
@@ -100,8 +106,11 @@ public class SaveAlertToShowLaterServlet extends HttpServlet {
 
     }
 
-    public void saveUploadAlert(){
+    public void saveUploadAlert(HttpServletRequest request){
+        String newRegionName=request.getParameter("newRegionNameData");
 
+        String msg="The region "+newRegionName+" was uploaded to system";
+        addAlertToManager(msg,Constants.ALL_USERS);
     }
 
     public String convertDateToString(Date date)
@@ -111,12 +120,18 @@ public class SaveAlertToShowLaterServlet extends HttpServlet {
         return df.format(date);
     }
 
-    public void addAlertToManager(String msg,String userName)
+    public void addAlertToManager(String msg,String addresseeUserName)
     {
         // todo: synchtnized ??
-        AlertsManager alertsManager=ServletUtils.getAlertsManager(getServletContext());
-        SingleAlert singleAlert=new SingleAlert(userName,msg);
-        alertsManager.addAlertMsg(singleAlert);
+        AlertsManager alertsManager=null;
+
+        SingleAlert singleAlert=new SingleAlert(addresseeUserName,msg);
+
+        synchronized (getServletContext()) {
+            alertsManager = ServletUtils.getAlertsManager(getServletContext());
+            alertsManager.addAlertMsg(singleAlert);
+        }
+
     }
 
 

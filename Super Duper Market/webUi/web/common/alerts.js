@@ -1,5 +1,6 @@
-var GET_ALERTS_URL = buildUrlWithContextPath("handleAlerts");
+const GET_ALERTS_URL = buildUrlWithContextPath("handleAlerts");
 
+const SAVE_ALERT_TO_SHOW_URL =  buildUrlWithContextPath("saveAlertToShowLater");
 
 $(function() { // onload...do
 

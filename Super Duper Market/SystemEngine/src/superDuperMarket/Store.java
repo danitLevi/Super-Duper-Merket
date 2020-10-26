@@ -10,6 +10,7 @@ package superDuperMarket;
 
 import DtoObjects.ItemInStoreDto;
 import DtoObjects.SaleDto;
+import DtoObjects.StoreBaseDataDto;
 import DtoObjects.StoreDto;
 import Exceptions.ItemAlreadyExistInStoreException;
 import Exceptions.StoreItemNotFoundInSystemException;
@@ -210,7 +211,7 @@ public class Store implements Serializable {
     {
         double distance= getDistanceFromGivenLocation(otherLocation);
 
-        return (distance*getDeliveryPpk());
+        return (distance*this.deliveryPpk);
     }
 
     public double getDistanceFromGivenLocation(Coordinate otherLocation)
@@ -382,5 +383,10 @@ public class Store implements Serializable {
             totalPrice+=currSingleItemPrice*currItemAmount;
         }
         return totalPrice;
+    }
+
+    public StoreBaseDataDto getStoreBaseDetails()
+    {
+        return new StoreBaseDataDto(this.id,this.name);
     }
 }

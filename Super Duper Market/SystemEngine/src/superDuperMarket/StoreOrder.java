@@ -3,6 +3,8 @@ package superDuperMarket;
 import DtoObjects.ItemInStoreOrderDto;
 import DtoObjects.OfferDto;
 import DtoObjects.PurchaseCategory;
+import logic.Customer;
+import logic.Owner;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -23,6 +25,8 @@ public class StoreOrder implements Serializable
         InitializeItemsToOrderFromSalesToSalesAmount(ItemsToOrderFromSalesToSalesAmountDetails);
 
     }
+
+
 
     public Store getStore() {
         return store;
@@ -216,7 +220,8 @@ public class StoreOrder implements Serializable
                     currSell.getPrice(),
                     itemSellToItemAmount.get(currSell) * currSell.getPrice(),
                     false,
-                    store.getName());
+                    store.getName(),
+                    store.getId());
 
             itemsInStoreOrderDetails.add(currItemDetails);
         }
@@ -235,7 +240,8 @@ public class StoreOrder implements Serializable
                     currSell.getPrice(),
                     itemsFromSaleSellToItemAmount.get(currSell) * currSell.getPrice(),
                     true,
-                    store.getName());
+                    store.getName(),
+                    store.getId());
 
             itemsInStoreOrderDetails.add(currItemDetails);
         }

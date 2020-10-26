@@ -20,38 +20,40 @@ package DtoObjects;
 //        return amountOfItemsTypes;
 //    }
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class OrderDto {
 
-    private final LocalDate date;
-    private final double itemsTotalAmount;
-    private final double itemsTotalPrice;
-    private final double deliveryTotalPrice;
-    private final double orderTotalPrice;
-    private int orderId;
-    private final int amountOfItemsTypes; //TODO: DEL
+    private final String strDate;//
+    private final double itemsTotalAmount;//
+    private final double itemsTotalPrice;//
+    private final double deliveryTotalPrice;//
+    private final double orderTotalPrice;//
+    private int orderId; //
+//    private final int amountOfItemsTypes; //TODO: DEL
     private final Map<Integer,StoreOrderDto> storeIdToStoreOrder;
-    private final List<ItemInStoreOrderDto> itemsInOrder;
-    private final int numOfStores;
-    private final int xCoordinate;
-    private final int yCoordinate;
+    private final List<ItemInStoreOrderDto> itemsInOrder;//
+    private final int numOfStores;//
+    private final int xCoordinate;//
+    private final int yCoordinate;//
 
-    public OrderDto(LocalDate date, double itemsTotalAmount, double itemsTotalPrice, double deliveryTotalPrice,
+    public OrderDto(Date date, double itemsTotalAmount, double itemsTotalPrice, double deliveryTotalPrice,
                     double orderTotalPrice, int orderId, int amountOfItemsTypes,
                     Map<Integer, StoreOrderDto> storeIdToStoreOrder,
                     int xCoordinate, int yCoordinate) {
-        this.date = date;
+
+        String pattern = "dd/MM/yyyy";
+        DateFormat df = new SimpleDateFormat(pattern);
+        this.strDate = df.format(date);
+
         this.itemsTotalAmount = itemsTotalAmount;
         this.itemsTotalPrice = itemsTotalPrice;
         this.deliveryTotalPrice = deliveryTotalPrice;
         this.orderTotalPrice = orderTotalPrice;
         this.orderId = orderId;
-        this.amountOfItemsTypes = amountOfItemsTypes;
+//        this.amountOfItemsTypes = amountOfItemsTypes;
         this.storeIdToStoreOrder = storeIdToStoreOrder;
         this.itemsInOrder = getItemsInStoreOrderDetails();
         this.numOfStores = storeIdToStoreOrder.size();
@@ -82,8 +84,8 @@ public class OrderDto {
 
     public int getyCoordinate() { return yCoordinate; }
 
-    public LocalDate getDate() {
-        return date;
+    public String getStrDate() {
+        return strDate;
     }
 
     public double getItemsTotalAmount() {
@@ -106,9 +108,9 @@ public class OrderDto {
         return orderId;
     }
 
-    public int getAmountOfItemsTypes() {
-        return amountOfItemsTypes;
-    }
+//    public int getAmountOfItemsTypes() {
+//        return amountOfItemsTypes;
+//    }
 
     public Map<Integer, StoreOrderDto> getStoreIdToStoreOrder() {
         return storeIdToStoreOrder;

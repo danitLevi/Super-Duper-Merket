@@ -2,14 +2,16 @@ var BALANCE_URL = buildUrlWithContextPath("balance");
 var SESSION_URL = buildUrlWithContextPath("mySession");
 var CHARGE_URL = buildUrlWithContextPath("charge");
 
+var BALANCE_DATA_INTERVAL;
+
+
 $(function() {
-    ajaxSetChangeVisibility();
+    ajaxSetChargeVisibility();
     handleChargeSubmitting();
 });
 
-function ajaxSetChangeVisibility() {
+function ajaxSetChargeVisibility() {
 
-    var parameters ;
     $.ajax({
         url: SESSION_URL,
         success: function (userType) {
@@ -18,7 +20,7 @@ function ajaxSetChangeVisibility() {
             {
                 $("#accountForm").hide();
             }
-            showBalance();
+            triggerShowBalanceInterval();
         }
     });
 }
@@ -30,7 +32,6 @@ function handleChargeSubmitting() {
             method:'POST',
             data:$(this).serialize(),
             success:function () {
-                // todo : alert charged successfully (for only this user !!!)
                 showBalance();
 
             }
@@ -40,32 +41,17 @@ function handleChargeSubmitting() {
     })
 }
 
-// function charge() {
-//     $.ajax(
-//         {
-//             url:CHARGE_URL,
-//             method:'POST',
-//             data:{amount:$("#amountToCharge"),date:$("#date-input").val()},
-//             success:function () {
-//                 // todo : alert charged successfully (for only this user !!!)
-//                 showBalance();
-//
-//             }
-//         }
-//     )
-// }
+function triggerShowBalanceInterval() {
+    BALANCE_DATA_INTERVAL=setInterval(showBalance, 1000);
+}
 
 function showBalance() {
     $.ajax(
         {
             url:BALANCE_URL,
             success:function (response) {
-                $(".balance").text(response);
+                $("#balance").text(response);
             }
         }
     )
 }
-
-// function triggerCharge() {
-//     setTimeout(charge,300);
-// }
