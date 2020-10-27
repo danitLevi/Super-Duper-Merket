@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<BorderPane prefHeight="163.0" prefWidth="291.0" styleClass="saleTile" stylesheets="@Sale.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="components.sale.SaleController">
+   <top>
+      <ImageView fitHeight="48.0" fitWidth="181.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+         <image>
+            <Image url="@resources/Sale-sign.jpg" />
+         </image>
+      </ImageView>
+   </top>
+   <center>
+      <GridPane prefHeight="65.0" prefWidth="300.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="115.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="1.7976931348623157E308" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TextFlow GridPane.rowIndex="1">
+               <children>
+                  <Text fx:id="buyHeaderLbl" strokeType="OUTSIDE" strokeWidth="0.0" text="Buy " wrappingWidth="25.60614013671875" />
+                  <Text fx:id="buyLbl" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+               </children>
+            </TextFlow>
+            <TextFlow fx:id="itemToGetTextFlow" prefHeight="52.0" prefWidth="253.0" GridPane.rowIndex="2">
+               <children>
+                  <Text fx:id="getHeaderLbl" strokeType="OUTSIDE" strokeWidth="0.0" text="And get " />
+               </children>
+            </TextFlow>
+            <Label fx:id="saleNameLbl" alignment="CENTER" styleClass="header" stylesheets="@Sale.css" text="Label" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </GridPane>
+   </center>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</BorderPane>

@@ -1,0 +1,16 @@
+.saleTile
+{
+    -fx-border-color: lightgray;
+    -fx-border-radius: 15;
+}
+
+.BoldText
+{
+    -fx-font-weight: bold;
+}
+
+.header
+{
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}

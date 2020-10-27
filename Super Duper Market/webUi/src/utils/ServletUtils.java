@@ -2,11 +2,8 @@ package utils;
 
 import logic.SDMLogic;
 import logic.SDMLogicInterface;
-<<<<<<< HEAD
 import logic.chat.ChatManager;
-=======
 import servlets.alerts.AlertsManager;
->>>>>>> 25248f781eb465a3947b60e10fa6e0f9111fc5b5
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
