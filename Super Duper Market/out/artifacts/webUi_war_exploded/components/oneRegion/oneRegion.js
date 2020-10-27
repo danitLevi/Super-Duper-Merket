@@ -59,6 +59,7 @@ function OwnerOrdersHistoryClicked() {
 
 function CustomerOrdersHistoryClicked() {
     $("#orderHistoryPage").click(function () {
+        // $("#content").load("OrdersHistoryForCustomer.html",handleCustomerOrdersHistoryWindow);
         $("#content").load("OrdersHistoryForCustomer.html",handleCustomerOrdersHistoryWindow);
 
     })

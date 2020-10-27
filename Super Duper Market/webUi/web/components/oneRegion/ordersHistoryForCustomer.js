@@ -8,21 +8,19 @@ function handleCustomerOrdersHistoryWindow() {
 
 function handleCollapsingBtnClick() {
     $('.expand-button').on("click",function () {
-            console.log("ok");
             if ($(this).text() == 'Show more information') {
                 $(this).text('Hide more information');
             } else {
                 $(this).text('Show more information');
             }
         });
-
-
 }
 
 
 function ajaxCustomerOrdersData() {
     $.ajax({
         url: CUSTOMER_ORDERS_DATA_URL,
+        async:false,
         success: function(ordersJson) {
             if(ordersJson.length === 0)
             {
@@ -34,6 +32,7 @@ function ajaxCustomerOrdersData() {
             }
         }
     });
+
 }
 
 function setCustomerOrdersData(ordersJson) {
