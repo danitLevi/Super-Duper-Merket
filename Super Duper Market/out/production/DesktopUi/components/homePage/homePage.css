@@ -1,0 +1,67 @@
+.borderPane
+{
+    -fx-accent: #2262C6;
+    -fx-focus-color: -fx-accent;
+    -fx-base: #f4f5f6;
+    -fx-control-inner-background: derive(-fx-base, 35%);
+    -fx-control-inner-background-alt: -fx-control-inner-background ;
+    -fx-background-color: #f4f5f6;
+    -fx-border-color: lightgrey;
+}
+
+.combo-boxBtn {
+    -fx-background-color: white;
+    -fx-border-color: #2262C6;
+    -fx-background-radius: 10;
+    -fx-border-radius:10 ;
+}
+
+.combo-boxBtn:hover
+{
+    -fx-background-color: #d9e4f6;
+}
+
+
+.headerBtn {
+    -fx-background-color:white;
+    -fx-background-radius: 20;
+    -fx-border-radius:20 ;
+    /**/
+}
+
+.headerBtn > .arrow-button>
+{
+    -fx-padding: 0;
+}
+
+.headerBtn > .arrow-button> .arrow
+{
+    -fx-padding: 0;
+}
+.headerBtn:hover
+{
+    -fx-border-color:#2262C6 ;
+    -fx-background-radius: 20;
+    -fx-border-radius:20 ;
+    -fx-border-color: #2262C6;
+}
+
+.tile
+{
+    -fx-border-color:#2262C6 ;
+    -fx-border-radius:20 ;
+    -fx-border-color: #2262C6;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb
+{
+    -fx-background-radius: 2em;
+}
+
+.header
+{
+    -fx-font-family: "System";
+    -fx-font-weight: bold;
+    -fx-font-size: 10pt
+}
