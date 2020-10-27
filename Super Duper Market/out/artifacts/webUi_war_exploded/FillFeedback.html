@@ -22,8 +22,8 @@
 
 <div id="FeedbackContent">
     </br>
-    <h4 >Thank you for buying at Super Duper Market!</h4>
-    <h5>Now you can fill feedback to stores in your order</h5>
+    <h4 class="m-3">Thank you for buying at Super Duper Market!</h4>
+    <h5 class="m-3">Now you can fill feedback on stores in your order</h5>
     <span class="noStoreFeedbacks"></span>
         <div class="container">
             <form id="feedbackForm"  >
@@ -38,7 +38,7 @@
                 <br/>
 
                 <div class="form-group" >
-                <label for="rating" class="control-label col-1">Rating:</label>
+                <label for="rating" class="control-label col-2">Rating:</label>
                 <span id="count-existing">No rate</span>
                 <div class="rating col-5" id="rating">
                     <input type="radio" name="rating" value="5" id="5" required>
@@ -68,16 +68,16 @@
                 <div class="form-row">
                 <!--submit-->
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary m-2" id="submitFeedback">save current feedback</button>
+                    <button type="submit" class="btn btn-primary m-2" id="submitFeedback">Save feedback</button>
                 </div>
 
-<!--                &lt;!&ndash;skip&ndash;&gt;-->
-<!--                <div class="form-group ">-->
-<!--                    <button class="btn btn-danger m-2" id="exitWindow">Finish</button>-->
-<!--                </div>-->
+                <!--skip-->
+                <div class="form-group ">
+                    <button class="btn btn-danger m-2" id="exitWindow">Finish</button>
+                </div>
 
                 <!--massage-->
-                <span id="FeedbackMsg" class="col-2"></span>
+                <span id="FeedbackMsg" class="col-3"></span>
                 </div>
 
             </form> <!-- /form -->

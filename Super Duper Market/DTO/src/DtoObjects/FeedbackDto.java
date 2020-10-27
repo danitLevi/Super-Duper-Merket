@@ -11,9 +11,10 @@ public class FeedbackDto {
     private String strDate;
     private int rate;
     private String feedbackText;
+    private String storeName;
 
 
-    public FeedbackDto(String name, Date date, int rate, String feedbackText) {
+    public FeedbackDto(String name, Date date, int rate, String feedbackText, String storeName) {
         this.name = name;
 
         String pattern = "dd/MM/yyyy";
@@ -22,6 +23,7 @@ public class FeedbackDto {
 
         this.rate = rate;
         this.feedbackText = feedbackText;
+        this.storeName = storeName;
     }
 
     public String getName() {
@@ -38,5 +40,13 @@ public class FeedbackDto {
 
     public String getFeedbackText() {
         return feedbackText;
+    }
+
+    public String getStrDate() {
+        return strDate;
+    }
+
+    public String getStoreName() {
+        return storeName;
     }
 }

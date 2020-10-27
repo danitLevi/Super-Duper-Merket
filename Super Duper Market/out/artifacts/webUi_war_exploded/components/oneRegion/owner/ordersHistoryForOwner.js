@@ -98,6 +98,7 @@ function replaceNoOrders() {
     // check if element noOrders exist
     if($("#noOrders").length)
     {
+        $("#itemsTblOwner").show();
         $("#noOrders").remove();
         $('            <div class="table-responsive">\n' +
             '                <table class="table table-striped table-sm table-hover col-sm-auto ">\n' +

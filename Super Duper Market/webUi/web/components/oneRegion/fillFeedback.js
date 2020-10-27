@@ -5,7 +5,7 @@ var SAVE_FEEDBACK_URL =  buildUrlWithContextPath("saveFeedback");
 function initializeFeedbackPage() {
     ajaxOrderStoreOptionsData();
     handleSubmit();
-    // handleFinish();
+     handleFinish();
     handleRatingSelection();
 }
 
@@ -21,7 +21,7 @@ function ajaxOrderStoreOptionsData() {
 
 function initializeOrderStoresOptions(storesJson) {
     $.each(storesJson || [], function(index, store) {
-        $("<option value='"+store.id+"'>"+store.name + "(id=" + store.id+")</option>").appendTo($("#storesFromOrder"));
+        $("<option value='"+store.id+"'>"+store.name + " (id=" + store.id+")</option>").appendTo($("#storesFromOrder"));
     });
 }
 
@@ -39,7 +39,7 @@ function handleSubmit() {
             success:function () {
                 resetPageData();
                 removeStoreFromSelection();
-                $("#FeedbackMsg").text(" Feedback added successfully!");
+                $("#FeedbackMsg").text(" Feedback for store added successfully!");
                 triggerFeedbackAlertMsgToShow(feedbackData);
             }
         });

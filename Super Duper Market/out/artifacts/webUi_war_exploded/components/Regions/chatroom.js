@@ -18,6 +18,12 @@ var CHAT_LIST_URL = buildUrlWithContextPath("chat");
 //     });
 // }
 
+$(function onLoadChat() {
+    $("#back").click(function () {
+        window.location.assign("Regions.html");
+    })
+})
+
 //entries = the added chat strings represented as a single string
 function appendToChatArea(entries) {
 //    $("#chatarea").children(".success").removeClass("success");

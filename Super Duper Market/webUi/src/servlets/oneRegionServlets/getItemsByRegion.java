@@ -35,7 +35,8 @@ public class getItemsByRegion extends HttpServlet {
             List<ItemInSystemDto> itemsDetailsList=null;
             synchronized (getServletContext()) {
                 SDMLogicInterface sdmLogic = ServletUtils.getSdmLogic(getServletContext());
-                String regionName= request.getParameter("region");
+                //String regionName= request.getParameter("region");
+                String regionName= SessionUtils.getRegionName(request);
                 RegionInterface region=sdmLogic.getRegionByName(regionName);
                 itemsDetailsList = region.getItemsDetails();
             }

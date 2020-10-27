@@ -28,34 +28,34 @@ function setStoresInDynamicOrderCards(storesInDynamicOrderJson)
             '<h3 class="card-title " id="storeName">'+storeData.name+'</h3>'+
 
             <!--store data-->
-            '<div class="row">'+
+            '<div class="flex-row text-left">'+
             '<b class="font-weight-bold">Id: </b>'+
             '<span  class="col-1" id="id">'+storeData.id+'</span>'+
 
             '<b class="font-weight-bold">Location: </b>'+
-            '<span  class="col-1" id="location">('+ storeData.xCoordinate + ',' + storeData.yCoordinate+')</span>'+
+            '<span  class="col-2" id="location">('+ storeData.xCoordinate + ',' + storeData.yCoordinate+')</span>'+
 
-            '</div>'+
+            '</div><br/>'+
 
-            '<div class="row">'+
+            '<div class="flex-row text-left">'+
             '<b class="font-weight-bold">Distance from order location: </b>'+
-            '<span  class="col-1" id="distanceFromOrder">'+myFormatter.format(storeData.distanceFromOrder)+' KM</span>'+
+            '<span  class="col-2" id="distanceFromOrder">'+myFormatter.format(storeData.distanceFromOrder)+' KM</span>'+
             '<b class="font-weight-bold">Price per KM: </b>'+
             '<span  class="col-1" id="deliveryPpk">'+myFormatter.format(storeData.deliveryPpk)+' ₪</span>'+
 
             '<b class="font-weight-bold">Delivery cost: </b>'+
             '<span  class="col-1" id="deliveryPrice">'+myFormatter.format(storeData.deliveryPrice)+' ₪</span>'+
 
-            '</div>'+
+            '</div><br/>'+
 
-            '<div class="row">'+
-            '<b class="font-weight-bold">ordered items types amount: </b>'+
-            '<span  class="col-1" id="amountOfItemsTypes">'+storeData.amountOfItemsTypes+'</span>'+
+            '<div class="flex-row text-left">'+
+            '<b class="font-weight-bold">Ordered items types amount: </b>'+
+            '<span  class="col-2" id="amountOfItemsTypes">'+storeData.amountOfItemsTypes+'</span>'+
 
-            '<b class="font-weight-bold">orderd items total price </b>'+
-            '<span  class="col-1" id="itemsTotalPrice">'+myFormatter.format(storeData.itemsTotalPrice)+' ₪</span>'+
+            '<b class="font-weight-bold">Orderd items total price </b>'+
+            '<span  class="col-2" id="itemsTotalPrice">'+myFormatter.format(storeData.itemsTotalPrice)+' ₪</span>'+
 
-            '</div>'+
+            '</div><br/>'+
 
             '</div>'+
             '</div>').appendTo($("#storesInDynamicOrderData"));

@@ -25,7 +25,7 @@ function ajaxCustomerOrdersData() {
             if(ordersJson.length === 0)
             {
                 $("#ordersHistoryForCustomerPage").empty();
-                $("<h3>No orders</h3>").appendTo($("#ordersHistoryForCustomerPage"));
+                $("<h2>No orders</h2>").appendTo($("#ordersHistoryForCustomerPage"));
             }
             else {
                 setCustomerOrdersData(ordersJson);

@@ -50,7 +50,7 @@ function showBalance() {
         {
             url:BALANCE_URL,
             success:function (response) {
-                $("#balance").text(response);
+                $("#balance").text(myFormatter.format(response));
             }
         }
     )

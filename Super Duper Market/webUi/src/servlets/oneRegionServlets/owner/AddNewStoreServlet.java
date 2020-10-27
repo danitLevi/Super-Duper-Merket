@@ -44,14 +44,14 @@ public class AddNewStoreServlet extends HttpServlet {
         }.getType();
 
         List<Sell> inputItemsList = gson.fromJson(itemsToAddToStoreArr, type);
-        String regionName = request.getParameter("region");
+        String regionName = SessionUtils.getRegionName(request);
         String storeName = request.getParameter("storeName");
         int ppk = Integer.parseInt(request.getParameter("ppk"));
         int xCoordinate = Integer.parseInt(request.getParameter("x"));
         int yCoordinate = Integer.parseInt(request.getParameter("y"));
 
-
-        try (PrintWriter out = response.getWriter()) {
+        PrintWriter out = response.getWriter();
+        try {
             synchronized (getServletContext()) {
                 SDMLogicInterface sdmLogic = ServletUtils.getSdmLogic(getServletContext());
                 RegionInterface region = sdmLogic.getRegionByName(regionName);
@@ -61,7 +61,7 @@ public class AddNewStoreServlet extends HttpServlet {
                 out.flush();
             }
         } catch (DoubleObjectInCoordinateException e) {
-            e.printStackTrace();
+            out.print("Coordinate not valid");
         }
     }
 }
