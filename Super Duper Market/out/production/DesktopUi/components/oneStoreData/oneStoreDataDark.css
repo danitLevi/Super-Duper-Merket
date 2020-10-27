@@ -1,0 +1,14 @@
+.borderPaneVbox{
+    -fx-border-color: lightgray;
+    -fx-border-radius: 15;
+
+    /*-fx-background-color: #e7e7e7;*/
+    -fx-background-radius: 15;
+
+    -fx-accent: #90d7f3;
+    -fx-focus-color: -fx-accent;
+    -fx-base: #373e43;
+    -fx-control-inner-background: derive(-fx-base, 35%);
+    -fx-control-inner-background-alt: -fx-control-inner-background ;
+    -fx-background-color: #3f474f;
+}

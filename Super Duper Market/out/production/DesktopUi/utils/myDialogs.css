@@ -1,0 +1,19 @@
+.myDialog{
+    -fx-background-color: #f4f5f6;
+}
+.myDialog > *.button-bar > *.container{
+    -fx-background-color: #f4f5f6;
+}
+.myDialog > *.label.content{
+    -fx-font-size: 12px;
+    -fx-font-weight: normal;
+}
+.myDialog > *.button{
+    -fx-background-color: #2262C6;
+}
+.editor{
+    -fx-background-color: white;
+    -fx-border-color: #2262C6;
+}
+
+
