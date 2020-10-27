@@ -1,29 +1,36 @@
 package DtoObjects;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Set;
 
 public class StoreOrderDto {
 
-    private final LocalDate date;
-    private final double itemsTotalAmount;
-    private final double itemsTotalPrice;
-    private final double deliveryTotalPrice;
-    private final double orderTotalPrice;
-    private final boolean isDynamicOrder;
-    private final int orderId;
+    private final String strDate;
+    private final double itemsTotalAmount;//
+    private final double itemsTotalPrice;//
+    private final double deliveryTotalPrice;//
+    private final double orderTotalPrice;//todo: check if needed
+    private final boolean isDynamicOrder;//todo: check if needed
+    private final int orderId;//
     Set<ItemInStoreOrderDto> itemsInStoreOrderDetails;
-    private final double distanceFromCustomer;
-    private final String customerName;
-    private final int xCoordinate;
-    private final int yCoordinate;
+    private final double distanceFromCustomer;//todo: check if needed
+    private final String customerName;//
+    private final int xCoordinate;//
+    private final int yCoordinate;//
 
-    public StoreOrderDto(LocalDate date, double itemsTotalAmount, double itemsTotalPrice,
+    public StoreOrderDto(Date date, double itemsTotalAmount, double itemsTotalPrice,
                          double deliveryTotalPrice, double orderTotalPrice, boolean isDynamicOrder,
                          int orderId, Set<ItemInStoreOrderDto> itemsInStoreOrderDetails,
                          double distanceFromCustomer, String customerName, int xCoordinate, int yCoordinate)
     {
-        this.date = date;
+
+        String pattern = "dd/MM/yyyy";
+        DateFormat df = new SimpleDateFormat(pattern);
+        this.strDate = df.format(date);
+
         this.itemsTotalAmount = itemsTotalAmount;
         this.itemsTotalPrice = itemsTotalPrice;
         this.deliveryTotalPrice = deliveryTotalPrice;
@@ -49,8 +56,8 @@ public class StoreOrderDto {
         return yCoordinate;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public String getStrDate() {
+        return strDate;
     }
 
     public double getItemsTotalAmount() {

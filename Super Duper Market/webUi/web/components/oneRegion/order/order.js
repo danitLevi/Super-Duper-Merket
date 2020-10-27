@@ -1,27 +1,25 @@
-// var ORDER_URL = buildUrlWithContextPath("order");
 var ITEMS_IN_SYSTEM_URL = buildUrlWithContextPath("items");
 var ITEMS_IN_STORE_URL = buildUrlWithContextPath("itemsFromStoreToOrder");
 var STORES_IN_SYSTEM_URL = buildUrlWithContextPath("storesInRegion");
 var DELIVERY_COST_URL = buildUrlWithContextPath("getDeliveryCost");
 var SAVE_ORDER_IN_SESSION_URL = buildUrlWithContextPath("saveOrderInputInSession");
+var VALIDATE_ORDER_LOCATION_URL = buildUrlWithContextPath("validateOrderLocation");
 
 
 function initializeOrderPage()
 {
+
     // at first computed is selected by default
     onDynamicOrder();
 
     handleOrderTypeSelection();
     handleDeliveryCostOnChange();
     fillStoreComboBox();
-    listenTosubmitOrder();
+    listenToSubmitOrder();
+
+    handleLocationValidation();
 }
 
-
-
-function setItemsToOrderTable() {
-
-}
 
 function handleOrderTypeSelection()
 {
@@ -114,6 +112,27 @@ function setItemsTable(itemsJson,isStatic) {
 
         $(currRowData).appendTo($("#itemsToOrderTableData"));
     });
+
+    notifyIfItemsToOrderEmpty();
+}
+
+
+function notifyIfItemsToOrderEmptyAfterChange() {
+    $("#itemsToOrderTableData input").change(notifyIfItemsToOrderEmpty);
+}
+
+function notifyIfItemsToOrderEmpty() {
+    let itemsJson =getItemsToOrderJson();
+    if(itemsJson.length==0)
+    {
+        $("#itemsToOrderTableData input")[0].setCustomValidity("Select at least one item to order");
+    }
+    else
+    {
+        $("#itemsToOrderTableData input")[0].setCustomValidity("");
+    }
+
+    notifyIfItemsToOrderEmptyAfterChange()
 }
 
     function handleDeliveryCostOnChange() {
@@ -130,8 +149,7 @@ function setItemsTable(itemsJson,isStatic) {
 
 
 
-    //todo: add validations (not store location and 1-50) !!!!!!!!
-    // todo:check if location is invalid (on change and not only in saving ) add alert and set delivery to No Value
+
     function validateAndSetDeliveryCost() {
 
 
@@ -191,13 +209,13 @@ function setItemsTable(itemsJson,isStatic) {
         return itemsToOrderJson;
     }
 
-function listenTosubmitOrder() {
+function listenToSubmitOrder() {
     $(".orderForm").submit(function ()
         {
+            var itemsJson =getItemsToOrderJson();
             var date=$("#orderDate").val();
             var xCoordinate=$("#xCoordinate").val();
             var yCoordinate=$("#yCoordinate").val();
-            var itemsJson =getItemsToOrderJson();
             var selectedStoreId=$("#storesOptions").val();
             var isDynamic;
 
@@ -214,10 +232,10 @@ function listenTosubmitOrder() {
                 method:'POST',
                 data:{items:JSON.stringify(itemsJson) ,
                     "dateInForm":date,
-                "xCoordinate":xCoordinate,
-                "yCoordinate":yCoordinate,
-                "storeId":selectedStoreId,
-                "isDynamic":isDynamic},
+                    "xCoordinate":xCoordinate,
+                    "yCoordinate":yCoordinate,
+                    "storeId":selectedStoreId,
+                    "isDynamic":isDynamic},
                 success:function () {
                     if(isDynamic)
                     {
@@ -229,10 +247,14 @@ function listenTosubmitOrder() {
                     }
                 },
 
-                });
+            });
+
+
             return false;
         }    )
 }
+
+
 
 function openStoresInDynamicOrderWindow()
 {
@@ -241,7 +263,38 @@ function openStoresInDynamicOrderWindow()
 
 function openSalesWindow()
 {
-    $("#content").load("orderTemplates/salesInOrder.html",handleSalesWindow);
-
+    $("#content").load("orderTemplates/SalesInOrder.html",handleSalesWindow);
 }
+
+function handleLocationValidation() {
+    $("#xCoordinate").change(notifyIfLocationInvalid);
+    $("#yCoordinate").change(notifyIfLocationInvalid);
+}
+
+function notifyIfLocationInvalid() {
+
+    let xVal=$("#xCoordinate").val();
+    let yVal=$("#yCoordinate").val();
+
+    if(xVal!="" && yVal!="" )
+    {
+        $.ajax({
+            url:VALIDATE_ORDER_LOCATION_URL,
+            data:{xCoordinate:xVal, yCoordinate:yVal},
+            success:function (response) {
+               if(response=="false")
+               {
+                   $("#xCoordinate")[0].setCustomValidity("a store located in this location." +
+                       "Select other location");
+               }
+               else
+               {
+                   $("#xCoordinate")[0].setCustomValidity("");
+               }
+            }
+        });
+    }
+}
+
+
 

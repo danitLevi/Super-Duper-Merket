@@ -33,7 +33,7 @@ public class ChargeServlet extends HttpServlet {
         Date date= null;
         String stringDate=request.getParameter(Constants.DATE);
         try {
-            date = new SimpleDateFormat("yyyy-mm-dd").parse(stringDate);
+            date = new SimpleDateFormat("yyyy-MM-dd").parse(stringDate);
         } catch (ParseException e) {
             response.sendError(406 );
         }

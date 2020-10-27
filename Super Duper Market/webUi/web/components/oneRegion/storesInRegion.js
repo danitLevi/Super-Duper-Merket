@@ -60,7 +60,7 @@ function setStoresInRegionCards(storesJson)
             '<br>'+
 
             '<div class="row">'+
-            '<b class="font-weight-bold">Order amount: </b>'+
+            '<b class="font-weight-bold">Orders amount: </b>'+
             '<span  class="col-1" id="orderAmount">'+storeData.ordersAmount+'</span>'+
             '<b class="font-weight-bold">Purchased items cost: </b>'+
             '<span  class="col-1" id="itemsProfit">'+storeData.paymentForItems+'</span>'+

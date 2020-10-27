@@ -1,0 +1,40 @@
+/*!*todo delete page and its references*!*/
+
+/*!*tr.hide-table-padding td {*!*/
+/*!*    padding: 0;*!*/
+/*!*}*!*/
+
+/*.expand-button {*/
+/*    position: relative;*/
+
+/*}*/
+
+/*.accordion-toggle .expand-button:after*/
+/*{*/
+/*    position: absolute;*/
+/*    left:.75rem;*/
+/*    top: 50%;*/
+/*    transform: translate(0, -50%);*/
+/*    !*content: 'Hide more information';*!*/
+
+/*}*/
+/*!*.accordion-toggle.collapsed .expand-button:after*!*/
+/*!*{*!*/
+/*!*    content: 'Show more information';*!*/
+
+/*!*}*!*/
+
+/*!*.expand-button:after*!*/
+/*!*{*!*/
+/*!*    position: absolute;*!*/
+/*!*    left:.75rem;*!*/
+/*!*    top: 50%;*!*/
+/*!*    transform: translate(0, -50%);*!*/
+/*!*    !*content: 'Hide more information';*!*!*/
+
+/*!*}*!*/
+/*!*.collapsed .expand-button:after*!*/
+/*!*{*!*/
+/*!*    !*content: 'Show more information';*!*!*/
+
+/*!*}*!*/

@@ -15,7 +15,6 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.time.LocalDate;
 import java.util.*;
 
 public class SDMLogic implements SDMLogicInterface {
@@ -51,13 +50,13 @@ public class SDMLogic implements SDMLogicInterface {
         this.regions = regions;
     }
 
-    public void saveOrder(String regionName , int customerId)
-    {
-        Region SDMRegionObj= getRegionByName(regionName);
-        Customer customer= (Customer) userNameToUser.get(customerId);
-        //todo save order (and add customer )
-        //SDMRegionObj.saveOrder(customer)
-    }
+//    public void saveOrder(String regionName , int customerId)
+//    {
+//        Region SDMRegionObj= getRegionByName(regionName);
+//        Customer customer= (Customer) userNameToUser.get(customerId);
+//        //todo save order (and add customer )
+//        //SDMRegionObj.saveOrder(customer)
+//    }
 
     public Region getRegionByName(String regionName )
     {
@@ -82,6 +81,11 @@ public class SDMLogic implements SDMLogicInterface {
         return regionsNames;
     }
 
+    public  Customer getCustomer(String customerName)
+    {
+        return (Customer) userNameToUser.get(customerName);
+    }
+
     public List<FeedbackDto> getOwnerFeedbackDetailsDetails(String ownerName)
     {
         Owner owner= (Owner) userNameToUser.get(ownerName);
@@ -97,39 +101,22 @@ public class SDMLogic implements SDMLogicInterface {
         return storeOrderList;
     }
 
-    public List<OrderDto> getCustomerOrderHistory(String customerName)
+
+    public List<OrderDto> getCustomerOrderHistoryInRegion(String customerName, String regionName)
     {
-        List<OrderDto> customerOrdersList = new ArrayList<>();
+        List<OrderDto> customerOrdersDetails=new ArrayList<>();
+
         Customer customer = (Customer) userNameToUser.get(customerName);
+        List<Integer> customerOrdersIdsInRegion=customer.getOrdersIdInRegion(regionName);
 
-        Map<Integer, String> orders = customer.getOrderIdToRegionName();
-
-        for (Integer currOrderId : orders.keySet())
+        if(customerOrdersIdsInRegion.size()!=0)
         {
-            Region orderRegion = getRegionByName(orders.get(currOrderId));
-            Order currOrder=orderRegion.getOrderIdToOrder().get(currOrderId);
-            Map<Integer,StoreOrderDto> StoreIdToStoreOrderDto = new HashMap<>();
-            for (Integer currStoreId:currOrder.getStoreIdToStoreOrder().keySet())
-            {
-                StoreOrderDto currStoreOrderDetails=orderRegion.getStoreOrderDetails(currOrder,currStoreId);
-                StoreIdToStoreOrderDto.put(currStoreId,currStoreOrderDetails);
-            }
+            Region currRegion=getRegionByName(regionName);
 
-            OrderDto currOrderDetails=new OrderDto(currOrder.getDate(),
-                                            currOrder.getAmountOfOrderedItemsByUits(orderRegion.getItemIdToItems()),
-                                            currOrder.getItemsInOrderPrice(),
-                                            currOrder.getOrderDeliveryPrice(),
-                                            currOrder.getOrderTotalPrice(),
-                                            currOrder.getId(),
-                                            currOrder.getAmountOfOrderedItemsTypes(),
-                                            StoreIdToStoreOrderDto,
-                                            currOrder.getOrderLocation().getX(),
-                                            currOrder.getOrderLocation().getY());
-//            currStoreOrderDto=getStoreOrderDetails(currOrder,storeId);
-//            storeOrdersDetails.add(currStoreOrderDto);
+            customerOrdersDetails=currRegion.getWantedOrdersDetails(customerOrdersIdsInRegion);
         }
 
-        return customerOrdersList;
+        return customerOrdersDetails;
     }
 
     public boolean isUserExist(String userName)
@@ -188,10 +175,10 @@ public class SDMLogic implements SDMLogicInterface {
         return  usersDetails;
     }
 
-    public void importDataFromXmlFile(InputStream inputStream ,String ownerName) throws InvalidFileExtension, FileNotFoundException, JAXBException, ItemNotFoundInStoresException, ValueOutOfRangeException, StoreItemNotFoundInSystemException, ItemAlreadyExistInStoreException, DoubleObjectIdInSystemException, DoubleObjectInCoordinateException, ItemInSaleNotFoundInStoreException, RegionAlreadyExistException {
+    public String importDataFromXmlFile(InputStream inputStream , String ownerName) throws InvalidFileExtension, FileNotFoundException, JAXBException, ItemNotFoundInStoresException, ValueOutOfRangeException, StoreItemNotFoundInSystemException, ItemAlreadyExistInStoreException, DoubleObjectIdInSystemException, DoubleObjectInCoordinateException, ItemInSaleNotFoundInStoreException, RegionAlreadyExistException {
 
 
-        Region superDuperMarketObj = null;
+        Region newRegion = null;
         Owner owner=getOwner(ownerName);
 //        if (!getFileExtension(filePath).equals("xml"))
 //        {
@@ -211,9 +198,11 @@ public class SDMLogic implements SDMLogicInterface {
             throw new RegionAlreadyExistException(regionName);
         }
 
-        superDuperMarketObj=new Region(superDuperMarketJaxbObj, owner);
+        newRegion=new Region(superDuperMarketJaxbObj, owner);
 
-        regions.add(superDuperMarketObj);
+        regions.add(newRegion);
+
+        return newRegion.getRegionName();
     }
 
     private static SuperDuperMarketDescriptor deserializeFrom(InputStream in) throws JAXBException {
@@ -226,7 +215,7 @@ public class SDMLogic implements SDMLogicInterface {
     {
         for (Region currRegion:regions)
         {
-            if(currRegion.getRegionOwner().getName().toLowerCase().equals(regionName.toLowerCase()))
+            if(currRegion.getRegionName().toLowerCase().equals(regionName.toLowerCase()))
                 return true;
         }
         return false;

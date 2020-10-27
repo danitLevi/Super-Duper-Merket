@@ -67,6 +67,7 @@ function setStoresInDynamicOrderCards(storesInDynamicOrderJson)
 function handleContinueButtonInDynamicStoresWindow() {
 
     $("#continueButton").click(function () {
-        $("#content").load("orderTemplates/SalesInOrder.html",handleSalesWindow);
+        openSalesWindow();
+        // $("#content").load("orderTemplates/SalesInOrder.html",handleSalesWindow);
     })
 }

@@ -73,4 +73,6 @@ public class OrderInputToSaveInSessionDto {
     public Map<Integer, Map<OfferDto, Integer>> getStoreIdToUsedOfferDtoToUsedAmount() {
         return storeIdToUsedOfferDtoToUsedAmount;
     }
+
+
 }

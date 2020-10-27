@@ -28,12 +28,21 @@ public class Account {
         return transactions;
     }
 
-    public void addToBalance(double amountToAdd, Date chargeDate)
+    public void addToBalance(double amountToAdd, Date date,TransactionType transactionType)
     {
         double previousBalance=this.balance;
         this.balance+=amountToAdd;
 
-        Transaction newTransaction=new Transaction(TransactionType.CHARGE,chargeDate,amountToAdd,previousBalance,this.balance);
+        Transaction newTransaction=new Transaction(transactionType,date,amountToAdd,previousBalance,this.balance);
+        transactions.add(newTransaction);
+    }
+
+    public void payFromBalance(double amountToPay, Date orderDate)
+    {
+        double previousBalance=this.balance;
+        this.balance-=amountToPay;
+
+        Transaction newTransaction=new Transaction(TransactionType.PAYMENT,orderDate,amountToPay,previousBalance,this.balance);
         transactions.add(newTransaction);
     }
 
@@ -44,9 +53,10 @@ public class Account {
         TransactionDto currTransactionDetails;
         for (Transaction currTransaction:transactions)
         {
-            String pattern = "dd/mm/yyyy";
+            String pattern = "dd/MM/yyyy";
             DateFormat df = new SimpleDateFormat(pattern);
             String dateStr = df.format(currTransaction.getDate());
+
 
             currTransactionDetails=new TransactionDto(currTransaction.getTransactionType().getStrValue()
             ,dateStr

@@ -4,21 +4,22 @@ import logic.Customer;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Order implements Serializable
 {
-    private LocalDate date;
+    private Date date;
     private  int id;
     private Coordinate orderLocation;
     Map<Integer,StoreOrder> storeIdToStoreOrder;
     private static int nextId=0;
     boolean isDynamicOrder;
     Customer customer;
-    private String regionName;
+//    private String regionName;
 
-    public Order(LocalDate date, boolean isDynamicOrder, Customer customer,Coordinate orderLocation, String regionName) {
+    public Order(Date date, boolean isDynamicOrder,Customer customer, Coordinate orderLocation) {
         this.date = date;
         nextId++;
         this.id = nextId;
@@ -26,19 +27,26 @@ public class Order implements Serializable
         this.storeIdToStoreOrder = new HashMap<>();
         this.isDynamicOrder=isDynamicOrder;
         this.customer=customer;
-        this.regionName=regionName;
-        customer.addOrder(id, regionName);
+//        this.regionName=regionName;
     }
     public static void setNextId(int nextId) {
         Order.nextId = nextId;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public int getId() {
@@ -150,13 +158,6 @@ public class Order implements Serializable
         storeIdToStoreOrder.put(storeId,storeOrder);
     }
 
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
 
     public boolean isDynamicOrder() {
         return isDynamicOrder;

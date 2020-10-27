@@ -14,26 +14,29 @@
     <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="common/styleSheets/navbar.css">
     <link rel="stylesheet" type="text/css" href="components/Regions/Regions.css">
     <!--    <link rel="stylesheet" type="text/css" href=components/Stores/Stores.css">-->
     <script src="common/context-path-helper.js"></script>
 
+
     <!-- java script pages-->
+    <script src="common/alerts.js"></script>
+
     <script src="components/Regions/RegionsUsers.js"></script>
     <script src="components/Regions/uploadBtn.js"></script>
     <script src="components/Regions/RegionsData.js"></script>
     <script src="components/Regions/AccountManager.js"></script>
     <script src="components/Regions/TransactionsData.js"></script>
 
-    <script src="common/alerts.js"></script>
+
 
     <!-- CSS-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -59,21 +62,8 @@
 <!--        </ul>-->
 <!--    </div>-->
 <!--</nav>-->
-<!-- Success Modal -->
-<div class="modal fade" id="success-modal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body success-modal-body">
-                File has been uploaded successfully.
-            </div>
-        </div>
-    </div>
-</div>
+
+
 
 <!--Navbar-->
 <nav class="navbar fixed-top navbar-expand-md navbar-light bg-light">
@@ -153,10 +143,10 @@
 
 <!--Transactions area -->
 <div class="jumbotron pt-3">
-    <h3>Account </h3>
+    <h3>My Account </h3>
     <div class="row">
         <div class="container-fluid">
-            <p class="text-muted">Your current balance is <span class="balance"></span> <span> ₪</span></p>
+            <p class="text-muted">Your current balance is <span id="balance"></span> <span> ₪</span></p>
             <form id="accountForm" method="POST" action="charge">
                 <div class="form-row">
                     <div class="form-group col-md-2">
@@ -171,7 +161,7 @@
                         </div>
                     </div>
                     <div class="form-group col-md-6">
-                        <button type="submit" class="btn btn-primary mb-2">Charge</button>
+                        <button type="submit" class="btn btn-primary mb-2 ml-2">Charge</button>
                     </div>
                 </div>
             </form>
@@ -190,8 +180,8 @@
                 <th>Type</th>
                 <th>Date</th>
                 <th>Transaction Amount</th>
-                <th>Balance before</th>
-                <th>Balance After</th>
+                <th>Balance before transaction</th>
+                <th>Balance After transaction</th>
             </tr>
             </thead>
             <tbody id="transactionsTableData">
@@ -214,20 +204,17 @@
 </div>
 
 
-<!--Error modal-->
-<div class="modal" id="modal" tabindex="-1" role="dialog">
+<!--modal-->
+<div class="modal" id="modal" tabindex="-1" role="dialog" >
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalTitle"></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
-            <div class="modal-body">
-                <p id="msg"></p>
+            <div class="modal-body" >
+                <p id="msg" style="white-space: pre-line"></p>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer justify-content-center">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>

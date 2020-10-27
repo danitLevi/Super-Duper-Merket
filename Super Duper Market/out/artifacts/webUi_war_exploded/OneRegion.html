@@ -22,26 +22,37 @@
     <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <!--JavaScript -->
+    <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!--    utils javascript-->
+    <script src="common/formatter.js"></script>
     <script src="common/context-path-helper.js"></script>
+    <script src="common/itemUtil.js"></script>
+
+
+    <!--JavaScript pages-->
+
     <script src="components/oneRegion/oneRegion.js"></script>
+
+    <script src="components/oneRegion/ordersHistoryForCustomer.js"></script>
+
+
     <script src="components/oneRegion/items.js"></script>
     <script src="components/oneRegion/storesInRegion.js"></script>
 
+
     <script src="components/oneRegion/managerFeedbacks.js"></script>
     <script src="components/oneRegion/addNewStore.js"></script>
-    <script src="components/oneRegion/ordersHistoryForOwner.js"></script>
-    <script src="components/oneRegion/ordersHistoryForCustomer.js   "></script>
+    <script src="components/oneRegion/owner/ordersHistoryForOwner.js"></script>
 
     <script src="components/oneRegion/fillFeedback.js"></script>
 
-    <script src="common/alerts.js"></script>
+<!--    <script src="common/alerts.js"></script>-->
 
 
     <!-- CSS-->
@@ -52,12 +63,12 @@
     <link rel="stylesheet" href="common/styleSheets/OneRegion.css">
 
 
-<!--    utils javascript-->
-    <script src="common/formatter.js"></script>
+
 <!--    order java scripts -->
     <script src="components/oneRegion/order/order.js"></script>
     <script src="components/oneRegion/order/storesInDynamicOrder.js"></script>
     <script src="components/oneRegion/order/salesInOrder.js"></script>
+    <script src="components/oneRegion/order/orderSummary.js"></script>
     <script src="components/Regions/uploadBtn.js"></script>
 
 
@@ -112,19 +123,17 @@
 
 
 <!-- modal-->
-<div class="modal" id="modal" tabindex="-1" role="dialog">
+<!--modal-->
+<div class="modal" id="modal" tabindex="-1" role="dialog" >
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalTitle"></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
-            <div class="modal-body">
-                <p id="msg"></p>
+            <div class="modal-body" >
+                <p id="msg" style="white-space: pre-line"></p>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer justify-content-center">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>

@@ -49,6 +49,17 @@ public class SessionUtils {
         session.setAttribute(Constants.ORDER_INPUT,orderInput);
     }
 
+    // todo: check if work
+    public static  void removeOrderInputAttribute(HttpServletRequest request)
+    {
+        HttpSession session = request.getSession(false);
+        if(session!=null)
+        {
+            session.removeAttribute(Constants.ORDER_INPUT);
+        }
+
+    }
+
     public static OrderInputToSaveInSessionDto getOrderInput (HttpServletRequest request) {
         HttpSession session = request.getSession();
          return (OrderInputToSaveInSessionDto) session.getAttribute(Constants.ORDER_INPUT);

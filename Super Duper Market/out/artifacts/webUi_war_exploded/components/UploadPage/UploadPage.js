@@ -1,8 +1,11 @@
+const SAVE_ALERT_TO_SHOW_URL =  buildUrlWithContextPath("saveAlertToShowLater");
+
 $(function() { // onload...do
 
     handleUploadSubmit();
     //displaySuccessMessage();
-    modalOnClick();
+    // modalCloseBtnOnClick();
+    backBtnOnClick();
 });
 
 function handleUploadSubmit() {
@@ -21,33 +24,52 @@ function handleUploadSubmit() {
             contentType: false, // Set content type to false as jQuery will tell the server its a query string request
             timeout: 4000,
             success: function (resp) {
-                if (resp === "Regions.html") {
-                    displaySuccessMessage();
-                    //window.location.assign(resp);
+                let respJsonObj = $.parseJSON( resp);
 
-                    // window.$("#iChanged").text("!!!");
+                // if (resp === "Regions.html") {
+                if(typeof respJsonObj =='object')
+                {
+                    window.location.assign(respJsonObj.nextPage);
 
-                    // $("#theModal").modal('show');
-
+                    triggerUploadSuccessAlertMsgToShow(respJsonObj.newRegionName);
                 } else {
                     $('#modal').modal({keyboard: true });
                     $('#modal').find('#msg').text(resp);
                     $('#modal').find('#modalTitle').text("Error");
                 }
+            },
+            error:function () {
+              console.log("not ok");
             }
+
         });
         return false
     })
 }
 
-function displaySuccessMessage() {
-    var message = "New reagion added to the system"
-    $(".success-modal-body").text(message);
-    $("#success-modal").modal("show");
+function triggerUploadSuccessAlertMsgToShow(newRegionName) {
+
+    $.ajax({
+        url:SAVE_ALERT_TO_SHOW_URL,
+        method:'POST',
+        data:{alertType:"upload",newRegionNameData:newRegionName}
+    });
 }
 
-function modalOnClick(){
-        $(".close").click(function() {
+// function displaySuccessMessage() {
+//     var message = "New reagion added to the system"
+//     $(".success-modal-body").text(message);
+//     $("#success-modal").modal("show");
+// }
+
+// function modalCloseBtnOnClick(){
+//         $(".closePage").click(function() {
+//         window.location.assign("Regions.html");
+//     })
+// }
+
+function backBtnOnClick(){
+    $("#backBtn").click(function() {
         window.location.assign("Regions.html");
     })
 }
