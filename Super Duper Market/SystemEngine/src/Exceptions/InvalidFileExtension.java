@@ -2,17 +2,17 @@ package Exceptions;
 
 public class InvalidFileExtension extends Exception
 {
-    private String wantedExtention;
-    public InvalidFileExtension(String wantedExtesntion)
+    private String wantedExtension;
+    public InvalidFileExtension(String wantedExtension)
     {
-        wantedExtention=wantedExtesntion;
+        this.wantedExtension =wantedExtension;
     }
 
-    public String getWantedExtention() {
-        return wantedExtention;
+    public String getWantedExtension() {
+        return wantedExtension;
     }
 
-    public void setWantedExtention(String wantedExtention) {
-        this.wantedExtention = wantedExtention;
+    public void setWantedExtension(String wantedExtension) {
+        this.wantedExtension = wantedExtension;
     }
 }

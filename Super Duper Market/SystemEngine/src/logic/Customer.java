@@ -1,10 +1,5 @@
 package logic;
 
-import DtoObjects.OrderDto;
-import DtoObjects.TransactionDto;
-import superDuperMarket.Order;
-import superDuperMarket.Region;
-
 import java.util.*;
 
 public class Customer extends User{
@@ -14,13 +9,14 @@ public class Customer extends User{
 //    private Set<Integer> orderIds;
 //=======
     //private Set<Integer> orderIds; //TODO: CHANGE TO MAP
-    private Map<Integer, String> orderIdToRegionName;
+//    private Map<Integer, String> orderIdToRegionName;
+    private Map<String , List<Integer>> regionNameToOrdersIdsLst;
 //>>>>>>> develop
 
     public Customer(String name) {
         super(name);
         //this.orderIds = new HashSet<>();
-        this.orderIdToRegionName = new HashMap<>();
+        this.regionNameToOrdersIdsLst = new HashMap<>();
     }
 
 //    public Set<Integer> getOrderIds() { return orderIds; }
@@ -32,30 +28,42 @@ public class Customer extends User{
     public void addOrder(int orderId, String regionName)
     {
        // orderIds.add(orderId);
-        orderIdToRegionName.put(orderId,regionName);
+        if(!regionNameToOrdersIdsLst.containsKey(regionName))
+        {
+            regionNameToOrdersIdsLst.put(regionName,new ArrayList<>());
+        }
+        regionNameToOrdersIdsLst.get(regionName).add(orderId);
+
+//        regionNameToOrdersIdsLst.put(orderId,regionName);
     }
 
 
-    public Map<Integer, String> getOrderIdToRegionName() {
-        return orderIdToRegionName;
+    public Map<String, List<Integer>> getRegionNameToOrdersIdsLst() {
+        return regionNameToOrdersIdsLst;
     }
 
-    public void setOrderIdToRegionName(Map<Integer, String> orderIdToRegionName) {
-        this.orderIdToRegionName = orderIdToRegionName;
+    public void setRegionNameToOrdersIdsLst(Map<String, List<Integer>> regionNameToOrdersIdsLst) {
+        this.regionNameToOrdersIdsLst = regionNameToOrdersIdsLst;
     }
 
+    public List<Integer> getOrdersIdInRegion(String regionName)
+    {
+        List<Integer> ordersIdsInRegion=new ArrayList<>();
+
+        if(regionNameToOrdersIdsLst.containsKey(regionName))
+        {
+            ordersIdsInRegion=regionNameToOrdersIdsLst.get(regionName);
+        }
+        return ordersIdsInRegion;
+    }
     public void chargeBalance(double amountToAdd, Date chargeDate)
     {
-        getAccount().addToBalance(amountToAdd,chargeDate);
+        getAccount().addToBalance(amountToAdd,chargeDate,TransactionType.CHARGE);
     }
-//
-//<<<<<<< HEAD
-//
-//
-//=======
-//    public List<TransactionDto> getTransactionsDetails()
-//    {
-//        return this.getAccount().getTransactionsDetails();
-//    }
-//>>>>>>> develop
+
+    public void pay(double amountToPay,Date date)
+    {
+        getAccount().payFromBalance(amountToPay,date);
+    }
+
 }

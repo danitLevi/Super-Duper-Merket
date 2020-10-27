@@ -3,7 +3,7 @@ var STORES_IN_DYNAMIC_ORDER_DATA_URL = buildUrlWithContextPath("storesInDynamicO
 function handleStoresInDynamicOrderWindow()
 {
     ajaxStoresInDynamicOrderData();
-    handleContinueButton();
+    handleContinueButtonInDynamicStoresWindow();
 }
 
 function ajaxStoresInDynamicOrderData() {
@@ -64,10 +64,10 @@ function setStoresInDynamicOrderCards(storesInDynamicOrderJson)
 }
 
 
-function handleContinueButton() {
+function handleContinueButtonInDynamicStoresWindow() {
 
     $("#continueButton").click(function () {
-        $("#content").load("orderTemplates/SalesInOrder.html",handleSalesWindow);
+        openSalesWindow();
+        // $("#content").load("orderTemplates/SalesInOrder.html",handleSalesWindow);
     })
-
 }

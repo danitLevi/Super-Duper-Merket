@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<!--    &lt;!&ndash; jQuery library &ndash;&gt;-->
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+<!--    &lt;!&ndash; Popper JS &ndash;&gt;-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>-->
+<!--    &lt;!&ndash; Latest compiled and minified CSS &ndash;&gt;-->
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">-->
+<!--    &lt;!&ndash; Latest compiled JavaScript &ndash;&gt;-->
+<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>-->
+<!--    &lt;!&ndash; JavaScript &ndash;&gt;-->
+<!--    <script src="components/oneRegion/orderSummary.js"></script>-->
+    <!-- CSS-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="common/styleSheets/form.css">
+</head>
+<body>
+
+<div>
+    <div id="OrderSummaryContent">
+    <h2 >Order Summary</h2>
+        <div class="container">
+            <div class="row">
+
+            <b >Date:</b>
+            <span id="orderDate">date</span>
+
+            <b >Location:</b>
+            <span id="orderLocation">location</span>
+
+            </div>
+
+<!--            todo: need form ?maybe delete -->
+<!--            <form id="orderSummaryForm" method="POST" action="order" >-->
+                <div id="storesInOrderCards">
+
+                </div>
+
+                <!--order total data-->
+                <div class="row">
+                <b class="font-weight-bold">Total items price: </b>
+                <span  id="totalItemsPrice"></span>
+
+                <b class="font-weight-bold">Total deliveries price: </b>
+                <span  id="totalDeliveryPrice"></span>
+
+                <b class="font-weight-bold">Total order price: </b>
+                <span  id="totalOrderPrice"></span>
+                </div>
+
+                <!--cancel or confirm order-->
+                <div class="row">
+                    <div >
+                        <button  class="btn btn-primary m-2" id="confirmOrder">Confirm</button>
+                        <button class="btn btn-danger m-2" id="cancelOrder">Cancel</button>
+                    </div>
+
+                    <!--massage-->
+                    <span id="SaveOrderMsg" class="col-2"></span>
+                </div>
+<!--            </form>-->
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
+

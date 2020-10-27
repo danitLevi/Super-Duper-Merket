@@ -10,12 +10,11 @@
     <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="common/styleSheets/navbar.css">
     <link rel="stylesheet" type="text/css" href="components/Regions/Regions.css">
@@ -26,28 +25,14 @@
 
 <!--    javascripts -->
     <script src="components/UploadPage/UploadPage.js"></script>
+<!--    <script src="common/alerts.js"></script>-->
 
 <!--    <script src="components/Regions/RegionsData.js"></script>-->
 <!--    <script src="components/Regions/TransactionsData.js"></script>-->
 
 </head>
-<body clas=" justify-content-center">
+<body class="justify-content-center">
 
-<!-- Success Modal -->
-<div class="modal fade" id="success-modal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body success-modal-body">
-                File has been uploaded successfully.
-            </div>
-        </div>
-    </div>
-</div>
 
 <!--Navbar-->
 <nav class="navbar fixed-top navbar-expand-md navbar-light bg-light">
@@ -74,18 +59,46 @@
 
 
 <!--Main body-->
-<div class="text-center card shadow p-3 mb-5 bg-white rounded " style="width: 25rem" lang="en">
-    <h5 class="card-title">Upload xml Data file</h5>
-<!--    <form class="form-upload" enctype="multipart/form-data" method="POST" action="upload"><br>-->
-    <form id="uploadForm" enctype="multipart/form-data" method="POST" action="upload" >
-        <div class="form-group">
-            <input type="file" accept=".xml" class="form-control-file" id="dataFile" name="dataFile"  >
+<div class="justify-content-center">
+    <div class=" text-center card shadow p-3 mb-5 bg-white rounded" style="width: 25rem" lang="en">
+        <h5 class="card-title">Upload xml Data file</h5>
+    <!--    <form class="form-upload" enctype="multipart/form-data" method="POST" action="upload"><br>-->
+        <form id="uploadForm" enctype="multipart/form-data" method="POST" action="upload" >
+            <div class="form-group">
+                <input type="file" accept=".xml" class="form-control-file" id="dataFile" name="dataFile" required>
+            </div>
+    <!--        <p class="error"></p>-->
+            <br>
+    <!--        <button class="btn btn-lg btn-primary btn-block" type="submit">Upload</button>-->
+            <input type="Submit" value="Upload File"><br>
+        </form>
+    </div>
+
+<br/>
+
+    <div class="text-center">
+        <button type="button" class="btn btn-primary btn-rounded " id="backBtn">Back</button>
+    </div>
+
+</div>
+
+
+
+<!--modal-->
+<div class="modal" id="modal" tabindex="-1" role="dialog" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle"></h5>
+            </div>
+            <div class="modal-body" >
+                <p id="msg" style="white-space: pre-line"></p>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
         </div>
-        <p class="error"></p>
-        <br>
-<!--        <button class="btn btn-lg btn-primary btn-block" type="submit">Upload</button>-->
-        <input type="Submit" value="Upload File"><br>
-    </form>
+    </div>
 </div>
 
 </body>

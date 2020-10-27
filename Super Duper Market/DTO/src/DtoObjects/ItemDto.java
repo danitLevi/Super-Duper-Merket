@@ -26,4 +26,9 @@ public class ItemDto {
     public PurchaseCategory getPurchaseCategory() {
         return purchaseCategory;
     }
+
+//    public String getStrPurchaseCategory()
+//    {
+//       return purchaseCategory.toString();
+//    }
 }

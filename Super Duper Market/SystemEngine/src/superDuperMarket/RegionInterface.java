@@ -4,7 +4,7 @@ import DtoObjects.*;
 import Exceptions.DeleteItemFromItsOnlySellerException;
 import Exceptions.DeleteStoreOnlyItemException;
 import Exceptions.DoubleObjectInCoordinateException;
-import logic.Customer;
+import logic.Customer; // todo: delete
 import logic.Owner;
 
 import java.io.IOException;
@@ -43,7 +43,8 @@ public interface RegionInterface {
 
     boolean isValidCoordinate(int coordinateVal);
 
-    boolean isStoreExistHere(Coordinate location);
+    boolean isStoreExistInGivenLocation(Coordinate location);
+    boolean isValidOrderLocation(int xCoordinate, int yCoordinate );
 
     double getStoreItemPrice(int storeId, int itemId);
 
@@ -91,20 +92,22 @@ public interface RegionInterface {
 
 //    Map<SaleDto,Integer> getStoreSalesInOrder(int storeId , Map<Integer,Double> itemIdToItemAmount); //todo: continue !!!!
 
-    Map<String,Map<SaleDto,Integer>> getSalesInOrder(Map<Integer, Map<Integer, Double>> orderMinimalPriceBag);
+    Map<Integer, Map<SaleDto, Integer>> getSalesInOrder(Map<Integer, Map<Integer, Double>> orderMinimalPriceBag);
 
 
     int getItemCheapestSellerId(int itemId);
 
-    Set<StoreInCalcDyanmicOrderDto>  getStoresInDynamicOrderDetails(Map<Integer, Map<Integer, Double>> itemsBag ,int customerId);
-    Set<ItemInStoreOrderDto> getWantedItemsInStoreDetails(int storeId,Map<Integer, Double> itemsToOrderRegular,Map<OfferDto,Integer> itemsToOrderFromSale);
-    double getStoreDistanceFromCustomer(int storeId,int customerId);
-    double getStoreDeliveryCostToCustomer(int storeId , int customerId);
-    void saveOrder(LocalDate orderDate,
-                          Customer currCustomer,
-                          boolean isDynamicOrder,
-                          Map<Integer,Map<Integer,Double>> dynamicStoreIdToOrderedItem,
-                          Map<Integer, Map<OfferDto,Integer>> storeIdToItemsToOrderFromSales);
+//    Set<StoreInCalcDyanmicOrderDto>  getStoresInDynamicOrderDetails(Map<Integer, Map<Integer, Double>> itemsBag ,int customerId);
+    Set<ItemInStoreOrderDto> getWantedItemsInStoreOrderDetails(int storeId, Map<Integer, Double> itemsToOrderRegular, Map<OfferDto,Integer> itemsToOrderFromSale);
+//    double getStoreDistanceFromCustomer(int storeId,int customerId);
+//    double getStoreDeliveryCostToCustomer(int storeId , int customerId);
+//    void saveOrder(LocalDate orderDate,
+//                          Customer currCustomer,
+//                          boolean isDynamicOrder,
+//                          Map<Integer,Map<Integer,Double>> dynamicStoreIdToOrderedItem,
+//                          Map<Integer, Map<OfferDto,Integer>> storeIdToItemsToOrderFromSales);
+
+    public void saveOrder(OrderInputToSaveInSessionDto orderInput,Customer customer);
 
     String getRegionName();
     Owner getRegionOwner();
@@ -115,10 +118,15 @@ public interface RegionInterface {
                                                                      int orderYCoordinate);
 
 
-//    void importDataFromXmlFile(InputStream inpStream) throws JAXBException, ValueOutOfRangeException, StoreItemNotFoundInSystemException, ItemAlreadyExistInStoreException, DoubleObjectIdInSystemException, DoubleObjectInCoordinateException, ItemInSaleNotFoundInStoreException, ItemNotFoundInStoresException;
     List<StoreOrder> getStoresInOrder(Integer orderId);
     void addNewStoreToRegion(Owner owner, String storeName, int ppk, int xCoordinate, int yCoordinate, List<Sell> itemsList) throws DoubleObjectInCoordinateException;
     Map<Integer, Sell> createItemIdToItemSellMap(List<Sell> itemsList);
     int getNewStoreId();
+
+    String getStoreOwnerName(int storeId);
     OrderSummaryDto getOrderSummaryData(OrderInputToSaveInSessionDto orderData);
+
+    Set<StoreDto> getWantedStoresDetails(Set<Integer> storesIds);
+    List<OrderDto> getWantedOrdersDetails(List<Integer> wantedOrdersIds);
+    List<StoreBaseDataDto> getOwnerStoresBaseData(Owner owner);
 }

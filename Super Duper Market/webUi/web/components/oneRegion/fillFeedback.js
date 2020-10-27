@@ -1,11 +1,11 @@
-var ORDER_STORES_URL =  buildUrlWithContextPath("storesInOrder");
+var ORDER_STORES_URL =  buildUrlWithContextPath("getStoresInOrder");
 var SAVE_FEEDBACK_URL =  buildUrlWithContextPath("saveFeedback");
 
 
 function initializeFeedbackPage() {
     ajaxOrderStoreOptionsData();
     handleSubmit();
-    handleSkip();
+    // handleFinish();
     handleRatingSelection();
 }
 
@@ -13,53 +13,83 @@ function initializeFeedbackPage() {
 function ajaxOrderStoreOptionsData() {
     $.ajax({
         url: ORDER_STORES_URL,
-        success: function(storesJson) {
-            if(storesJson.length === 0) {
-                $(".noOrdersInStore").text("No orders found");
-            }
-            else {
-                initializeOrderStoresOptions(storesJson);
-            }
+        success: function(storesInOrderJson) {
+                initializeOrderStoresOptions(storesInOrderJson);
         }
     });
 }
 
 function initializeOrderStoresOptions(storesJson) {
-    $("#ownerStores").empty();
-
     $.each(storesJson || [], function(index, store) {
-        $("<option>"+store.id + ' ' + store.name+"</option>").appendTo($("#ownerStores"));
+        $("<option value='"+store.id+"'>"+store.name + "(id=" + store.id+")</option>").appendTo($("#storesFromOrder"));
     });
 }
 
 //Save feedback
 function handleSubmit() {
     $("#feedbackForm").submit(function () {
-        var store = $("#storeFromOrder").val(); //Get selected store
-        var storeId= store.substr(0, store.indexOf(' ')); //Get selected store id
-        var rate = $("#count-existing").text(); //Get rate
-        var review = $("#review").val(); //Get text review
-
+        let currStoreId = $("#storesFromOrder").val(); //Get selected store id
+        let rate = $("#count-existing").text(); //Get rate
+        let review = $("#review").val(); //Get text review
+        let feedbackData={store: currStoreId, rate: rate, review: review};
         $.ajax({
             url:SAVE_FEEDBACK_URL,
             method:'POST',
-            data:{store: storeId, rate: rate, review: review},
+            data:feedbackData,
             success:function () {
-                //Remove reviewed store from list
-                var itemSelectorOption = $('#storeFromOrder option:selected');
-                itemSelectorOption.remove();
+                resetPageData();
+                removeStoreFromSelection();
                 $("#FeedbackMsg").text(" Feedback added successfully!");
-
+                triggerFeedbackAlertMsgToShow(feedbackData);
             }
         });
         return false;
-    })
+    });
+}
+
+
+
+
+//Remove reviewed store from list
+function removeStoreFromSelection() {
+    var selectedStore = $('#storesFromOrder :selected');
+    selectedStore.remove();
+    if($('#storesFromOrder option').length==1)
+    {
+        $("#FeedbackContent").empty();
+        $('<h2>You gave feedbacck to all possibe stores</h2>' +
+            '<h4>No More Stores to give feedback for. </h4>').appendTo($("#FeedbackContent"));
+
+    }
+}
+
+function  resetPageData() {
+    $("#count-existing").text("No rate");
+    $("#feedbackForm")[0].reset();
+
+}
+
+function triggerFeedbackAlertMsgToShow(feedbackData) {
+
+    $.extend(feedbackData,{alertType:"feedback"});
+    $.ajax({
+        url:SAVE_ALERT_TO_SHOW_URL,
+        method:'POST',
+        data:feedbackData,
+        // success:function () {
+        //     //Remove reviewed store from list
+        //     // var itemSelectorOption = $('#storesFromOrder :selected');
+        //     // itemSelectorOption.remove();
+        //     // $("#FeedbackMsg").text(" Feedback added successfully!");
+        //
+        // }
+    });
 }
 
 //Empty page if customer doesnt want to give feedback
-function handleSkip() {
-    $("#skipFeedback").click(function(){
-        $("FeedbackContent").empty();
+function handleFinish() {
+    $("#exitWindow").click(function(){
+        $("#content").empty();
     });
 }
 

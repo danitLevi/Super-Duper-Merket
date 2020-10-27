@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+
+// todo synchronized
 @WebServlet(name = "servlets.getBalanceAmount", urlPatterns = {"/balance"})
 
 public class getBalanceAmount extends HttpServlet {

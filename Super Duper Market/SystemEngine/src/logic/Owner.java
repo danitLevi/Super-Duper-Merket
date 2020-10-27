@@ -36,4 +36,9 @@ public class Owner extends User {
         Feedback newFeedback = new Feedback(customer,date,rate,review,storeName);
         this.feedbacks.add(newFeedback);
     }
+
+    public void receivePayment(double amountToPay, Date date)
+    {
+        getAccount().addToBalance(amountToPay,date,TransactionType.RECEIVE_PAYMENT);
+    }
 }

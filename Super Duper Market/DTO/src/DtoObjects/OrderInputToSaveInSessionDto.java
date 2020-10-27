@@ -1,6 +1,7 @@
 package DtoObjects;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 public class OrderInputToSaveInSessionDto {
@@ -8,6 +9,7 @@ public class OrderInputToSaveInSessionDto {
     public final int NO_VALUE=-1;
 
     private Map<Integer, Map<Integer, Double>> orderMinimalPriceBag;
+    private Map<Integer, Map<OfferDto, Integer>> storeIdToUsedOfferDtoToUsedAmount;
 //    private int customerId;
 //    private String customerDetails;
     private Date date; //local date ?
@@ -26,6 +28,7 @@ public class OrderInputToSaveInSessionDto {
         this.storeId = storeId;
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
+        storeIdToUsedOfferDtoToUsedAmount=new HashMap<>();
     }
 
     //store id not provided
@@ -35,6 +38,7 @@ public class OrderInputToSaveInSessionDto {
         this.isDynamicOrder = isDynamicOrder;
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
+        storeIdToUsedOfferDtoToUsedAmount=new HashMap<>();
         storeId= NO_VALUE;
     }
 
@@ -65,4 +69,10 @@ public class OrderInputToSaveInSessionDto {
     public int getyCoordinate() {
         return yCoordinate;
     }
+
+    public Map<Integer, Map<OfferDto, Integer>> getStoreIdToUsedOfferDtoToUsedAmount() {
+        return storeIdToUsedOfferDtoToUsedAmount;
+    }
+
+
 }

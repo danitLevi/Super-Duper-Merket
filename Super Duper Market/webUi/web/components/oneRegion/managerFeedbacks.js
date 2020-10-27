@@ -34,14 +34,14 @@ function setManagerFeedbackCards(feedbacksJson)
 
             <!--feedback data-->
             '<b class="font-weight-bold">Date: </b>'+
-            '<span  class="col-1" id="id">'+feedback.date+'</span>'+
+            '<span  class="col-1" id="id">'+feedback.strDate+'</span>'+
             '<br/>'+
 
             '<b class="font-weight-bold">Rate: </b>'+
             '<span  class="col-1" id="rate">'+feedback.rate+'</span>'+
             '<br/>'+
 
-            '<b class="font-weight-bold">Feedback: </b>'+
+            '<b class="font-weight-bold">Feedback description: </b>'+
             '<p id="feedbackText">'+feedback.feedbackText+'</p>'+
 
             '</div>'+

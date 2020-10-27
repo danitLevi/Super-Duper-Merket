@@ -1,13 +1,3 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Title</title>-->
-<!--</head>-->
-<!--<body>-->
-
-<!--</body>-->
-<!--</html>-->
 
 <!DOCTYPE html>
 <html>
@@ -24,13 +14,8 @@
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-
-
-
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-
 
     <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -45,23 +30,28 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="common/styleSheets/index.css">
     <link rel="stylesheet" href="common/styleSheets/navbar.css">
+
 </head>
 <body>
 <div class="container">
     <div style="margin-top: 10%">
         <h1>Login</h1>
         <br/>
-        <h2>Please enter a unique user name:</h2>
+<!--        <h2>Please enter a unique user name:</h2>-->
 
         <div class="form" >
-            <form class="loginForm" method="GET" action="login">
-                <input type="text" name="username"/>
+            <form class="loginForm" method="GET" action="login" role="form" >
+<!--                <label for="usernameId" class="col-sm-2 control-label">User name:</label>-->
+
+                <input type="text" class="col-3" placeholder="Enter a unique user name" class="form-control" name="username" id="usernameId" required/>
                 <br/>
-                <input type="radio" name="userType" id="customer" value="Customer" style="margin: 2px" checked>Customer</input>
-                <input type="radio" name="userType" id="storeOwner" style="margin: 2px" value="storeOwner">Store owner</input>
+                <span class="error text-danger m-2"></span>
+                <br/>
+                <input type="radio" name="userType" id="customer" value="Customer" style="margin: 2px" checked>I'm a customer</input>
+                <input type="radio" name="userType" id="storeOwner" style="margin: 2px" value="storeOwner">I'm a store owner</input>
                 <br/><br/>
                 <button class="btn" type="submit">Login</button>
-                <span class="error"></span>
+
             </form>
         </div>
     </div>

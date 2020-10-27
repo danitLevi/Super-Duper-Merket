@@ -18,7 +18,8 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.*;
-import java.time.LocalDate;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 //import jaxb.generated.SDMItem;
@@ -468,7 +469,7 @@ public class Region implements RegionInterface {
         return (coordinateVal>=Coordinate.coordinateMinValue && coordinateVal<=Coordinate.coordinateMaxValue);
     }
 
-    public  boolean isStoreExistHere(Coordinate location){
+    public  boolean isStoreExistInGivenLocation(Coordinate location){
         Coordinate currLocation;
         for (Store currStore: storeIdToStore.values())
         {
@@ -479,6 +480,12 @@ public class Region implements RegionInterface {
             }
         }
         return false;
+    }
+
+    public boolean isValidOrderLocation(int xCoordinate, int yCoordinate )
+    {
+        Coordinate givenLocation=new Coordinate(xCoordinate,yCoordinate);
+        return !(isStoreExistInGivenLocation(givenLocation));
     }
 
     public double getStoreItemPrice(int storeId,int itemId)
@@ -619,6 +626,7 @@ public class Region implements RegionInterface {
                 currCustomerLocation.getY());
     }
 
+    //return all orders in region details
     public Set<OrderDto> getRegionOrdersDetails()
     {
         Set<OrderDto> ordersInSystemDetails=new HashSet<>();
@@ -642,34 +650,41 @@ public class Region implements RegionInterface {
                                             currOrder.getOrderLocation().getX(),
                                             currOrder.getOrderLocation().getY());
 
-//           if(currOrder.getOrderType()== OrderTypes.DYNAMIC)
-//           {
-//               currOrderDetails=new DynamicOrderDto(currOrder.getId()
-//                                            ,currOrder.getDate()
-//                                            ,currOrder.getAmountOfOrderedItemsByUits()
-//                                            ,currOrder.getItemsInOrderPrice()
-//                                            ,currOrder.getOrderDeliveryPrice()
-//                                            ,currOrder.getOrderTotalPrice()
-//                                            ,currOrder.getAmountOfOrderedItemsTypes()
-//                                            ,currOrder.getStoresInOrderAmount());
-//           }
-//           else
-//           {
-//               currOrderDetails=new StaticOrderDto(currOrder.getId()
-//                       ,currOrder.getDate()
-//                       ,currOrder.getAmountOfOrderedItemsByUits()
-//                       ,currOrder.getItemsInOrderPrice()
-//                       ,currOrder.getOrderDeliveryPrice()
-//                       ,currOrder.getOrderTotalPrice()
-//                       ,currOrder.getAmountOfOrderedItemsTypes()
-//                       ,currOrder.getOneStoreInOrder().getId()
-//                       ,currOrder.getOneStoreInOrder().getName());
-//
-//           }
-
             ordersInSystemDetails.add(currOrderDetails);
         }
         return ordersInSystemDetails;
+    }
+
+    //return wanted orders in region details
+    public List<OrderDto> getWantedOrdersDetails(List<Integer> wantedOrdersIds)
+    {
+        List<OrderDto> wantedOrdersDetails=new ArrayList<>();
+        OrderDto currOrderDetails;
+        Order currOrder;
+
+        for (Integer currOrderId: wantedOrdersIds)
+        {
+            currOrder=orderIdToOrder.get(currOrderId);
+            Map<Integer,StoreOrderDto> StoreIdToStoreOrderDto = new HashMap<>();
+            for (Integer currStoreId:currOrder.getStoreIdToStoreOrder().keySet()) // todo: needed ?
+            {
+                StoreOrderDto currStoreOrderDetails=getStoreOrderDetails(currOrder,currStoreId);
+                StoreIdToStoreOrderDto.put(currStoreId,currStoreOrderDetails);
+            }
+            currOrderDetails=new OrderDto(currOrder.getDate(),
+                    currOrder.getAmountOfOrderedItemsByUits(this.itemIdToItems),
+                    currOrder.getItemsInOrderPrice(),
+                    currOrder.getOrderDeliveryPrice(),
+                    currOrder.getOrderTotalPrice(),
+                    currOrder.getId(),
+                    currOrder.getAmountOfOrderedItemsTypes(),
+                    StoreIdToStoreOrderDto,
+                    currOrder.getOrderLocation().getX(),
+                    currOrder.getOrderLocation().getY());
+
+            wantedOrdersDetails.add(currOrderDetails);
+        }
+        return wantedOrdersDetails;
     }
 
     public PurchaseCategory getItemPurchaseCategory(int itemId)
@@ -677,61 +692,70 @@ public class Region implements RegionInterface {
         return (itemIdToItems.get(itemId).getPurchaseCategory());
     }
 
-    public Order saveBaseOrder(LocalDate orderDate,
-                               boolean isDynamicOrder,
-                               Customer customer)
-    {
-//        return new Order(orderDate,isDynamicOrder,customer);
-        return null;
-    }
-
-    public void saveOrder(LocalDate orderDate,
-                          Customer currCustomer,
-                          boolean isDynamicOrder,
-                          Map<Integer,Map<Integer,Double>> dynamicStoreIdToOrderedItem,
-                          Map<Integer, Map<OfferDto,Integer>> storeIdToItemsToOrderFromSales)
-    {
-//        Customer currCustomer= (Customer) userIdToUser.get(customerId);
-        Order currOrder= saveBaseOrder(orderDate,isDynamicOrder,currCustomer);
-//        Map<ItemDto,Double> itemToOrderFromOneStoreToItemAmount=new HashMap<>();
-//        Map<OfferDto,Integer> ItemsToOrderFromSalesFromOneStoreToSalesAmount;
-
-        for (Integer currStoreId:dynamicStoreIdToOrderedItem.keySet())
-        {
-            Map<OfferDto,Integer> itemsFromSalesInStore;
-            if(!storeIdToItemsToOrderFromSales.containsKey(currStoreId))
-            {
-                itemsFromSalesInStore=null;
-            }
-            else
-            {
-                itemsFromSalesInStore=storeIdToItemsToOrderFromSales.get(currStoreId);
-            }
-            saveStoreOrder(currStoreId,currOrder,dynamicStoreIdToOrderedItem.get(currStoreId),itemsFromSalesInStore);
-        }
-        orderIdToOrder.put(currOrder.getId(),currOrder);
-    }
-
-//    public void saveStaticOrder(Date orderDate,
-//                                OrderTypes orderType,
-//                                Map<Integer,Double> itemIdToItemAmount,
-//                                int storeId,
-//                                Customer customer)
+//    public Order saveBaseOrder(LocalDate orderDate,
+//                               boolean isDynamicOrder,
+//                               Customer customer)
 //    {
-//        Order currOrder= saveBaseOrder(orderDate,orderType,customer);
-//        saveStoreOrder(storeId,currOrder,itemIdToItemAmount);
-//        orderIdToOrder.put(currOrder.getId(),currOrder);
+//        return new Order(orderDate,isDynamicOrder,customer);
+//
 //    }
 
-    public void saveStoreOrder(int storeId ,
-                               Order currOrder ,
-                               Map<Integer,Double> itemIdToItemAmount,
-                               Map<OfferDto,Integer> ItemsToOrderFromSalesToSalesAmount)
+    public void saveOrder(OrderInputToSaveInSessionDto orderInput,Customer customer)
+    {
+        Coordinate orderLocation=new Coordinate(orderInput.getxCoordinate(),orderInput.getyCoordinate());
+       Order newOrder= new Order(orderInput.getDate(),
+               orderInput.isDynamicOrder() ,
+               customer,
+               orderLocation);
+
+       customer.addOrder(newOrder.getId(), this.regionName);
+       orderIdToOrder.put(newOrder.getId(),newOrder);
+
+        saveStoresOrder(orderInput,newOrder,customer);
+
+    }
+
+
+    private void saveStoresOrder(OrderInputToSaveInSessionDto orderInput , Order currOrder,Customer customer) {
+
+        Map<Integer, Map<Integer, Double>> orderMinimalPriceBag = orderInput.getOrderMinimalPriceBag();
+        Map<Integer, Map<OfferDto, Integer>> storeIdToUsedOfferDtoToUsedAmount = orderInput.getStoreIdToUsedOfferDtoToUsedAmount();
+        Map<OfferDto, Integer> UsedOfferDtoToUsedAmountInOneStore = null;
+
+        for (Integer currStoreId : orderMinimalPriceBag.keySet()) {
+            if (storeIdToUsedOfferDtoToUsedAmount.containsKey(currStoreId))
+            {
+                UsedOfferDtoToUsedAmountInOneStore = storeIdToUsedOfferDtoToUsedAmount.get(currStoreId);
+            }
+            saveOneStoreOrder(currStoreId,
+                                currOrder,
+                                orderMinimalPriceBag.get(currStoreId),
+                                UsedOfferDtoToUsedAmountInOneStore,
+                                customer);
+         }
+    }
+
+    private void saveOneStoreOrder(int storeId ,
+                                  Order currOrder ,
+                                  Map<Integer,Double> itemIdToItemAmount,
+                                  Map<OfferDto,Integer> ItemsToOrderFromSalesToSalesAmount,
+                                   Customer customer)
     {
         Store currStore=storeIdToStore.get(storeId);
         currStore.addStoreOrder(currOrder.getId());
         StoreOrder currStoreOrder=new StoreOrder(currStore,itemIdToItemAmount,ItemsToOrderFromSalesToSalesAmount);
         currOrder.addStoreOrder(storeId,currStoreOrder);
+
+        payToStoreOwner(customer,currStore,currStoreOrder.getTotalPrice(currOrder.getOrderLocation()),currOrder.getDate());
+
+    }
+
+    private void payToStoreOwner(Customer customer , Store currStore , double amountToPay,Date orderDate)
+    {
+        Owner ownerToPay=currStore.getStoreOwner();
+        customer.pay(amountToPay,orderDate);
+        ownerToPay.receivePayment(amountToPay,orderDate);
+
     }
 
 
@@ -788,40 +812,51 @@ public class Region implements RegionInterface {
 //                customer.getLocation().getY());
 //    }
 
+    /////////////////////////////////////////
+    // todo: fix !!! and move to logic
     private double getAvgCustomerOrderPrice(Customer customer)
     {
-        Set<Integer> customerOrdersIds=customer.getOrderIdToRegionName().keySet();
-        Order currOrder;
-        double itemsInOrdersTotalPrice = 0, returnVal = 0;
-
-        if(customerOrdersIds.size() != 0) {
-            for (Integer oredrId : customerOrdersIds) {
-                currOrder = orderIdToOrder.get(oredrId);
-                itemsInOrdersTotalPrice += currOrder.getItemsInOrderPrice();
-            }
-            returnVal = itemsInOrdersTotalPrice /customerOrdersIds.size();
-        }
-
-        return returnVal;
+//        Set<Integer> customerOrdersIds=customer.getOrderIdToRegionName().keySet();
+//        Order currOrder;
+//        double itemsInOrdersTotalPrice = 0, returnVal = 0;
+//
+//        if(customerOrdersIds.size() != 0) {
+//            for (Integer oredrId : customerOrdersIds) {
+//                currOrder = orderIdToOrder.get(oredrId);
+//                itemsInOrdersTotalPrice += currOrder.getItemsInOrderPrice();
+//            }
+//            returnVal = itemsInOrdersTotalPrice /customerOrdersIds.size();
+//        }
+//
+//        return returnVal;
+        return -1;
     }
 
     private double getAvgCustomerDeliveriesPrice(Customer customer)
     {
-        Set<Integer> customerOrdersIds=customer.getOrderIdToRegionName().keySet();
-        Order currOrder;
-        double deliveriesInOrdersTotalPrice = 0, returnVal = 0;
+//        Set<Integer> customerOrdersIds=customer.getOrderIdToRegionName().keySet();
+//        Order currOrder;
+//        double deliveriesInOrdersTotalPrice = 0, returnVal = 0;
+//
+//        if(customerOrdersIds.size() != 0) {
+//            for (Integer oredrId:customerOrdersIds)
+//            {
+//                currOrder=orderIdToOrder.get(oredrId);
+//                deliveriesInOrdersTotalPrice+=currOrder.getOrderDeliveryPrice();
+//            }
+//            returnVal = deliveriesInOrdersTotalPrice /customerOrdersIds.size();
+//        }
 
-        if(customerOrdersIds.size() != 0) {
-            for (Integer oredrId:customerOrdersIds)
-            {
-                currOrder=orderIdToOrder.get(oredrId);
-                deliveriesInOrdersTotalPrice+=currOrder.getOrderDeliveryPrice();
-            }
-            returnVal = deliveriesInOrdersTotalPrice /customerOrdersIds.size();
-        }
-
-        return returnVal;
+//        return returnVal;
+        return -1;
     }
+
+   ///////////////////////////////////////////////
+
+
+
+
+
 //
 //    public Set<OrderDto> getOrdersDetails ()
 //    {
@@ -959,10 +994,10 @@ public class Region implements RegionInterface {
 //        return currStore.getSalesInOrderDetails(itemIdToItemAmount);
 //    }
 
-        public Map<String,Map<SaleDto,Integer>> getSalesInOrder(Map<Integer, Map<Integer, Double>> orderMinimalPriceBag)
+        public Map<Integer, Map<SaleDto, Integer>> getSalesInOrder(Map<Integer, Map<Integer, Double>> orderMinimalPriceBag)
         {
             Store currStore;
-            Map<String,Map<SaleDto,Integer>> storeNameToSaleToAmount=new HashMap<>();
+            Map<Integer,Map<SaleDto,Integer>> storeIDToSaleToAmount=new HashMap<>();
             Map<SaleDto,Integer> currStoreSaleToAmount=new HashMap<>();
 
             for (Integer currStoreId:orderMinimalPriceBag.keySet())
@@ -971,11 +1006,11 @@ public class Region implements RegionInterface {
                 currStoreSaleToAmount=currStore.getSalesInOrderDetails(orderMinimalPriceBag.get(currStoreId));
                 if(currStoreSaleToAmount.size()!=0)
                 {
-                    storeNameToSaleToAmount.put(currStore.getName(),currStoreSaleToAmount);
+                    storeIDToSaleToAmount.put(currStoreId,currStoreSaleToAmount);
                 }
             }
 
-            return storeNameToSaleToAmount;
+            return storeIDToSaleToAmount;
         }
 
 
@@ -1030,7 +1065,7 @@ public class Region implements RegionInterface {
         return null;
     }
 
-public Set<ItemInStoreOrderDto> getWantedItemsInStoreDetails(int storeId,Map<Integer, Double> itemsToOrderRegular,Map<OfferDto,Integer> itemsToOrderFromSale)
+public Set<ItemInStoreOrderDto> getWantedItemsInStoreOrderDetails(int storeId, Map<Integer, Double> itemsToOrderRegular, Map<OfferDto,Integer> itemsToOrderFromSale)
 {
     Set<ItemInStoreOrderDto> wantedItemsDetails=new HashSet<>();
     setRegularItemsToOrderDetails(storeId,itemsToOrderRegular,wantedItemsDetails);
@@ -1055,8 +1090,8 @@ public Set<ItemInStoreOrderDto> getWantedItemsInStoreDetails(int storeId,Map<Int
                 itemPriceInStore,
                 itemAmountToOrder*itemPriceInStore,
                 false,
-                storeIdToStore.get(storeId).getName()
-        );
+                storeIdToStore.get(storeId).getName(),
+                storeId);
         wantedItemsDetails.add(currItemToOrderRegular);
     }
 }
@@ -1081,29 +1116,30 @@ public Set<ItemInStoreOrderDto> getWantedItemsInStoreDetails(int storeId,Map<Int
                         currOffer.getForAdditional(),
                         itemQuantity*currOffer.getForAdditional(),
                         true,
-                        storeIdToStore.get(storeId).getName());
+                        storeIdToStore.get(storeId).getName(),
+                        storeId);
                 wantedItemsDetails.add(currItemToOrderFromSale);
             }
         }
     }
 
-    @Override
-    public double getStoreDistanceFromCustomer(int storeId, int customerId) {
-//        Store currStore=storeIdToStore.get(storeId);
-//        Customer customer=customerIdToCustomer.get(customerId);
-//        Coordinate customerLocation=customer.getLocation();
-//
-//        return currStore.getDistanceFromGivenLocation(customerLocation);
-        return -1;
-    }
+//    @Override
+//    public double getStoreDistanceFromCustomer(int storeId, int customerId) {
+////        Store currStore=storeIdToStore.get(storeId);
+////        Customer customer=customerIdToCustomer.get(customerId);
+////        Coordinate customerLocation=customer.getLocation();
+////
+////        return currStore.getDistanceFromGivenLocation(customerLocation);
+//        return -1;
+//    }
 
-    public double getStoreDeliveryCostToCustomer(int storeId , int customerId)
-    {
-//        Store currStore=storeIdToStore.get(storeId);
-//        Customer customer=customerIdToCustomer.get(customerId);
-//        return currStore.getDeliveryPrice(customer.getLocation());
-        return -1;
-    }
+//    public double getStoreDeliveryCostToCustomer(int storeId , int customerId)
+//    {
+////        Store currStore=storeIdToStore.get(storeId);
+////        Customer customer=customerIdToCustomer.get(customerId);
+////        return currStore.getDeliveryPrice(customer.getLocation());
+//        return -1;
+//    }
 
 
 
@@ -1249,38 +1285,103 @@ public Set<ItemInStoreOrderDto> getWantedItemsInStoreDetails(int storeId,Map<Int
         return ++lastId;
     }
 
-    public OrderSummaryDto getOrderSummaryData(OrderInputToSaveInSessionDto orderData)
+
+    public String getStoreOwnerName(int storeId) {
+        Store currStore = storeIdToStore.get(storeId);
+        return currStore.getStoreOwner().getName();
+    }
+
+
+    public OrderSummaryDto getOrderSummaryData(OrderInputToSaveInSessionDto orderInput)
     {
-        Set<OrderSummaryDto> orderSummary = new HashSet<>();
-        Map<Integer, Map<Integer, Double>> orderMinimalPriceBag = orderData.getOrderMinimalPriceBag();
+        double itemsTotalPrice=0;
+        double deliveriesFromStoresInOrderTotalPrice=0;
+        double orderTotalPrice;
 
-        for (Integer storeId : orderMinimalPriceBag.keySet())
+        Coordinate orderLocation=new Coordinate(orderInput.getxCoordinate(),orderInput.getyCoordinate());
+
+        Date orderDate=orderInput.getDate();
+        String pattern = "dd/MM/yyyy";
+        DateFormat df = new SimpleDateFormat(pattern);
+        String dateStr = df.format(orderDate);
+
+        /* stores in order summary details */
+        Map<Integer, Map<Integer, Double>> orderMinimalPriceBag = orderInput.getOrderMinimalPriceBag();
+        Map<Integer, Map<OfferDto, Integer>> storeIdToUsedOfferDtoToUsedAmount=orderInput.getStoreIdToUsedOfferDtoToUsedAmount();
+
+        Set<OneStoreInOrderSummaryDto> storesInOrderSummaryData = new HashSet<>();
+
+        Set<ItemInStoreOrderDto> currStoreOrderedItems;
+        for (Integer currStoreId : orderMinimalPriceBag.keySet())
         {
-            Store currStore = storeIdToStore.get(storeId);
-            Map<Integer, Double> currStoreOrderItems = (Map<Integer, Double>) orderMinimalPriceBag.values();
+            // items in store details
+            currStoreOrderedItems=getWantedItemsInStoreOrderDetails(currStoreId ,
+                    orderMinimalPriceBag.get(currStoreId),
+                    storeIdToUsedOfferDtoToUsedAmount.get(currStoreId));
 
-            Set<ItemInStoreOrderDto> itemInStoreOrderDtoSet = new HashSet<>();
-            for(Integer itemId : currStoreOrderItems.keySet())
-            {
-                Item currItem = itemIdToItems.get(itemId);
+            Store currStore = storeIdToStore.get(currStoreId);
+            double currStoreDeliveryPrice=currStore.getDeliveryPrice(orderLocation);
+            OneStoreInOrderSummaryDto storeInOrderSummaryData = new OneStoreInOrderSummaryDto(
+                    currStoreId, currStore.getName(),
+                    currStore.getDeliveryPpk(),
+                    currStore.getDistanceFromGivenLocation(orderLocation),
+                    currStoreDeliveryPrice,
+                    currStoreOrderedItems);
 
-                ItemInStoreOrderDto newStoreOrderItem = new ItemInStoreOrderDto(
-                        itemId, currItem.getName(), currItem.getPurchaseCategory(),
-                        currStoreOrderItems.get(itemId), currStore.getItemPrice(itemId),
-                        (currStore.getItemPrice(itemId)*currStoreOrderItems.get(itemId)),
-                        currStore.isItemInSale(itemId), currStore.getName());
-
-                itemInStoreOrderDtoSet.add(newStoreOrderItem);
-            }
-
-//TODO: FUNCTION FOR TOTAL PRICE + CHANGE IN CONSTRUCTOR
-            OrderSummaryDto storeOrderSummary = new OrderSummaryDto(
-                    storeId, currStore.getName(), currStore.getDeliveryPpk(),
-                    currStore.getDistanceFromGivenLocation(new Coordinate(orderData.getxCoordinate(),orderData.getyCoordinate())),
-                    2, itemInStoreOrderDtoSet
-            );
+            storesInOrderSummaryData.add(storeInOrderSummaryData);
+            deliveriesFromStoresInOrderTotalPrice+=currStoreDeliveryPrice;
+            itemsTotalPrice+=getWantedItemsPrice(currStoreOrderedItems);
         }
 
-        return null;
+        orderTotalPrice=itemsTotalPrice+deliveriesFromStoresInOrderTotalPrice;
+        return  new OrderSummaryDto(dateStr,orderInput.getxCoordinate(),
+                orderInput.getyCoordinate(),
+                storesInOrderSummaryData,
+                itemsTotalPrice,
+                deliveriesFromStoresInOrderTotalPrice,
+                orderTotalPrice);
+
     }
+
+    private double getWantedItemsPrice(Set<ItemInStoreOrderDto> itemsInStoreDetails)
+    {
+        double itemsPrice=0;
+        for (ItemInStoreOrderDto  currItem:itemsInStoreDetails)
+        {
+            itemsPrice+=currItem.getTotalPrice();
+        }
+        return  itemsPrice;
+    }
+
+
+    public Set<StoreDto> getWantedStoresDetails(Set<Integer> storesIds)
+    {
+        Set<StoreDto> storesDetails=new HashSet<>();
+        StoreDto currStoreDetails;
+        for (Integer currStoreId: storesIds)
+        {
+            currStoreDetails=getStoreDetails(currStoreId);
+            storesDetails.add(currStoreDetails);
+        }
+
+        return  storesDetails;
+    }
+
+    public List<StoreBaseDataDto> getOwnerStoresBaseData(Owner owner)
+    {
+        List<StoreBaseDataDto> ownerStoresBaseData=new ArrayList<>();
+        for (Integer currStoreId:storeIdToStore.keySet())
+        {
+            Store currStore=storeIdToStore.get(currStoreId);
+            if(currStore.getStoreOwner()==owner)
+            {
+                StoreBaseDataDto currStoreBaseData=currStore.getStoreBaseDetails();
+                ownerStoresBaseData.add(currStoreBaseData);
+            }
+
+        }
+        return ownerStoresBaseData;
+    }
+
+
 }
