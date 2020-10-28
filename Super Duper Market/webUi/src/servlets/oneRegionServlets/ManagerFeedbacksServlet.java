@@ -1,10 +1,8 @@
 package servlets.oneRegionServlets;
 
 import DtoObjects.FeedbackDto;
-import DtoObjects.StoreDto;
 import com.google.gson.Gson;
 import logic.SDMLogicInterface;
-import superDuperMarket.RegionInterface;
 import utils.ServletUtils;
 import utils.SessionUtils;
 

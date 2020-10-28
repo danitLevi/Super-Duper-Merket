@@ -5,7 +5,7 @@ import DtoObjects.SaleDto;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import logic.SDMLogicInterface;
-import superDuperMarket.RegionInterface;
+import superDuperMarketRegion.RegionInterface;
 import utils.ServletUtils;
 import utils.SessionUtils;
 

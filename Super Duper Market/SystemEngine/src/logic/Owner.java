@@ -1,9 +1,7 @@
 package logic;
 
 import DtoObjects.FeedbackDto;
-import DtoObjects.ItemInStoreDto;
-import superDuperMarket.Feedback;
-import superDuperMarket.Item;
+import superDuperMarketRegion.Feedback;
 
 import java.util.*;
 

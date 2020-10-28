@@ -4,7 +4,7 @@ import DtoObjects.ItemInStoreDto;
 import com.google.gson.Gson;
 import utils.Constants;
 import logic.SDMLogicInterface;
-import superDuperMarket.RegionInterface;
+import superDuperMarketRegion.RegionInterface;
 import utils.ServletUtils;
 import utils.SessionUtils;
 

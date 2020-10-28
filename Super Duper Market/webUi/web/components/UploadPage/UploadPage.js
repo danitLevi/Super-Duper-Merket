@@ -1,4 +1,4 @@
-const SAVE_ALERT_TO_SHOW_URL =  buildUrlWithContextPath("saveAlertToShowLater");
+// const SAVE_ALERT_TO_SHOW_URL =  buildUrlWithContextPath("saveAlertToShowLater");
 
 $(function() { // onload...do
 
@@ -25,17 +25,16 @@ function handleUploadSubmit() {
             contentType: false, // Set content type to false as jQuery will tell the server its a query string request
             timeout: 4000,
             success: function (resp) {
-                let respJsonObj = $.parseJSON( resp);
 
-                // if (resp === "Regions.html") {
-                if(typeof respJsonObj =='object')
+                if(resp.nextPage)
                 {
-                    window.location.assign(respJsonObj.nextPage);
 
-                    triggerUploadSuccessAlertMsgToShow(respJsonObj.newRegionName);
+                    window.location.assign(resp.nextPage);
+
+                    triggerUploadSuccessAlertMsgToShow(resp.newRegionName);
                 } else {
                     $('#modal').modal({keyboard: true });
-                    $('#modal').find('#msg').text(resp);
+                    $('#modal').find('#msg').text(resp.errorMsg);
                     $('#modal').find('#modalTitle').text("Error");
                 }
             },

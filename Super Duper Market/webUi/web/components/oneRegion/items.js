@@ -1,8 +1,9 @@
 var ITEMS_DATA_URL = buildUrlWithContextPath("items");
+var ITEMS_IN_REGION_INTERVAL;
 
 function triggerItemsAjaxTimeInterval() {
 
-    setInterval(ajaxItemsData, 500);
+    ITEMS_IN_REGION_INTERVAL=setInterval(ajaxItemsData, 500);
 }
 
 function ajaxItemsData() {

@@ -4,18 +4,18 @@ var REGION_PAGE_URL = buildUrlWithContextPath("regionPage");
 var REGIONS_DATA_INTERVAL;
 
 $(function() {
-    // triggerAjaxRegionsData();
-    triggerAjaxTimeInterval();
+    initializeRegionsTableData();
     onBtnClick();
 });
 
-// function triggerAjaxRegionsData() {
-//
-//     setTimeout(ajaxRegionsBaseData, 0);
-// }
-function triggerAjaxTimeInterval() {
+function initializeRegionsTableData() {
+    ajaxRegionsBaseData();
+    triggerAjaxRegionsDataTimeInterval();
+}
 
-    REGIONS_DATA_INTERVAL=setInterval(ajaxRegionsBaseData, 500);
+function triggerAjaxRegionsDataTimeInterval() {
+
+    REGIONS_DATA_INTERVAL=setInterval(ajaxRegionsBaseData, 2000);
 }
 
 function ajaxRegionsBaseData() {
@@ -77,6 +77,7 @@ $("#regionsTableData").on('click','.btnSelect',function(){
     var currentRow=$(this).closest("tr");
     var regionName=currentRow.find("td:eq(1)").text(); // get current row 2nd TD
     // triggerAjaxRegionsDataTimeOut(regionName);
+    stopIntervalsInRegionsPage();
     triggerAjaxRegionPage(regionName);
 })
 }
@@ -97,4 +98,11 @@ function triggerAjaxRegionPage(regionName) {
             console.log("error")
         }
     });
+}
+
+function stopIntervalsInRegionsPage() {
+    clearInterval(REGIONS_DATA_INTERVAL);
+    clearInterval(TRANSACTIONS_DATA_INTERVAL);
+    clearInterval(USERS_DATA_INTERVAL);
+    clearInterval(BALANCE_DATA_INTERVAL);
 }

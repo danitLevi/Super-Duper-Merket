@@ -1,9 +1,8 @@
 package servlets.oneRegionServlets;
 
-import DtoObjects.StoreDto;
 import com.google.gson.Gson;
 import logic.SDMLogicInterface;
-import superDuperMarket.RegionInterface;
+import superDuperMarketRegion.RegionInterface;
 import utils.Constants;
 import utils.ServletUtils;
 import utils.SessionUtils;
@@ -15,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 @WebServlet(name = "servlets.oneRegionServlets.getStoreNameByStoreIdServlet", urlPatterns = {"/getStoreName"})
 

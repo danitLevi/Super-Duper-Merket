@@ -30,15 +30,14 @@ public class HandleAlertsServlet extends HttpServlet {
 
         try (PrintWriter out = response.getWriter()) {
             Gson gson = new Gson();
-            String currUserName = SessionUtils.getUsername(request);
             synchronized (getServletContext()) {
                 alertsManager = ServletUtils.getAlertsManager(getServletContext()); //todo: no need of synchronized ?
             }
             String userName = SessionUtils.getUsername(request);
-            int userVersion = SessionUtils.getVersion(request);
 
-            if(userVersion!=alertsManager.getCurrentVersion())
+            if(alertsManager.isUserHasNewAlerts(userName))
             {
+                int userVersion = SessionUtils.getVersion(request);
                 AlertAndVersionOutput alertAndVersionOutput = alertsManager.getUserAlerts(userName, userVersion);
                 SessionUtils.setVersion(request, alertAndVersionOutput.getVersion());
                 String json = gson.toJson(alertAndVersionOutput.getAlertMsgs());
@@ -55,5 +54,5 @@ public class HandleAlertsServlet extends HttpServlet {
         }
     }
 
-
+//todo : handle version (do alerts infinity )
 }

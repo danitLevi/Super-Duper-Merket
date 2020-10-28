@@ -131,11 +131,10 @@ function handleOrderConfirm() {
         $.ajax({
             url:SAVE_ORDER_URL,
             method:'POST',
-            success:function () {
+            success:function (newOrderId) {
                 // $("#SaveOrderMsg").text(" Order saved successfully!");
                 $("#content").load("FillFeedback.html",initializeFeedbackPage);
-                //todo: alert!!!!
-
+                triggerSaveOrderAlertMsgToShow(newOrderId);
             }
         });
         return false;
@@ -146,5 +145,14 @@ function handleOrderConfirm() {
 function handleOrderCancel() {
     $("#cancelOrder").click(function(){
         $("OrderSummaryContent").empty();
+    });
+}
+
+function triggerSaveOrderAlertMsgToShow(newOrderId) {
+
+    $.ajax({
+        url:SAVE_ALERT_TO_SHOW_URL,
+        method:'POST',
+        data:{alertType:"order",newOrderId:newOrderId}
     });
 }

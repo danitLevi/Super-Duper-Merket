@@ -13,6 +13,10 @@ $(function () {
             success: function (resp) {
                 // todo constants ?
                 if (resp === "Login.html" || resp === "Regions.html" ) {
+                    if(resp === "Regions.html")
+                    {
+                        addUserToAlertManager();
+                    }
                     window.location.assign(resp);
                 } else {
                     $(".error").text(resp);

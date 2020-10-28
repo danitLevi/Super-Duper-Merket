@@ -43,7 +43,12 @@ function initializeItemsTable(itemsJson) {
 function handleAddStoreSubmitting() {
     $("#newStoreForm").submit(function () {
 
+<<<<<<< HEAD
+        var regionName = $("#storeRegion").val();
+        var storeName = $("#storeName").val();
+=======
         var store = $("#storeName").val();
+>>>>>>> a7fbe4f68819b5b028824f5e61c9d391db921203
         var ppk = $("#storePPK").val();
         var xCoordinate = $("#x").val();
         var yCoordinate = $("#y").val();
@@ -52,17 +57,32 @@ function handleAddStoreSubmitting() {
         $.ajax({
             url:ADD_STORE_DATA_URL,
             method:'POST',
+<<<<<<< HEAD
+            data:{itemsToAdd:JSON.stringify(itemsJson.items), region:regionName, storeName:storeName, ppk:ppk, x: xCoordinate, y:yCoordinate},
+            success:function (response) {
+                $("#newStoreMsg").text(response);
+                triggerAddStoreAlertMsgToShow(storeName,xCoordinate,yCoordinate,itemsJson.size);
+=======
             data:{itemsToAdd:JSON.stringify(itemsJson.items), storeName:store, ppk:ppk, x: xCoordinate, y:yCoordinate},
             success:function (response) {
                 $("#newStoreMsg").text(response);
             },
             error: function(response) {
                 $("#newStoreMsg").text(response);
+>>>>>>> a7fbe4f68819b5b028824f5e61c9d391db921203
             }
         });
-
         return false;
     })
+}
+
+function triggerAddStoreAlertMsgToShow(storeName,xCoordinate,yCoordinate,numOfItemsToSell) {
+
+    $.ajax({
+        url:SAVE_ALERT_TO_SHOW_URL,
+        method:'POST',
+        data:{alertType:"newStore",storeName:storeName,xCoordinate:xCoordinate,yCoordinate:yCoordinate,numOfItemsToSell:numOfItemsToSell}
+    });
 }
 
 function getItemsToAddToStoreJson()

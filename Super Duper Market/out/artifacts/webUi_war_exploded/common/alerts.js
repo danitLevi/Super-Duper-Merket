@@ -1,6 +1,7 @@
 const GET_ALERTS_URL = buildUrlWithContextPath("handleAlerts");
 
 const SAVE_ALERT_TO_SHOW_URL =  buildUrlWithContextPath("saveAlertToShowLater");
+const ADD_USER_TO_ALERTS_MANAGER_URL =  buildUrlWithContextPath("addUserToAlertsManager");
 
 $(function() { // onload...do
 
@@ -24,5 +25,11 @@ function ajaxAlerts() {
                 $('#modal').find('#modalTitle').text("Super Duper Market update");
             }
         }
+    });
+}
+
+function addUserToAlertManager() {
+    $.ajax({
+        url: ADD_USER_TO_ALERTS_MANAGER_URL
     });
 }

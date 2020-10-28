@@ -1,11 +1,10 @@
 package servlets.oneRegionServlets.owner.ordersHistory;
 
-import DtoObjects.ItemInSystemDto;
 import DtoObjects.StoreBaseDataDto;
 import com.google.gson.Gson;
 import logic.Owner;
 import logic.SDMLogicInterface;
-import superDuperMarket.RegionInterface;
+import superDuperMarketRegion.RegionInterface;
 import utils.ServletUtils;
 import utils.SessionUtils;
 

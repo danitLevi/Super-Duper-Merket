@@ -5,7 +5,7 @@ import DtoObjects.OrderInputToSaveInSessionDto;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import logic.SDMLogicInterface;
-import superDuperMarket.RegionInterface;
+import superDuperMarketRegion.RegionInterface;
 import utils.Constants;
 import utils.ServletUtils;
 import utils.SessionUtils;

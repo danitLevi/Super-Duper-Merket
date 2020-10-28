@@ -1,5 +1,14 @@
 var USER_LIST_URL = buildUrlWithContextPath("userslist");
+var USERS_DATA_INTERVAL;
 
+$(function() {
+    ajaxUsersList();
+    triggerAjaxUsers();
+});
+
+function triggerAjaxUsers() {
+    USERS_DATA_INTERVAL=setInterval(ajaxUsersList, 1000);
+}
 
 function refreshUsersList(users) {
     //clear all current users
@@ -18,22 +27,10 @@ function ajaxUsersList() {
         url: USER_LIST_URL,
         success: function(users) {
             refreshUsersList(users);
-            triggerAjaxUsers();
         }
     });
 }
 
-$(function() {
-    triggerAjaxUsers();
-});
-
-// function triggerAjaxUserList() {
-//     setTimeout(refreshUsersList, refreshRate);
-// }
-
-function triggerAjaxUsers() {
-    setTimeout(ajaxUsersList, 1000);
-}
 
 
 

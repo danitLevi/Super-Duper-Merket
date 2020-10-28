@@ -20,9 +20,14 @@ function ajaxSetChargeVisibility() {
             {
                 $("#accountForm").hide();
             }
-            triggerShowBalanceInterval();
+            initializeBalanceData();
         }
     });
+}
+
+function initializeBalanceData() {
+    showBalance();
+    triggerShowBalanceInterval();
 }
 
 function handleChargeSubmitting() {
@@ -40,6 +45,8 @@ function handleChargeSubmitting() {
         return false;
     })
 }
+
+
 
 function triggerShowBalanceInterval() {
     BALANCE_DATA_INTERVAL=setInterval(showBalance, 1000);

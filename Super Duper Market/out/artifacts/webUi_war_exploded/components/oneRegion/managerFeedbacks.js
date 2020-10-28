@@ -1,7 +1,8 @@
 var FEEDBACKS_DATA_URL = buildUrlWithContextPath("feedbacks");
+var OWNER_FEEDBACKS_DATA_INTERVAL;
 
 function triggerFeedbacksAjaxTimeInterval() {
-    setInterval(ajaxFeedbacksData, 500);
+    OWNER_FEEDBACKS_DATA_INTERVAL=setInterval(ajaxFeedbacksData, 500);
 }
 
 function ajaxFeedbacksData() {

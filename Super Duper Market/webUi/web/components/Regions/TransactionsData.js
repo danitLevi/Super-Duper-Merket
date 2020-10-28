@@ -4,13 +4,13 @@ var TRANSACTIONS_DATA_INTERVAL;
 
 
 $(function() {
+    ajaxTransactionsData();
     triggerTransactionsAjaxTimeInterval();
 });
 
 
 function triggerTransactionsAjaxTimeInterval() {
-
-    TRANSACTIONS_DATA_INTERVAL=setInterval(ajaxTransactionsData, 500);
+    TRANSACTIONS_DATA_INTERVAL=setInterval(ajaxTransactionsData, 1000);
 }
 
 function ajaxTransactionsData() {

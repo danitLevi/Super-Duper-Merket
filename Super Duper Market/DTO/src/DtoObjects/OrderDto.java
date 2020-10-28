@@ -26,23 +26,31 @@ import java.util.*;
 
 public class OrderDto {
 
-    private final String strDate;//
+    private final String strDate;
     private final double itemsTotalAmount;//
     private final double itemsTotalPrice;//
     private final double deliveryTotalPrice;//
-    private final double orderTotalPrice;//
+    private final double orderTotalPrice;
     private int orderId; //
 //    private final int amountOfItemsTypes; //TODO: DEL
-    private final Map<Integer,StoreOrderDto> storeIdToStoreOrder;
-    private final List<ItemInStoreOrderDto> itemsInOrder;//
-    private final int numOfStores;//
-    private final int xCoordinate;//
-    private final int yCoordinate;//
+    private final Map<Integer,StoreOrderDto> storeIdToStoreOrderDetails;
+    private final List<ItemInStoreOrderDto> itemsInOrder;
+    private final int numOfStores;
+    private final int xCoordinate;
+    private final int yCoordinate;
+    private final String customerName; // for alert
 
-    public OrderDto(Date date, double itemsTotalAmount, double itemsTotalPrice, double deliveryTotalPrice,
-                    double orderTotalPrice, int orderId, int amountOfItemsTypes,
-                    Map<Integer, StoreOrderDto> storeIdToStoreOrder,
-                    int xCoordinate, int yCoordinate) {
+    public OrderDto(Date date,
+                    double itemsTotalAmount,
+                    double itemsTotalPrice,
+                    double deliveryTotalPrice,
+                    double orderTotalPrice,
+                    int orderId,
+                    int amountOfItemsTypes,
+                    Map<Integer, StoreOrderDto> storeIdToStoreOrderDetails,
+                    int xCoordinate,
+                    int yCoordinate,
+                    String customerName) {
 
         String pattern = "dd/MM/yyyy";
         DateFormat df = new SimpleDateFormat(pattern);
@@ -54,11 +62,13 @@ public class OrderDto {
         this.orderTotalPrice = orderTotalPrice;
         this.orderId = orderId;
 //        this.amountOfItemsTypes = amountOfItemsTypes;
-        this.storeIdToStoreOrder = storeIdToStoreOrder;
+        this.storeIdToStoreOrderDetails = storeIdToStoreOrderDetails;
         this.itemsInOrder = getItemsInStoreOrderDetails();
-        this.numOfStores = storeIdToStoreOrder.size();
+        this.numOfStores = storeIdToStoreOrderDetails.size();
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
+
+        this.customerName=customerName;
     }
 
     public List<ItemInStoreOrderDto> getItemsInOrder() { return itemsInOrder; }
@@ -67,7 +77,7 @@ public class OrderDto {
     {
         List<ItemInStoreOrderDto> itemsInOrder = new ArrayList<>();
 
-        for (StoreOrderDto currStoreOrder : storeIdToStoreOrder.values())
+        for (StoreOrderDto currStoreOrder : storeIdToStoreOrderDetails.values())
         {
             Set<ItemInStoreOrderDto> ItemInStoreOrderDtoSet = currStoreOrder.itemsInStoreOrderDetails;
             for (ItemInStoreOrderDto currItemInStoreOrderDto : ItemInStoreOrderDtoSet)
@@ -112,7 +122,11 @@ public class OrderDto {
 //        return amountOfItemsTypes;
 //    }
 
-    public Map<Integer, StoreOrderDto> getStoreIdToStoreOrder() {
-        return storeIdToStoreOrder;
+    public Map<Integer, StoreOrderDto> getStoreIdToStoreOrderDetails() {
+        return storeIdToStoreOrderDetails;
+    }
+
+    public String getCustomerName() {
+        return customerName;
     }
 }

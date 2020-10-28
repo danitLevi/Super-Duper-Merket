@@ -1,10 +1,9 @@
 package servlets.oneRegionServlets;
 
-import DtoObjects.ItemInSystemDto;
 import DtoObjects.StoreDto;
 import com.google.gson.Gson;
 import logic.SDMLogicInterface;
-import superDuperMarket.RegionInterface;
+import superDuperMarketRegion.RegionInterface;
 import utils.ServletUtils;
 import utils.SessionUtils;
 
