@@ -175,15 +175,15 @@ public class SDMLogic implements SDMLogicInterface {
         return  usersDetails;
     }
 
-    public String importDataFromXmlFile(InputStream inputStream , String ownerName) throws InvalidFileExtension, FileNotFoundException, JAXBException, ItemNotFoundInStoresException, ValueOutOfRangeException, StoreItemNotFoundInSystemException, ItemAlreadyExistInStoreException, DoubleObjectIdInSystemException, DoubleObjectInCoordinateException, ItemInSaleNotFoundInStoreException, RegionAlreadyExistException {
+    public String importDataFromXmlFile(InputStream inputStream , String ownerName, String fileName) throws InvalidFileExtension, FileNotFoundException, JAXBException, ItemNotFoundInStoresException, ValueOutOfRangeException, StoreItemNotFoundInSystemException, ItemAlreadyExistInStoreException, DoubleObjectIdInSystemException, DoubleObjectInCoordinateException, ItemInSaleNotFoundInStoreException, RegionAlreadyExistException {
 
 
         Region newRegion = null;
         Owner owner=getOwner(ownerName);
-//        if (!getFileExtension(filePath).equals("xml"))
-//        {
-//            throw new InvalidFileExtension("xml");
-//        }
+        if (!getFileExtension(fileName).equals("xml"))
+        {
+            throw new InvalidFileExtension("xml");
+        }
 //
 //        File xmlFile = new File(filePath);
 //        if(!xmlFile.exists())
@@ -221,15 +221,15 @@ public class SDMLogic implements SDMLogicInterface {
         return false;
     }
 
-//    private static String getFileExtension(String filePath)
-//    {
-//
-//        int lastIndexOf = filePath.lastIndexOf('.');
-//        if (lastIndexOf == -1) {
-//            return "";  // Empty extension
-//        }
-//        return filePath.substring(lastIndexOf+1).toLowerCase();
-//    }
+    private static String getFileExtension(String filePath)
+    {
+
+        int lastIndexOf = filePath.lastIndexOf('.');
+        if (lastIndexOf == -1) {
+            return "";  // Empty extension
+        }
+        return filePath.substring(lastIndexOf+1).toLowerCase();
+    }
 
     public Owner getOwner(String ownerName)
     {

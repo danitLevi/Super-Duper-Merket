@@ -1,8 +1,20 @@
-body,h1,h2, b {font-family: "Raleway", sans-serif}
+body,h1,h2,h3,h4,h5,th,tr,span,a,b {font-family: "Raleway", sans-serif}
 
 body, html {height: 100%}
 
-h1, h2, form {
+h1, h2, form, form-control {
     top: 50%;
     text-align: center;
+}
+
+.bg {
+    /* The image used */
+    background-image: url("../resources/bg1.jpg");
+    /* Full height */
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }

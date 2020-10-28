@@ -16,8 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.lang.reflect.Array;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,12 +50,13 @@ public class UploadFileServlet extends HttpServlet {
 
         }
         Part part = request.getPart("dataFile");
+        String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
 
         //todo: synchronize
 
 
             try {
-                String newRegionName=sdmLogic.importDataFromXmlFile(part.getInputStream(),usernameFromSession);
+                String newRegionName=sdmLogic.importDataFromXmlFile(part.getInputStream(),usernameFromSession, fileName);
                 mapToReturn.put("nextPage",Constants.REGIONS_PAGE);
                 mapToReturn.put("newRegionName",newRegionName);
 //                String mapToReturnJson=gson.toJson(mapToReturn);

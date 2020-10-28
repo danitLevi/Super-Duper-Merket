@@ -6,25 +6,29 @@ var OWNER_STORES_URL =  buildUrlWithContextPath("getOwnerStoresInRegion");
 // function on page load
 // Show orders data according to selected store
 function initializeOrdersHistoryForOwner(){
+<<<<<<< HEAD
     ajaxOwnerStoresOptionsData();
+=======
+   // triggerOwnerStoresAjaxTimeInterval();
+>>>>>>> a7fbe4f68819b5b028824f5e61c9d391db921203
     handleOwnerStoreChange();
-
+    ajaxOwnerStoresOptionsData();
     // todo: check if ok and pick in other js (and remove duplicate in customer orders history)
-    handleCollapsingBtnClick2();
+   // handleCollapsingBtnClick2();
 }
 
-function handleCollapsingBtnClick2() {
-    $('.expand-button').on("click",function () {
-        console.log("ok");
-        if ($(this).text() == 'Show more information') {
-            $(this).text('Hide more information');
-        } else {
-            $(this).text('Show more information');
-        }
-    });
-
-
-}
+// function handleCollapsingBtnClick2() {
+//     $('.expand-button').on("click",function () {
+//         console.log("ok");
+//         if ($(this).text() == 'Show more information') {
+//             $(this).text('Hide more information');
+//         } else {
+//             $(this).text('Show more information');
+//         }
+//     });
+//
+//
+// }
 
 // function triggerOwnerStoresAjaxTimeInterval() {
 //     OWNER_STORES_ORDERS_HISTORY_DATA_INTERVAL=setInterval(ajaxOwnerStoresOptionsData, 1000);
@@ -51,20 +55,9 @@ function ajaxOwnerStoresOptionsData() {
 
 function initializeOwnerStoresOptions(storesJson) {
 
-    if( $("#ownerStores")[0].children.length>1)
-    {
-        var currSelectedStore=$("#ownerStores").val();
-        $("#ownerStores").empty();
-    }
-
-
-    $('<option value="" disabled>Select store</option>').appendTo($("#ownerStores"));
-
     $.each(storesJson || [], function(index, store) {
         $("<option value='"+store.id+"'>"+store.name + "(id=" + store.id+")</option>").appendTo($("#ownerStores"));
     });
-    $("#ownerStores").val(currSelectedStore);
-
 }
 
 function handleOwnerStoreChange() {
@@ -98,6 +91,7 @@ function replaceNoOrders() {
     // check if element noOrders exist
     if($("#noOrders").length)
     {
+        $("#itemsTblOwner").show();
         $("#noOrders").remove();
         $('            <div class="table-responsive">\n' +
             '                <table class="table table-striped table-sm table-hover col-sm-auto ">\n' +
@@ -136,7 +130,7 @@ function setOwnerStoreOrdersData(ordersJson) {
             '                    <td id="itemsAmount">'+myFormatter.format(oneOrderDetails.itemsTotalAmount)+'</td>\n' +
             '                    <td id="itemsCost">'+myFormatter.format(oneOrderDetails.itemsTotalPrice)+' ₪</td>\n' +
             '                    <td id="deliveryCost">'+myFormatter.format(oneOrderDetails.deliveryTotalPrice)+' ₪</td>\n' +
-            '                    <td id="moreDetails"><button class="expand-button btn btn-outline-dark btn-rounded" type="button" data-toggle="collapse" data-target="#collapse'+index+'" >Show more information</button>\n' +
+            '                    <td id="moreDetails"><button class="expand-button btn btn-outline-dark btn-rounded" type="button" data-toggle="collapse" data-target="#collapse'+index+'" >More information</button>\n' +
             '                    </td>\n' +
             '                </tr>\n' +
             '                \n' +

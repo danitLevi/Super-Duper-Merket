@@ -3,29 +3,29 @@ var CUSTOMER_ORDERS_DATA_URL = buildUrlWithContextPath("customerOrders");
 
 function handleCustomerOrdersHistoryWindow() {
     ajaxCustomerOrdersData() ;
-    handleCollapsingBtnClick();
+    //handleCollapsingBtnClick();
 }
 
-function handleCollapsingBtnClick() {
-    $('.expand-button').on("click",function () {
-            if ($(this).text() == 'Show more information') {
-                $(this).text('Hide more information');
-            } else {
-                $(this).text('Show more information');
-            }
-        });
-}
+// function handleCollapsingBtnClick() {
+//     $('.expand-button').on("click",function () {
+//             if ($(this).text() == 'Show more information') {
+//                 $(this).text('Hide more information');
+//             } else {
+//                 $(this).text('Show more information');
+//             }
+//         });
+// }
 
 
 function ajaxCustomerOrdersData() {
     $.ajax({
         url: CUSTOMER_ORDERS_DATA_URL,
-        async:false,
+        //async:false,
         success: function(ordersJson) {
             if(ordersJson.length === 0)
             {
                 $("#ordersHistoryForCustomerPage").empty();
-                $("<h3>No orders</h3>").appendTo($("#ordersHistoryForCustomerPage"));
+                $("<h2>No orders</h2>").appendTo($("#ordersHistoryForCustomerPage"));
             }
             else {
                 setCustomerOrdersData(ordersJson);
@@ -46,7 +46,7 @@ function setCustomerOrdersData(ordersJson) {
             '                    <td id="itemsCost">'+myFormatter.format(oneOrderDetails.itemsTotalPrice)+' ₪</td>\n' +
             '                    <td id="deliveryCost">'+myFormatter.format(oneOrderDetails.deliveryTotalPrice)+' ₪</td>\n' +
             '                    <td id="orderTotalPrice">'+myFormatter.format(oneOrderDetails.orderTotalPrice)+' ₪</td>\n' +
-            '                    <td id="moreDetails"><button class="expand-button btn btn-outline-dark btn-rounded" type="button" data-toggle="collapse" data-target="#collapse'+index+'" >Show more information</button>\n' +
+            '                    <td id="moreDetails"><button class="expand-button btn btn-outline-dark btn-rounded" type="button" data-toggle="collapse" data-target="#collapse'+index+'" >More information</button>\n' +
             '                    </td>\n' +
             '                </tr>\n' +
             '                \n' +

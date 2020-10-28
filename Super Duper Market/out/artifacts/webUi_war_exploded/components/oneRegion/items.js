@@ -30,7 +30,7 @@ function refreshItemsTable(itemsJson,isStatic) {
             "<td>"+itemData.name+"</td>"+
             "<td>"+itemData.purchaseCategory+"</td>"+
             "<td>"+itemData.numOfSellers+"</td>"+
-            "<td>"+itemData.avgPrice+"</td>"+
+            "<td>"+myFormatter.format(itemData.avgPrice)+"₪"+"</td>"+
             "<td>"+itemData.numOfPurchases+"</td>"+
             "</tr>").appendTo($("#itemsTableData"));
     });

@@ -39,12 +39,12 @@ function setStoresInOrderData(storesInOrderSummaryDataJson)
     // $("#storesInOrderCards").empty();
 
     $.each(storesInOrderSummaryDataJson || [], function (index, storeInOrderData) {
-        $('<div class="card shadow p-3  m-4 bg-white rounded" id="oneStoreCard'+index+'">'+
+        $('<div class="card shadow p-3 m-4 bg-white rounded" id="oneStoreCard'+index+'">'+
             <!--        <img class="card-img-top user-image" alt="User image" src="common/images/cards/request_icon.svg">-->
             '<div class="card-body">'+
-            '<h4 class="card-title border-bottom border-gray pb-2 mb-0">Order from '+storeInOrderData.storeName+':</h4>'+
+            '<h3 class="card-title border-bottom border-gray ">Order from '+storeInOrderData.storeName+':</h3>'+
             <!--store order data-->
-            '<div class="row">'+
+            '<div class="flex-row">'+
             '<b class="font-weight-bold">Store Id: </b>'+
             '<span  class="col-1" id="id">'+storeInOrderData.storeId+'</span>'+
             //
@@ -53,22 +53,23 @@ function setStoresInOrderData(storesInOrderSummaryDataJson)
             '</div>'+
             '<br>'+
 
-            '<div class="row">'+
+            '<div class="flex-row">'+
                 '<b class="font-weight-bold">Price per km: </b>'+
-                '<span  class="col-3" id="ppk">'+storeInOrderData.ppk+' ₪</span>'+
+                '<span  class="col-2" id="ppk">'+storeInOrderData.ppk+' ₪</span>'+
 
                 '<b class="font-weight-bold">Distance: </b>'+
-                '<span  class="col-3" id="distance">'+myFormatter.format(storeInOrderData.distance)+' KM</span>'+
+                '<span  class="col-2" id="distance">'+myFormatter.format(storeInOrderData.distance)+' KM</span>'+
 
                 '<b class="font-weight-bold">Delivery price: </b>'+
-                '<span  class="col-3" id="deliveryPrive">'+ myFormatter.format(storeInOrderData.deliveryPrice)+'₪</span>'+
+                '<span  class="col-2" id="deliveryPrive">'+ myFormatter.format(storeInOrderData.deliveryPrice)+'₪</span>'+
 
             '</div>'+
-            '<br>'+
-            +'<div>'
+            '<br/>'+
+            '<div>'
                 +'<h5 class="m-2">Ordered items:</h5>'+
 
                 <!--items in store data-->
+            '<div class="table-responsive" >'+
                 '<table class="orderedItemsTable table table-striped table-sm table-hover col-sm-auto" >'+
                 '<thead>'+
                 '<tr>'+
@@ -87,7 +88,8 @@ function setStoresInOrderData(storesInOrderSummaryDataJson)
 
                 '</tbody>'+
                 '</table>'+
-            +'</div>'+
+            '</div>'+
+            '</div>'+
             '<br>').appendTo($("#storesInOrderCards"));
     });
 }

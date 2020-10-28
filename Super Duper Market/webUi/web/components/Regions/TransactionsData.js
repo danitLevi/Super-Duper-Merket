@@ -33,9 +33,9 @@ function refreshTransactionsTable(TransactionsJson) {
         $("<tr><td>" +
             transactionData.type  +"</td>" +
             "<td>"+transactionData.date+"</td>"+
-            "<td>"+transactionData.transactionAmount+"</td>"+
-            "<td>"+transactionData.balanceBefore+"</td>"+
-            "<td>"+transactionData.balanceAfter+"</td>"+
+            "<td>"+myFormatter.format(transactionData.transactionAmount)+"₪"+"</td>"+
+            "<td>"+myFormatter.format(transactionData.balanceBefore)+"₪"+"</td>"+
+            "<td>"+myFormatter.format(transactionData.balanceAfter)+"₪"+"</td>"+
             "</tr>").appendTo($("#transactionsTableData"));
     });
 }

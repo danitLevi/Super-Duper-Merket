@@ -32,14 +32,14 @@ function setStoresInRegionCards(storesJson)
             '<h3 class="card-title " id="storeName">'+storeData.name+'</h3>'+
 
             <!--store data-->
-            '<div class="row">'+
+            '<div class="flex-row">'+
             '<b class="font-weight-bold">Id: </b>'+
             '<span  class="col-1" id="id">'+storeData.id+'</span>'+
 
             '<b class="font-weight-bold">Owner: </b>'+
             '<span  class="col-1" id="Owner">'+storeData.owner+'</span>'+
 
-            '<b class="font-weight-bold">Coordinate: </b>'+
+            '<b class="font-weight-bold">Location: </b>'+
             '<span  class="col-1" id="coordinate">('+ storeData.xCoordinate + ',' + storeData.yCoordinate+')</span>'+
 
             '</div>'+
@@ -60,11 +60,11 @@ function setStoresInRegionCards(storesJson)
             '</table>'+
             '<br>'+
 
-            '<div class="row">'+
+            '<div class="flex-row">'+
             '<b class="font-weight-bold">Orders amount: </b>'+
             '<span  class="col-1" id="orderAmount">'+storeData.ordersAmount+'</span>'+
             '<b class="font-weight-bold">Purchased items cost: </b>'+
-            '<span  class="col-1" id="itemsProfit">'+storeData.paymentForItems+'</span>'+
+            '<span  class="col-1" id="itemsProfit">'+myFormatter.format(storeData.paymentForItems)+'₪'+'</span>'+
 
             '<b class="font-weight-bold">Price per km: </b>'+
             '<span  class="col-1" id="ppk">'+storeData.deliveryPpk+'</span>'+
@@ -93,7 +93,7 @@ function setStoreItemsTable(storesJson) {
             $("<tr><td>" + item.id  +"</td>" +
                 "<td>"+ item.name+"</td>"+
                 "<td>"+item.purchaseCategory+"</td>"+
-                "<td>"+item.price+"</td>"+
+                "<td>"+myFormatter.format(item.price)+"₪"+"</td>"+
                 "<td>"+item.amountOfpurchasesInStore+"</td>"+
                 "</tr>").appendTo(contentElement);
         });

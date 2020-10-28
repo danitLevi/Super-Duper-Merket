@@ -35,7 +35,7 @@ function setSalesData(StoreIdToStoreSaleToAmountJson) {
             var storeName=getStoreNameAjax(storeId) ;
 
             $('<div class="container storeContainer" id="store'+storeId+'" >\n' +
-                '        <h1 class="store border-bottom border-gray pb-2 mb-0" >'+storeName+'</h1>\n' +
+                '        <h3 class="store border-bottom border-gray pb-2 mb-0" >'+storeName+'</h3>\n' +
                 // '        <div class="h-divider">\n' +
                 // '            <div class="shadow"></div>\n' +
                 // '        </div>\n' +
@@ -51,7 +51,8 @@ function setSalesData(StoreIdToStoreSaleToAmountJson) {
                 let itemToBuyDetails=getItemDetails(saleDetails.itemIdToBuy);
                 let p=itemToBuyDetails.purchaseCategory;
                 $('        <div class="card w-25 m-3 shadow-sm rounded" id="card'+index+'">\n' +
-                    '                <img class="card-img-top" src="common/resources/saleSmall.jpg" alt="sale">\n' +
+                    // '                <img class="card-img-top" src="common/resources/saleSmall.PNG" alt="sale">\n' +
+                                    '<div class="card-header bg-danger h-30 text-white font-weight-bold" style="font-size: 20px">SALE</div>\n' +
                     '                <div class="card-body">\n' +
                     '<form id="saleForm">'+
                     '                <h4 class="card-title">'+saleDetails.name+'</h4>\n' +
@@ -214,7 +215,7 @@ function handleApprovalAmount(currCard) {
 
 function showNoSales() {
     $(
-        '<h1>No sales</h1>\n'
+        '<h2>No sales</h2>\n'
     ).appendTo($("#salesData"));
 }
 

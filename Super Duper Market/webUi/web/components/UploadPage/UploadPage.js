@@ -12,6 +12,7 @@ function handleUploadSubmit() {
 
     $("#uploadForm").submit(function () {
         var file = this[0].files[0];
+        var fileName = file.name;
         var formData = new FormData();
         formData.append("dataFile", file);
         //ajaxPostFile(formData);

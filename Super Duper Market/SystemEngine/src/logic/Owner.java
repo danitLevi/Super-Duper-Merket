@@ -25,7 +25,8 @@ public class Owner extends User {
             feedbacksDetails.add(new FeedbackDto(currFeedback.getName(),
                                                     currFeedback.getDate(),
                                                     currFeedback.getRate(),
-                                                    currFeedback.getFeedbackText()));
+                                                    currFeedback.getFeedbackText(),
+                                                    currFeedback.getStoreName()));
         }
         return feedbacksDetails;
     }
