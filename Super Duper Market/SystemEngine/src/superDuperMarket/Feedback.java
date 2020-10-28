@@ -61,4 +61,8 @@ public class Feedback {
     public void setFeedbackText(String feedbackText) {
         this.feedbackText = feedbackText;
     }
+
+    public void setStoreName(String storeName) { this.storeName = storeName; }
+
+    public String getStoreName() { return storeName; }
 }

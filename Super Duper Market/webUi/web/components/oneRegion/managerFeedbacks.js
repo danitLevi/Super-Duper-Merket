@@ -30,7 +30,8 @@ function setManagerFeedbackCards(feedbacksJson)
         $('<div class="card shadow p-3 m-2 bg-white rounded" id="oneFeedbackCard" style="width: 23rem">'+
             <!--        <img class="card-img-top user-image" alt="User image" src="common/images/cards/request_icon.svg">-->
             '<div class="card-body">'+
-            '<h3 class="card-title " id="feedbacker">'+feedback.name+'</h3>'+
+            '<h4 class="card-title font-weight-bold" id="storeName">Store: '+feedback.storeName+'</h4>'+
+            '<h4 class="card-title" style="text-decoration: underline" id="feedbacker">Customer: '+feedback.name+'</h4>'+
 
             <!--feedback data-->
             '<b class="font-weight-bold">Date: </b>'+

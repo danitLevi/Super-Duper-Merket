@@ -1,57 +1,21 @@
 var ADD_STORE_DATA_URL = buildUrlWithContextPath("addStore");
 var ITEMS_IN_REGION_URL = buildUrlWithContextPath("itemByRegion");
-var REGIONS_IN_SYSTEM_URL = buildUrlWithContextPath("getAllRegionsNames");
+var VALIDATE_ORDER_LOCATION_URL = buildUrlWithContextPath("validateOrderLocation");
 
 // onload...do
-// Show items data according to selected region
 function initializeItemsPerRegion(){
-    handleRegionChange();
     handleAddStoreSubmitting();
+    handleNewStoreLocationValidation();
 }
 
 function addNewStore() {
-    //Initialize Region & items to sell table
-    ajaxRegionsOptionsData();
-    //initItemRegionstable();
+    //Initialize items to sell table
+    ajaxItemsPerRegionTableData();
 }
 
-function ajaxRegionsOptionsData() {
-    $.ajax({
-        url: REGIONS_IN_SYSTEM_URL,
-        success: function(regionsJson) {
-            //Initialize region options
-            initializeRegionsOptions(regionsJson);
-            //Initialize table data according to current option
-            var region = $("#storeRegion").val(); //Get selected region
-            ajaxItemsPerRegionTableData(region); //Show data accordingly
-        }
-    });
-}
-
-function initializeRegionsOptions(regionsJson) {
-    $("#storeRegion").empty();
-
-    $.each(regionsJson || [], function(index, region) {
-        $("<option>"+region+"</option>").appendTo($("#storeRegion"));
-    });
-}
-
-function handleRegionChange(){
-    $("#storeRegion").on('change',function () {
-        var region = $("#storeRegion").val(); //Get selected region
-        ajaxItemsPerRegionTableData(region); //Show data accordingly
-    })
-}
-
-// function initItemRegionstable() {
-//     var region = $("#storeRegion").val(); //Get selected region
-//     ajaxItemsPerRegionTableData(region);
-// }
-
-function ajaxItemsPerRegionTableData(region) {
+function ajaxItemsPerRegionTableData() {
     $.ajax({
         url: ITEMS_IN_REGION_URL,
-        data: {region: region},
         success: function(itemsJson) {
             //Initialize items table
             initializeItemsTable(itemsJson);
@@ -72,12 +36,13 @@ function initializeItemsTable(itemsJson) {
             '<td> <input type="number" id="'+itemData.id+' " min="0" step="0.01" placeholder="Set Price" class="form-control itemToAddPrice col-4"> </td>'+
         '</tr>').appendTo($("#itemsToSellTableData"));
     });
+
+    notifyIfNewStoreItemsToOrderEmpty();
 }
 
 function handleAddStoreSubmitting() {
     $("#newStoreForm").submit(function () {
 
-        var regionName = $("#storeRegion").val();
         var store = $("#storeName").val();
         var ppk = $("#storePPK").val();
         var xCoordinate = $("#x").val();
@@ -87,8 +52,11 @@ function handleAddStoreSubmitting() {
         $.ajax({
             url:ADD_STORE_DATA_URL,
             method:'POST',
-            data:{itemsToAdd:JSON.stringify(itemsJson.items), region:regionName, storeName:store, ppk:ppk, x: xCoordinate, y:yCoordinate},
+            data:{itemsToAdd:JSON.stringify(itemsJson.items), storeName:store, ppk:ppk, x: xCoordinate, y:yCoordinate},
             success:function (response) {
+                $("#newStoreMsg").text(response);
+            },
+            error: function(response) {
                 $("#newStoreMsg").text(response);
             }
         });
@@ -120,4 +88,52 @@ function getItemsToAddToStoreJson()
     });
 
     return itemsToAddToStoreJson;
+}
+
+function handleNewStoreLocationValidation() {
+    $("#x").change(notifyIfNewStoreLocationInvalid);
+    $("#y").change(notifyIfNewStoreLocationInvalid);
+}
+
+function notifyIfNewStoreLocationInvalid() {
+
+    let xVal=$("#x").val();
+    let yVal=$("#y").val();
+
+    if(xVal!="" && yVal!="" )
+    {
+        $.ajax({
+            url:VALIDATE_ORDER_LOCATION_URL,
+            data:{xCoordinate:xVal, yCoordinate:yVal},
+            success:function (response) {
+                if(response=="false")
+                {
+                    $("#x")[0].setCustomValidity("A store located in this location. " +
+                        "Please select other location");
+                }
+                else
+                {
+                    $("#x")[0].setCustomValidity("");
+                }
+            }
+        });
+    }
+}
+
+function notifyIfNewStoreItemsToOrderEmptyAfterChange() {
+    $("#itemsToSellTableData input").change(notifyIfNewStoreItemsToOrderEmpty);
+}
+
+function notifyIfNewStoreItemsToOrderEmpty() {
+    let itemsJson =getItemsToAddToStoreJson();
+    if(itemsJson.items.length==0)
+    {
+        $("#itemsToSellTableData input")[0].setCustomValidity("Select at least one item to sell");
+    }
+    else
+    {
+        $("#itemsToSellTableData input")[0].setCustomValidity("");
+    }
+
+    notifyIfNewStoreItemsToOrderEmptyAfterChange()
 }
