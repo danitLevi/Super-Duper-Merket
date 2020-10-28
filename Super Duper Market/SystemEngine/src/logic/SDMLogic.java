@@ -7,7 +7,7 @@ import generatedClassesJaxb.SuperDuperMarketDescriptor;
 //import superDuperMarket.Order;
 //import superDuperMarket.Region;
 //=======
-import superDuperMarket.*;
+import superDuperMarketRegion.*;
 //>>>>>>> bd26cd2d1ef95b2547d381cb4a4664ea48d6d806
 
 import javax.xml.bind.JAXBContext;

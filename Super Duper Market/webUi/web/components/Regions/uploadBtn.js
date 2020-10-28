@@ -22,8 +22,7 @@ function handleUploadBtnClick() {
 
     $("#uploadbtn").click(function () {
         window.location.assign("upload.html");
-        clearInterval(REGIONS_DATA_INTERVAL);
-        clearInterval(TRANSACTIONS_DATA_INTERVAL);
+        stopIntervalsInRegionsPage();
     }
 
     );

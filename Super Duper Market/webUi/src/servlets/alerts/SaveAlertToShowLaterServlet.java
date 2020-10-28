@@ -1,11 +1,10 @@
 package servlets.alerts;
 
-import DtoObjects.ItemInSystemDto;
+import DtoObjects.OrderDto;
+import DtoObjects.StoreOrderDto;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import logic.SDMLogicInterface;
-import superDuperMarket.RegionInterface;
-import superDuperMarket.Sell;
+import superDuperMarketRegion.RegionInterface;
 import utils.Constants;
 import utils.ServletUtils;
 import utils.SessionUtils;
@@ -16,12 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.reflect.Type;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "servlets.alerts.SaveAlertToShowLaterServlet", urlPatterns = {"/saveAlertToShowLater"})
 
@@ -48,33 +42,19 @@ public class SaveAlertToShowLaterServlet extends HttpServlet {
             switch (alertType) {
 
                 case "order":
-                    saveOrderAlert();// TODO
+                    saveOrderAlert(request,region);
                 break;
                 case "feedback":
                     saveFeedbackAlert(request,region);
                     break;
                 case "newStore":
-                    saveNewStoreAlert();// TODO
+                    saveNewStoreAlert(request,region);
                     break;
                 case "upload":
                     saveUploadAlert(request);
                     break;
 
             }
-
-//            String storesListJson=request.getParameter(Constants.STORES);
-//
-//
-//            Type type = new TypeToken<List<String>>() {}.getType();
-//            if(!storesListJson.equals("null"))
-//            {
-//                storesIdLst=gson.fromJson(storesListJson,type);
-//            }
-
-
-
-
-
     }
 
     public void saveFeedbackAlert(HttpServletRequest request,RegionInterface region){
@@ -98,11 +78,47 @@ public class SaveAlertToShowLaterServlet extends HttpServlet {
         addAlertToManager(msg,ownerName);
     }
 
-    public void saveNewStoreAlert(){
+    public void saveNewStoreAlert(HttpServletRequest request,RegionInterface region){
 
+        String regionName=region.getRegionName();
+        String newStoreOwnerName=SessionUtils.getUsername(request);
+
+        String storeName=request.getParameter("storeName");
+        int xCoordinate= Integer.parseInt(request.getParameter("xCoordinate"));
+        int yCoordinate= Integer.parseInt(request.getParameter("yCoordinate"));
+        int numOfItemsStoreSell=Integer.parseInt(request.getParameter("numOfItemsToSell"));
+
+        int numOfItemsInRegion=region.getNumOfItemsInSystem();
+
+        String msg="The store "+storeName+" opened in your region "+regionName+ " by "+newStoreOwnerName+"\n"
+                +"Location:("+xCoordinate+","+yCoordinate+")\n"
+                +"Num of products the store sells from total items in system "+numOfItemsStoreSell+"\\"+numOfItemsInRegion+"\n";
+
+        String regionOwner=region.getRegionOwner().getName();
+
+        addAlertToManager(msg,regionOwner);
     }
 
-    public void saveOrderAlert(){
+    public void saveOrderAlert(HttpServletRequest request,RegionInterface region){
+        String msg="";
+
+        int newOrderId= Integer.parseInt(request.getParameter("newOrderId"));
+        OrderDto orderDetails=region.getWantedOrderDetails(newOrderId);
+
+        Map<Integer,StoreOrderDto> storeIdToStoreOrderDetails=orderDetails.getStoreIdToStoreOrderDetails();
+        for (Integer currStoreId:storeIdToStoreOrderDetails.keySet())
+        {
+            String currStoreName= region.getStoreName(currStoreId);
+            StoreOrderDto currStoreOrderDetails=storeIdToStoreOrderDetails.get(currStoreId);
+            msg="new order from "+ orderDetails.getCustomerName()+" in the store "+currStoreName+"\n"
+                    +"Order id:"+orderDetails.getOrderId()+"\n"
+                    +"Number of items in order: "+String.format("%.2f",currStoreOrderDetails.getItemsTotalAmount() )+" units \n"
+                    +"Items cost: "+String.format("%.2f",currStoreOrderDetails.getItemsTotalPrice()) +" Shekels \n"
+                    +"Delivery cost: "+String.format("%.2f",currStoreOrderDetails.getDeliveryTotalPrice()) +" Shekels \n";
+
+            String currStoreOwner=region.getStoreOwnerName(currStoreId);
+            addAlertToManager(msg,currStoreOwner);
+        }
 
     }
 
@@ -113,12 +129,12 @@ public class SaveAlertToShowLaterServlet extends HttpServlet {
         addAlertToManager(msg,Constants.ALL_USERS);
     }
 
-    public String convertDateToString(Date date)
-    {
-        String pattern = "dd/MM/yyyy";
-        DateFormat df = new SimpleDateFormat(pattern);
-        return df.format(date);
-    }
+//    public String convertDateToString(Date date)
+//    {
+//        String pattern = "dd/MM/yyyy";
+//        DateFormat df = new SimpleDateFormat(pattern);
+//        return df.format(date);
+//    }
 
     public void addAlertToManager(String msg,String addresseeUserName)
     {

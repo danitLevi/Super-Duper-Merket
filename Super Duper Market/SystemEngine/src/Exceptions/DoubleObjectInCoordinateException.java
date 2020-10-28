@@ -1,6 +1,6 @@
 package Exceptions;
 
-import superDuperMarket.Coordinate;
+import superDuperMarketRegion.Coordinate;
 
 public class DoubleObjectInCoordinateException extends Exception{
 

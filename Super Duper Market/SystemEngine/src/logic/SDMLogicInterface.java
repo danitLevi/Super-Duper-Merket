@@ -2,7 +2,7 @@ package logic;
 
 import DtoObjects.*;
 import Exceptions.*;
-import superDuperMarket.Region;
+import superDuperMarketRegion.Region;
 
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;

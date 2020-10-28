@@ -1,12 +1,12 @@
 var OWNER_STORE_ORDERS_DATA_URL = buildUrlWithContextPath("ownerStoreOrders");
 var OWNER_STORES_URL =  buildUrlWithContextPath("getOwnerStoresInRegion");
 
-var OWNER_STORES_ORDERS_HISTORY_DATA_INTERVAL;
+// var OWNER_STORES_ORDERS_HISTORY_DATA_INTERVAL;
 
 // function on page load
 // Show orders data according to selected store
 function initializeOrdersHistoryForOwner(){
-    triggerOwnerStoresAjaxTimeInterval();
+    ajaxOwnerStoresOptionsData();
     handleOwnerStoreChange();
 
     // todo: check if ok and pick in other js (and remove duplicate in customer orders history)
@@ -26,9 +26,9 @@ function handleCollapsingBtnClick2() {
 
 }
 
-function triggerOwnerStoresAjaxTimeInterval() {
-    OWNER_STORES_ORDERS_HISTORY_DATA_INTERVAL=setInterval(ajaxOwnerStoresOptionsData, 1000);
-}
+// function triggerOwnerStoresAjaxTimeInterval() {
+//     OWNER_STORES_ORDERS_HISTORY_DATA_INTERVAL=setInterval(ajaxOwnerStoresOptionsData, 1000);
+// }
 
 //Initialize stores options
 function ajaxOwnerStoresOptionsData() {

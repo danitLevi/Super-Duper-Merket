@@ -1,14 +1,12 @@
 package servlets.oneRegionServlets.owner;
 
-import DtoObjects.ItemToOrderInputDto;
 import Exceptions.DoubleObjectInCoordinateException;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import logic.Owner;
 import logic.SDMLogicInterface;
-import superDuperMarket.RegionInterface;
-import superDuperMarket.Sell;
-import utils.Constants;
+import superDuperMarketRegion.RegionInterface;
+import superDuperMarketRegion.Sell;
 import utils.ServletUtils;
 import utils.SessionUtils;
 
@@ -20,9 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Type;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @WebServlet(name = "servlets.oneRegionServlets.owner.AddNewStoreServlet", urlPatterns = {"/addStore"})
 

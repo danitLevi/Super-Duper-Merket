@@ -78,7 +78,7 @@ function handleAddStoreSubmitting() {
     $("#newStoreForm").submit(function () {
 
         var regionName = $("#storeRegion").val();
-        var store = $("#storeName").val();
+        var storeName = $("#storeName").val();
         var ppk = $("#storePPK").val();
         var xCoordinate = $("#x").val();
         var yCoordinate = $("#y").val();
@@ -87,14 +87,23 @@ function handleAddStoreSubmitting() {
         $.ajax({
             url:ADD_STORE_DATA_URL,
             method:'POST',
-            data:{itemsToAdd:JSON.stringify(itemsJson.items), region:regionName, storeName:store, ppk:ppk, x: xCoordinate, y:yCoordinate},
+            data:{itemsToAdd:JSON.stringify(itemsJson.items), region:regionName, storeName:storeName, ppk:ppk, x: xCoordinate, y:yCoordinate},
             success:function (response) {
                 $("#newStoreMsg").text(response);
+                triggerAddStoreAlertMsgToShow(storeName,xCoordinate,yCoordinate,itemsJson.size);
             }
         });
-
         return false;
     })
+}
+
+function triggerAddStoreAlertMsgToShow(storeName,xCoordinate,yCoordinate,numOfItemsToSell) {
+
+    $.ajax({
+        url:SAVE_ALERT_TO_SHOW_URL,
+        method:'POST',
+        data:{alertType:"newStore",storeName:storeName,xCoordinate:xCoordinate,yCoordinate:yCoordinate,numOfItemsToSell:numOfItemsToSell}
+    });
 }
 
 function getItemsToAddToStoreJson()

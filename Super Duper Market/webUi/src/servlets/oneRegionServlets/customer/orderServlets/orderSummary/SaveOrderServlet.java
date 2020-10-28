@@ -3,7 +3,7 @@ package servlets.oneRegionServlets.customer.orderServlets.orderSummary;
 import DtoObjects.OrderInputToSaveInSessionDto;
 import logic.Customer;
 import logic.SDMLogicInterface;
-import superDuperMarket.RegionInterface;
+import superDuperMarketRegion.RegionInterface;
 import utils.ServletUtils;
 import utils.SessionUtils;
 
@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet(name = "servlets.oneRegionServlets.customer.orderServlets.orderSummary.SaveOrderServlet", urlPatterns = {"/saveOrder"})
 
@@ -26,22 +27,29 @@ public class SaveOrderServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-            SDMLogicInterface sdmLogic=null;
-            RegionInterface region=null;
-            synchronized (getServletContext()) {
-                sdmLogic = ServletUtils.getSdmLogic(getServletContext());
-                String regionName= SessionUtils.getRegionName(request);
-                region=sdmLogic.getRegionByName(regionName);
-            }
+        SDMLogicInterface sdmLogic = null;
+        RegionInterface region = null;
 
-            OrderInputToSaveInSessionDto orderInput=SessionUtils.getOrderInput(request);
+        synchronized (getServletContext()) {
+            sdmLogic = ServletUtils.getSdmLogic(getServletContext());
+            String regionName = SessionUtils.getRegionName(request);
+            region = sdmLogic.getRegionByName(regionName);
+        }
 
-            //only customer can make order
-            String userName=SessionUtils.getUsername(request);
-            Customer currCustomer=sdmLogic.getCustomer(userName);
+        OrderInputToSaveInSessionDto orderInput = SessionUtils.getOrderInput(request);
+
+        //only customer can make order
+        String userName = SessionUtils.getUsername(request);
+        Customer currCustomer = sdmLogic.getCustomer(userName);
+
+        try (PrintWriter out = response.getWriter()) {
 
             //todo synchronized it also ??
-            region.saveOrder(orderInput,currCustomer);
+             int newOrderId=region.saveOrderAndReturnId(orderInput, currCustomer);
+
+            out.print(newOrderId);
+            out.flush();
+            }
         }
     }
 

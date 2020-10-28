@@ -3,7 +3,7 @@ package servlets.oneRegionServlets.customer.orderServlets;
 import DtoObjects.ItemDto;
 import com.google.gson.Gson;
 import logic.SDMLogicInterface;
-import superDuperMarket.RegionInterface;
+import superDuperMarketRegion.RegionInterface;
 import utils.Constants;
 import utils.ServletUtils;
 import utils.SessionUtils;

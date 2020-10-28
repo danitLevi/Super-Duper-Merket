@@ -5,19 +5,15 @@ $(function () {
     setRegionName();
     ajaxSetMenuByUserType();
 
-// <<<<<<< HEAD
   itemsClicked();
   StoresClicked();
   backClicked();
 
-// =======
-//     itemsClicked();
-//     StoresClicked();
-// >>>>>>> develop
 })
 
 function itemsClicked() {
     $("#itemsPage").click(function () {
+        stopIntervalsInOneRegionPage();
         $("#content").load("ItemsTemplate.html");
         triggerItemsAjaxTimeInterval();
     })
@@ -25,6 +21,7 @@ function itemsClicked() {
 
 function StoresClicked() {
     $("#storesPage").click(function () {
+        stopIntervalsInOneRegionPage();
         $("#content").load("storesTemplate.html");
          triggerStoresAjaxTimeInterval();
     })
@@ -32,6 +29,7 @@ function StoresClicked() {
 
 function ManagerFeedbacksClicked() {
     $("#feedbacksPage").click(function () {
+        stopIntervalsInOneRegionPage();
         $("#content").load("feedbacksTemplate.html");
         triggerFeedbacksAjaxTimeInterval();
     })
@@ -39,6 +37,7 @@ function ManagerFeedbacksClicked() {
 
 function AddNewStoreClicked() {
     $("#newStorePage").click(function () {
+        stopIntervalsInOneRegionPage();
         $("#content").load("AddNewStore.html", initializeAddNewStore);
     })
 }
@@ -52,6 +51,7 @@ function initializeAddNewStore(){
 
 function OwnerOrdersHistoryClicked() {
     $("#ordersFromStorePage").click(function () {
+        stopIntervalsInOneRegionPage();
         $("#content").load("OrdersHistoryForOwner.html",initializeOrdersHistoryForOwner);
 
     })
@@ -59,6 +59,7 @@ function OwnerOrdersHistoryClicked() {
 
 function CustomerOrdersHistoryClicked() {
     $("#orderHistoryPage").click(function () {
+        stopIntervalsInOneRegionPage();
         // $("#content").load("OrdersHistoryForCustomer.html",handleCustomerOrdersHistoryWindow);
         $("#content").load("OrdersHistoryForCustomer.html",handleCustomerOrdersHistoryWindow);
 
@@ -71,8 +72,8 @@ function ajaxSetMenuByUserType() {
         success: function (userType) {
             if(userType==="Customer")
             {
-                $("<button type='button' class='btn btn-info btn-rounded' id='orderPage'>Order</button>" +
-                    "<button type='button' class='btn btn-info btn-rounded' id='orderHistoryPage'>Orders History</button>" +
+                $("<button type='button' class='btn btn-info btn-rounded ' id='orderPage'>Order</button>" +
+                    "<button type='button' class='btn btn-info btn-rounded ' id='orderHistoryPage'>Orders History</button>" +
                     "").appendTo($("#oneRegionMenu"));
                 orderClicked();
 
@@ -81,9 +82,9 @@ function ajaxSetMenuByUserType() {
             }
             else
             {
-                $("<button type='button' class='btn btn-info btn-rounded' id='ordersFromStorePage'>Orders from my stores</button>" +
-                    "<button type='button' class='btn btn-info btn-rounded' id='feedbacksPage'>Feedbacks</button>" +
-                    "<button type='button' class='btn btn-info btn-rounded' id='newStorePage'>Open new store</button>"
+                $("<button type='button' class='btn btn-info btn-rounded ' id='ordersFromStorePage'>Orders from my stores</button>" +
+                    "<button type='button' class='btn btn-info btn-rounded ' id='feedbacksPage'>Feedbacks</button>" +
+                    "<button type='button' class='btn btn-info btn-rounded ' id='newStorePage'>Open new store</button>"
             ).appendTo($("#oneRegionMenu"));
                 ManagerFeedbacksClicked();
                 AddNewStoreClicked();
@@ -107,22 +108,32 @@ function setRegionName() {
 // danit added
 function orderClicked() {
     $("#orderPage").click(function () {
+        stopIntervalsInOneRegionPage();
         $("#content").load("OrderTemplate.html",initializeOrderPage);
 
         // initializeOrderPage();
     })
 }
 
+function FeedbackClicked() {
+    $("#FillFeedbackPage").click(function () {
+        stopIntervalsInOneRegionPage();
+        $("#content").load("FillFeedback.html", initializeFeedbackPage);
+
+    })
+}
+
 function backClicked() {
     $("#back").click(function () {
+        stopIntervalsInOneRegionPage();
         window.location.assign("Regions.html");
     })
 }
 
-//TODO: DELETE ALONA
-function FeedbackClicked() {
-    $("#FillFeedbackPage").click(function () {
-        $("#content").load("FillFeedback.html", initializeFeedbackPage);
+function stopIntervalsInOneRegionPage() {
+    clearInterval(ITEMS_IN_REGION_INTERVAL);
+    clearInterval(STORES_IN_REGION_INTERVAL);
 
-    })
+    clearInterval(OWNER_FEEDBACKS_DATA_INTERVAL);
+    // clearInterval(OWNER_STORES_ORDERS_HISTORY_DATA_INTERVAL);
 }

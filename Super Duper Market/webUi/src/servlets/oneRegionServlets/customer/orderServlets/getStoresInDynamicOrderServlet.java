@@ -5,7 +5,7 @@ import DtoObjects.StoreDto;
 import DtoObjects.StoreInCalcDyanmicOrderDto;
 import com.google.gson.Gson;
 import logic.SDMLogicInterface;
-import superDuperMarket.RegionInterface;
+import superDuperMarketRegion.RegionInterface;
 import utils.ServletUtils;
 import utils.SessionUtils;
 
