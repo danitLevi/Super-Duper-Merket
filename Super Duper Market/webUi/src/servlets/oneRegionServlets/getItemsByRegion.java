@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import logic.SDMLogicInterface;
 import superDuperMarketRegion.RegionInterface;
 import utils.ServletUtils;
+import utils.SessionUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
