@@ -57,7 +57,7 @@ function removeStoreFromSelection() {
     if($('#storesFromOrder option').length==1)
     {
         $("#FeedbackContent").empty();
-        $('<h2>You gave feedbacck to all possibe stores</h2>' +
+        $('<h2>You gave feedback to all possible stores</h2>' +
             '<h4>No More Stores to give feedback for. </h4>').appendTo($("#FeedbackContent"));
 
     }
@@ -96,19 +96,19 @@ function handleFinish() {
 function handleRatingSelection()
 {
     $("input[type=radio]").on("change", function(){
-        if ($("#1").is(":checked")) {
+        if ($("#star1").is(":checked")) {
             $("#count-existing").text("1");
         }
-        else if($("#2").is(":checked")) {
+        else if($("#star2").is(":checked")) {
             $("#count-existing").text("2");
         }
-        else if($("#3").is(":checked")) {
+        else if($("#star3").is(":checked")) {
             $("#count-existing").text("3");
         }
-        else if($("#4").is(":checked")) {
+        else if($("#star4").is(":checked")) {
             $("#count-existing").text("4");
         }
-        else if($("#5").is(":checked")) {
+        else if($("#star5").is(":checked")) {
             $("#count-existing").text("5");
         }
     })

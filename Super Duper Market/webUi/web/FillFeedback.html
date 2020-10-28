@@ -2,18 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- jQuery library -->
-<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
-<!--    &lt;!&ndash; Popper JS &ndash;&gt;-->
-<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>-->
-<!--    &lt;!&ndash; Latest compiled and minified CSS &ndash;&gt;-->
-<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">-->
-<!--&lt;!&ndash;    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">&ndash;&gt;-->
-
-<!--    &lt;!&ndash; Latest compiled JavaScript &ndash;&gt;-->
-<!--&lt;!&ndash;    <script src="components/oneRegion/fillFeedback.js"></script>&ndash;&gt;-->
-<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>-->
-
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="common/styleSheets/form.css">
     <link rel="stylesheet" href="common/styleSheets/stars.css">
 
@@ -31,7 +21,7 @@
                     <label for="storesFromOrder" class="control-label col-sm-2">Store:</label>
                     <div class="col-sm-4">
                         <select class="form-control" id="storesFromOrder" required>
-                            <option value="" disabled>Select store</option>
+<!--                            <option id="selectedStore" value="" disabled>Select store</option>-->
                         </select>
                     </div>
                 </div>
@@ -40,20 +30,20 @@
                 <div class="form-group" >
                 <label for="rating" class="control-label col-2">Rating:</label>
                 <span id="count-existing">No rate</span>
-                <div class="rating col-5" id="rating">
-                    <input type="radio" name="rating" value="5" id="5" required>
-                    <label for="5">☆</label>
-                    <input type="radio" name="rating" value="4" id="4" required>
-                    <label for="4">☆</label>
-                    <input type="radio" name="rating" value="3" id="3" required>
-                    <label for="3">☆</label>
-                    <input type="radio" name="rating" value="2" id="2" required>
-                    <label for="2">☆</label>
-                    <input type="radio" name="rating" value="1" id="1" required>
-                    <label for="1">☆</label>
+                <div class="rating col-sm-5 ml-sm-3" id="rating">
+                    <input type="radio" name="rating" value="5" id="star5" required>
+                    <label for="star5"></label>
+                    <input type="radio" name="rating" value="4" id="star4" required>
+                    <label for="star4"></label>
+                    <input type="radio" name="rating" value="3" id="star3" required>
+                    <label for="star3"></label>
+                    <input type="radio" name="rating" value="2" id="star2" required>
+                    <label for="star2"></label>
+                    <input type="radio" name="rating" value="1" id="star1" required>
+                    <label for="star1"></label>
                 </div>
                 </div>
-
+                <br/>
 
 
                 <div class="form-group">
@@ -65,22 +55,21 @@
                 <br/><br/>
 
 
-                <div class="form-row">
+
                 <!--submit-->
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary m-2" id="submitFeedback">Save feedback</button>
                 </div>
 
-                <!--skip-->
-                <div class="form-group ">
-                    <button class="btn btn-danger m-2" id="exitWindow">Finish</button>
-                </div>
-
-                <!--massage-->
-                <span id="FeedbackMsg" class="col-3"></span>
-                </div>
-
             </form> <!-- /form -->
+            <!--skip-->
+            <div class="form-group ">
+                <button class="btn btn-danger m-2" id="exitWindow">Finish</button>
+            </div>
+
+            <!--massage-->
+            <span id="FeedbackMsg" class="col-3"></span>
+        </div>
         </div> <!-- ./container -->
 </div>
 

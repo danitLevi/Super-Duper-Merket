@@ -69,6 +69,7 @@ function setStoresInOrderData(storesInOrderSummaryDataJson)
                 +'<h5 class="m-2">Ordered items:</h5>'+
 
                 <!--items in store data-->
+            '<div class="table-responsive" >'+
                 '<table class="orderedItemsTable table table-striped table-sm table-hover col-sm-auto" >'+
                 '<thead>'+
                 '<tr>'+
@@ -87,6 +88,7 @@ function setStoresInOrderData(storesInOrderSummaryDataJson)
 
                 '</tbody>'+
                 '</table>'+
+            '</div>'+
             '</div>'+
             '<br>').appendTo($("#storesInOrderCards"));
     });
