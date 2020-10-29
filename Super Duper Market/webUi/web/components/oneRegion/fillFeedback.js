@@ -56,7 +56,7 @@ function removeStoreFromSelection() {
     selectedStore.remove();
     if($('#storesFromOrder option').length==0)
     {
-        $("#FeedbackContent").empty();
+        $("#FeedbackContent").empty(
         $('<h2>You gave feedback to all possible stores</h2>' +
             '<h4>No More Stores to give feedback for. </h4>').appendTo($("#FeedbackContent"));
 
