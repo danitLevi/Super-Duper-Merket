@@ -31,12 +31,18 @@ public class ManagerFeedbacksServlet extends HttpServlet {
         {
             Gson gson = new Gson();
             List<FeedbackDto> feedbackDetailsList=null;
+            SDMLogicInterface sdmLogic = null;
+            String ownerName=null;
 
             synchronized (getServletContext()) {
-                SDMLogicInterface sdmLogic = ServletUtils.getSdmLogic(getServletContext());
-                String ownerName= SessionUtils.getUsername(request);
+                sdmLogic = ServletUtils.getSdmLogic(getServletContext());
+                ownerName= SessionUtils.getUsername(request);
                 feedbackDetailsList = sdmLogic.getOwnerFeedbackDetailsDetails(ownerName);
             }
+            synchronized (sdmLogic) {
+                feedbackDetailsList = sdmLogic.getOwnerFeedbackDetailsDetails(ownerName);
+            }
+
             String json = gson.toJson(feedbackDetailsList);
             out.println(json);
             out.flush();

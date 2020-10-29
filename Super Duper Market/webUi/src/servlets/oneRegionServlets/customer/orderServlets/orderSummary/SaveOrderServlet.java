@@ -29,10 +29,12 @@ public class SaveOrderServlet extends HttpServlet {
 
         SDMLogicInterface sdmLogic = null;
         RegionInterface region = null;
-
+        String regionName =null;
         synchronized (getServletContext()) {
             sdmLogic = ServletUtils.getSdmLogic(getServletContext());
-            String regionName = SessionUtils.getRegionName(request);
+            regionName = SessionUtils.getRegionName(request);
+        }
+        synchronized (sdmLogic) {
             region = sdmLogic.getRegionByName(regionName);
         }
 

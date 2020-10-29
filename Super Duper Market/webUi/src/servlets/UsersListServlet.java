@@ -25,12 +25,15 @@ public class UsersListServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             Gson gson = new Gson();
             List<UserDto> usersDetails=null;
+            SDMLogicInterface sdmLogic=null;
             synchronized (getServletContext())
             {
-                SDMLogicInterface sdmLogic= ServletUtils.getSdmLogic(getServletContext());
-                 usersDetails=sdmLogic.getUsersDetails();
+                sdmLogic= ServletUtils.getSdmLogic(getServletContext());
             }
-
+            synchronized (sdmLogic)
+            {
+                usersDetails=sdmLogic.getUsersDetails();
+            }
 
             String json = gson.toJson(usersDetails);
             out.println(json);

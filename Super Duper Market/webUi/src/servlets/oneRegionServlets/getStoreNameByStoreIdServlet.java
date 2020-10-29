@@ -31,9 +31,13 @@ public class getStoreNameByStoreIdServlet  extends HttpServlet {
         {
             int storeId= Integer.parseInt(request.getParameter(Constants.STORE_ID));
             Gson gson = new Gson();
+            SDMLogicInterface sdmLogic =null;
+            String regionName=null;
             synchronized (getServletContext()) {
-                SDMLogicInterface sdmLogic = ServletUtils.getSdmLogic(getServletContext());
-                String regionName= SessionUtils.getRegionName(request);
+                sdmLogic = ServletUtils.getSdmLogic(getServletContext());
+                regionName= SessionUtils.getRegionName(request);
+            }
+            synchronized (sdmLogic) {
                 region=sdmLogic.getRegionByName(regionName);
             }
 

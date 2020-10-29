@@ -32,10 +32,14 @@ public class RegionsBaseDataServlet extends HttpServlet {
         {
             Gson gson = new Gson();
             List<RegionBaseDataDto> regionsBaseDetails=null;
+            SDMLogicInterface sdmLogic =null;
             synchronized (getServletContext()) {
-                SDMLogicInterface sdmLogic = ServletUtils.getSdmLogic(getServletContext());
+                sdmLogic = ServletUtils.getSdmLogic(getServletContext());
+            }
+            synchronized (sdmLogic) {
                 regionsBaseDetails = sdmLogic.getAllRegionsBaseData();
             }
+
             String json = gson.toJson(regionsBaseDetails);
             out.println(json);
             out.flush();

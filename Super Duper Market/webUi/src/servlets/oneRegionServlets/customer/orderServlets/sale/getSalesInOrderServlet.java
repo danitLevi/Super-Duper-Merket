@@ -38,12 +38,14 @@ public class getSalesInOrderServlet extends HttpServlet {
 //            Gson gson = new Gson();
             Gson gson = new GsonBuilder().enableComplexMapKeySerialization().create();
 
-
+            SDMLogicInterface sdmLogic =null;
+            String regionName=null;
             synchronized (getServletContext()) {
-                SDMLogicInterface sdmLogic = ServletUtils.getSdmLogic(getServletContext());
-                String regionName= SessionUtils.getRegionName(request);
+                sdmLogic = ServletUtils.getSdmLogic(getServletContext());
+                regionName= SessionUtils.getRegionName(request);
+            }
+            synchronized (sdmLogic) {
                 region=sdmLogic.getRegionByName(regionName);
-
             }
             OrderInputToSaveInSessionDto orderInput=SessionUtils.getOrderInput(request);
 
@@ -51,7 +53,8 @@ public class getSalesInOrderServlet extends HttpServlet {
 
             if(storeIDToStoreSaleToAmount.size()==0)
             {
-                out.println("No Sales");
+                String noSalesJson = gson.toJson("No Sales");
+                out.println(noSalesJson);
 
             }
             else

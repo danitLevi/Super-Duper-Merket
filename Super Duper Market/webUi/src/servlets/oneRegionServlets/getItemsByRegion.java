@@ -33,13 +33,17 @@ public class getItemsByRegion extends HttpServlet {
         {
             Gson gson = new Gson();
             List<ItemInSystemDto> itemsDetailsList=null;
+            SDMLogicInterface sdmLogic =null;
+            String regionName=null;
             synchronized (getServletContext()) {
-                SDMLogicInterface sdmLogic = ServletUtils.getSdmLogic(getServletContext());
-                //String regionName= request.getParameter("region");
-                String regionName= SessionUtils.getRegionName(request);
+                sdmLogic = ServletUtils.getSdmLogic(getServletContext());
+                regionName= SessionUtils.getRegionName(request);
+            }
+            synchronized (sdmLogic) {
                 RegionInterface region=sdmLogic.getRegionByName(regionName);
                 itemsDetailsList = region.getItemsDetails();
             }
+
             String json = gson.toJson(itemsDetailsList);
             out.println(json);
             out.flush();
