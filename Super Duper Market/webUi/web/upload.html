@@ -28,6 +28,7 @@
     <script src="components/UploadPage/UploadPage.js"></script>
     <script src="common/alerts.js"></script>
 
+    <script src="common/navBar.js"></script>
 <!--    <script src="components/Regions/RegionsData.js"></script>-->
 <!--    <script src="components/Regions/TransactionsData.js"></script>-->
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
@@ -51,7 +52,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="chatroom.html">Chat</a>
+                <a class="nav-link" href="chatroom.html" id="chatLink">Chat</a>
             </li>
         </ul>
     </div>
@@ -71,14 +72,17 @@
     <!--        <p class="error"></p>-->
             <br>
     <!--        <button class="btn btn-lg btn-primary btn-block" type="submit">Upload</button>-->
-            <input type="Submit" value="Upload File"><br>
+<!--            <div class="custom-file">-->
+
+            <input type="Submit" class="btn-secondary rounded" value="Upload File"><br>
+<!--            </div>-->
         </form>
     </div>
 
 <br/>
 
     <div class="text-center">
-        <button type="button" class="btn btn-primary btn-rounded " id="backBtn">Back</button>
+        <button type="button" class="btn btn-info btn-rounded mt-3" id="backBtn">Back to main page</button>
     </div>
 
 </div>

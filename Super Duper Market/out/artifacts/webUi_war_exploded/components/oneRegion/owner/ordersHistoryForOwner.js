@@ -6,11 +6,11 @@ var OWNER_STORES_URL =  buildUrlWithContextPath("getOwnerStoresInRegion");
 // function on page load
 // Show orders data according to selected store
 function initializeOrdersHistoryForOwner(){
-<<<<<<< HEAD
-    ajaxOwnerStoresOptionsData();
-=======
+// <<<<<<< HEAD
+//     ajaxOwnerStoresOptionsData();
+// =======
    // triggerOwnerStoresAjaxTimeInterval();
->>>>>>> a7fbe4f68819b5b028824f5e61c9d391db921203
+// >>>>>>> a7fbe4f68819b5b028824f5e61c9d391db921203
     handleOwnerStoreChange();
     ajaxOwnerStoresOptionsData();
     // todo: check if ok and pick in other js (and remove duplicate in customer orders history)

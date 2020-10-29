@@ -35,7 +35,7 @@ function setSalesData(StoreIdToStoreSaleToAmountJson) {
             var storeName=getStoreNameAjax(storeId) ;
 
             $('<div class="container storeContainer" id="store'+storeId+'" >\n' +
-                '        <h3 class="store border-bottom border-gray pb-2 mb-0" >'+storeName+'</h3>\n' +
+                '        <h3 class="store border-bottom border-gray pb-2 mb-0" >Sales in '+storeName+'</h3>\n' +
                 // '        <div class="h-divider">\n' +
                 // '            <div class="shadow"></div>\n' +
                 // '        </div>\n' +

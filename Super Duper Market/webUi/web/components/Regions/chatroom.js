@@ -1,5 +1,5 @@
 var chatVersion = 0;
-var refreshRate = 2000; //milli seconds
+var refreshRate = 1000; //milli seconds
 // var USER_LIST_URL = buildUrlWithContextPath("userslist");
 var CHAT_LIST_URL = buildUrlWithContextPath("chat");
 
@@ -44,7 +44,7 @@ function appendChatEntry(index, entry){
 
 function createChatEntry (entry){
     entry.chatString = entry.chatString.replace (":)", "<img class='smiley-image' src='../../common/images/smiley.png'/>");
-    return $("<span class=\"success\">").append(entry.username + "> " + entry.chatString);
+    return $("<span class=\"success\">").append('<b>'+entry.username+": </b>"+ entry.chatString);
 }
 
 // function ajaxUsersList() {

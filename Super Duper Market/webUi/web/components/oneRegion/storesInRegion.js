@@ -67,10 +67,10 @@ function setStoresInRegionCards(storesJson)
             '<span  class="col-1" id="itemsProfit">'+myFormatter.format(storeData.paymentForItems)+'₪'+'</span>'+
 
             '<b class="font-weight-bold">Price per km: </b>'+
-            '<span  class="col-1" id="ppk">'+storeData.deliveryPpk+'</span>'+
+            '<span  class="col-1" id="ppk">'+storeData.deliveryPpk+'₪</span>'+
 
             '<b class=" font-weight-bold">Profit from deliveries: </b>'+
-            '<span  class="col-1" id="deliveriesProfit">'+storeData.paymentForDeliveries+'</span>'+
+            '<span  class="col-1" id="deliveriesProfit">'+myFormatter.format(storeData.paymentForDeliveries)+'₪</span>'+
 
             '</div>'+
             '</div>'+
