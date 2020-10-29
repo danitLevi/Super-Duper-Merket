@@ -35,16 +35,19 @@ public class GetStoresInOrderServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter())
         {
             Gson gson = new Gson();
+            SDMLogicInterface sdmLogic =null;
+            String regionName=null;
+            Set<Integer> storesInOrderIds=null;
             synchronized (getServletContext()) {
-                SDMLogicInterface sdmLogic = ServletUtils.getSdmLogic(getServletContext());
-                String regionName= SessionUtils.getRegionName(request);
-                region=sdmLogic.getRegionByName(regionName);
+                sdmLogic = ServletUtils.getSdmLogic(getServletContext());
+                regionName= SessionUtils.getRegionName(request);
                 OrderInputToSaveInSessionDto orderInput=SessionUtils.getOrderInput(request);
                 Map<Integer, Map<Integer, Double>> orderMinimalPriceBag=orderInput.getOrderMinimalPriceBag();
-                Set<Integer> storesInOrderIds= orderMinimalPriceBag.keySet();
-
+                storesInOrderIds= orderMinimalPriceBag.keySet();
+            }
+            synchronized (sdmLogic) {
+                region=sdmLogic.getRegionByName(regionName);
                 storesInOrder=region.getWantedStoresDetails(storesInOrderIds);
-
             }
             String storesInOrderJson = gson.toJson(storesInOrder);
             out.println(storesInOrderJson);

@@ -33,13 +33,18 @@ public class StoresDataServlet extends HttpServlet {
         {
             Gson gson = new Gson();
             List<StoreDto> storesDetailsList=null;
+            SDMLogicInterface sdmLogic =null;
+            String regionName=null;
 
             synchronized (getServletContext()) {
-                SDMLogicInterface sdmLogic = ServletUtils.getSdmLogic(getServletContext());
-                String regionName= SessionUtils.getRegionName(request);
+                sdmLogic = ServletUtils.getSdmLogic(getServletContext());
+                regionName= SessionUtils.getRegionName(request);
+            }
+            synchronized (sdmLogic) {
                 RegionInterface region=sdmLogic.getRegionByName(regionName);
                 storesDetailsList = region.getStoresDetails();
             }
+
             String json = gson.toJson(storesDetailsList);
             out.println(json);
             out.flush();

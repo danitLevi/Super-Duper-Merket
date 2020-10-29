@@ -60,9 +60,13 @@ public class saveOrderInputInSessionServlet extends HttpServlet {
         Map<Integer,Double> itemsToOrderMap=convertListToMap(inputItemsList);
 
         //save in session
+        SDMLogicInterface sdmLogic =null;
+        String regionName=null;
         synchronized (getServletContext()) {
-            SDMLogicInterface sdmLogic = ServletUtils.getSdmLogic(getServletContext());
-            String regionName= SessionUtils.getRegionName(request);
+            sdmLogic = ServletUtils.getSdmLogic(getServletContext());
+            regionName= SessionUtils.getRegionName(request);
+        }
+        synchronized (sdmLogic) {
             region=sdmLogic.getRegionByName(regionName);
         }
 

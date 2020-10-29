@@ -33,13 +33,15 @@ public class GetItemsInStoreToOrder extends HttpServlet {
         {
             Gson gson = new Gson();
             List<ItemInStoreDto> ItemsInStoreToOrder=null;
+            SDMLogicInterface sdmLogic =null;
+            String regionName=null;
             synchronized (getServletContext()) {
-                SDMLogicInterface sdmLogic = ServletUtils.getSdmLogic(getServletContext());
-                String regionName= SessionUtils.getRegionName(request);
+                sdmLogic = ServletUtils.getSdmLogic(getServletContext());
+                regionName= SessionUtils.getRegionName(request);
+            }
+            synchronized (sdmLogic) {
                 RegionInterface region=sdmLogic.getRegionByName(regionName);
-
                 int storeId = Integer.parseInt(request.getParameter(Constants.STORE_ID));
-
                 ItemsInStoreToOrder = region.getStoreItemsDetails(storeId);
             }
             String json = gson.toJson(ItemsInStoreToOrder);

@@ -33,15 +33,19 @@ public class GetOwnerStoresServlet extends HttpServlet {
         {
             Gson gson = new Gson();
             List<StoreBaseDataDto> ownerStoresBaseData=null;
+            SDMLogicInterface sdmLogic=null;
+            String regionName=null;
             synchronized (getServletContext()) {
-                SDMLogicInterface sdmLogic = ServletUtils.getSdmLogic(getServletContext());
-                String regionName=SessionUtils.getRegionName(request);
-
+                sdmLogic = ServletUtils.getSdmLogic(getServletContext());
+                regionName=SessionUtils.getRegionName(request);
+            }
+            synchronized (sdmLogic) {
                 Owner owner=sdmLogic.getOwnerByName(SessionUtils.getUsername(request));
                 RegionInterface region=sdmLogic.getRegionByName(regionName);
 
                 ownerStoresBaseData = region.getOwnerStoresBaseData(owner);
             }
+
             String json = gson.toJson(ownerStoresBaseData);
             out.println(json);
             out.flush();

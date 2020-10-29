@@ -35,17 +35,18 @@ public class GetOrderSummaryDataServlet extends HttpServlet {
         {
             Gson gson = new Gson();
             RegionInterface region;
+            SDMLogicInterface sdmLogic = null;
+            String regionName =null;
+            OrderInputToSaveInSessionDto orderInputData =null;
             synchronized (getServletContext()) {
-                SDMLogicInterface sdmLogic = ServletUtils.getSdmLogic(getServletContext());
-                OrderInputToSaveInSessionDto orderInputData = SessionUtils.getOrderInput(request);
-                String regionName = SessionUtils.getRegionName(request);
-                region = sdmLogic.getRegionByName(regionName);
-
-                //todo: see this function !!  alona did
-               orderSummaryData = region.getOrderSummaryData(orderInputData);
-
+                sdmLogic = ServletUtils.getSdmLogic(getServletContext());
+                orderInputData = SessionUtils.getOrderInput(request);
+                regionName = SessionUtils.getRegionName(request);
             }
-
+            synchronized (sdmLogic) {
+                region = sdmLogic.getRegionByName(regionName);
+                orderSummaryData = region.getOrderSummaryData(orderInputData);
+            }
 
             String dataJson = gson.toJson(orderSummaryData);
             out.println(dataJson);

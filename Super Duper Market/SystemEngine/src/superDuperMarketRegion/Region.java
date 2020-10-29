@@ -733,6 +733,7 @@ public class Region implements RegionInterface {
         Map<OfferDto, Integer> UsedOfferDtoToUsedAmountInOneStore = null;
 
         for (Integer currStoreId : orderMinimalPriceBag.keySet()) {
+            UsedOfferDtoToUsedAmountInOneStore = null;
             if (storeIdToUsedOfferDtoToUsedAmount.containsKey(currStoreId))
             {
                 UsedOfferDtoToUsedAmountInOneStore = storeIdToUsedOfferDtoToUsedAmount.get(currStoreId);

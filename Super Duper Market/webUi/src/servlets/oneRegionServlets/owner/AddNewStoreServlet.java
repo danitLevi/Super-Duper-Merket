@@ -48,8 +48,11 @@ public class AddNewStoreServlet extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         try {
+            SDMLogicInterface sdmLogic =null;
             synchronized (getServletContext()) {
-                SDMLogicInterface sdmLogic = ServletUtils.getSdmLogic(getServletContext());
+                sdmLogic = ServletUtils.getSdmLogic(getServletContext());
+            }
+            synchronized (sdmLogic) {
                 RegionInterface region = sdmLogic.getRegionByName(regionName);
                 Owner owner = sdmLogic.getOwnerByName(SessionUtils.getUsername(request));
                 region.addNewStoreToRegion(owner, storeName, ppk, xCoordinate, yCoordinate, inputItemsList);

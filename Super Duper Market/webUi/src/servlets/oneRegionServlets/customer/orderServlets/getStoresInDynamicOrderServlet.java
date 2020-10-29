@@ -37,13 +37,18 @@ getStoresInDynamicOrderServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter())
         {
             Gson gson = new Gson();
+            SDMLogicInterface sdmLogic =null;
+            String regionName=null;
 
             synchronized (getServletContext()) {
-                SDMLogicInterface sdmLogic = ServletUtils.getSdmLogic(getServletContext());
-                String regionName= SessionUtils.getRegionName(request);
+                sdmLogic = ServletUtils.getSdmLogic(getServletContext());
+                regionName= SessionUtils.getRegionName(request);
                 region=sdmLogic.getRegionByName(regionName);
-
             }
+            synchronized (sdmLogic) {
+                region=sdmLogic.getRegionByName(regionName);
+            }
+
             OrderInputToSaveInSessionDto orderInput=SessionUtils.getOrderInput(request);
             List<StoreInCalcDyanmicOrderDto> storesInDynamicOrder= region.getStoresInDynamicOrderDetails(orderInput.getOrderMinimalPriceBag(),
                                                                                                         orderInput.getxCoordinate(),

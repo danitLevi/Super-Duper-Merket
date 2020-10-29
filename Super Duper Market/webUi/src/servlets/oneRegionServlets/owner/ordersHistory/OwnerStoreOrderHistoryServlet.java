@@ -36,10 +36,15 @@ public class OwnerStoreOrderHistoryServlet extends HttpServlet {
             int storeId = Integer.parseInt(request.getParameter(Constants.STORE_ID));
 
             List<StoreOrderDto> storeOrdersHistory=null;
+            SDMLogicInterface sdmLogic =null;
+            String regionName=null;
 
             synchronized (getServletContext()) {
-                SDMLogicInterface sdmLogic = ServletUtils.getSdmLogic(getServletContext());
-                String regionName= SessionUtils.getRegionName(request);
+                sdmLogic = ServletUtils.getSdmLogic(getServletContext());
+                regionName= SessionUtils.getRegionName(request);
+                storeOrdersHistory = sdmLogic.getStoreOrderHistory(storeId, regionName);
+            }
+            synchronized (sdmLogic) {
                 storeOrdersHistory = sdmLogic.getStoreOrderHistory(storeId, regionName);
             }
             String json = gson.toJson(storeOrdersHistory);

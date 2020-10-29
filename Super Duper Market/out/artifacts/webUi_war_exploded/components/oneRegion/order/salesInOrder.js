@@ -9,7 +9,7 @@ function handleSalesWindow()
     handleContinueButtonInSalesWindow();
 }
 
-function sמhowSales() {
+function showSales() {
     $.ajax({
         url: SALES_DATA_URL,
         success: function(StoreIdToStoreSaleToAmountJson)

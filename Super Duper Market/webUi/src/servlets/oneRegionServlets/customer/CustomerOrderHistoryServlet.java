@@ -39,8 +39,9 @@ public class CustomerOrderHistoryServlet extends HttpServlet {
             String regionName=SessionUtils.getRegionName(request);
             synchronized (getServletContext()) {
                 sdmLogic = ServletUtils.getSdmLogic(getServletContext());
-               customerOrdersHistory = sdmLogic.getCustomerOrderHistoryInRegion(customerName,regionName);
-
+            }
+            synchronized (sdmLogic) {
+                customerOrdersHistory = sdmLogic.getCustomerOrderHistoryInRegion(customerName,regionName);
             }
             json = gson.toJson(customerOrdersHistory);
 

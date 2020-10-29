@@ -29,13 +29,15 @@ public class getDeliveryCost extends HttpServlet {
         response.setContentType("text/plain");
         try (PrintWriter out = response.getWriter())
         {
-
             RegionInterface region=null;
+            SDMLogicInterface sdmLogic =null;
+            String regionName=null;
             synchronized (getServletContext()) {
-                SDMLogicInterface sdmLogic = ServletUtils.getSdmLogic(getServletContext());
-                String regionName= SessionUtils.getRegionName(request);
+                sdmLogic = ServletUtils.getSdmLogic(getServletContext());
+                regionName= SessionUtils.getRegionName(request);
+            }
+            synchronized (sdmLogic) {
                 region=sdmLogic.getRegionByName(regionName);
-
             }
 
             int storeId = Integer.parseInt(request.getParameter(Constants.STORE_ID));

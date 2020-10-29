@@ -29,8 +29,11 @@ public class getAllRegionsNames extends HttpServlet {
         {
             Gson gson = new Gson();
             List<String> regionsNames=null;
+            SDMLogicInterface sdmLogic =null;
             synchronized (getServletContext()) {
-                SDMLogicInterface sdmLogic = ServletUtils.getSdmLogic(getServletContext());
+                sdmLogic = ServletUtils.getSdmLogic(getServletContext());
+            }
+            synchronized (sdmLogic) {
                 regionsNames = sdmLogic.getRegionsNames();
             }
 
