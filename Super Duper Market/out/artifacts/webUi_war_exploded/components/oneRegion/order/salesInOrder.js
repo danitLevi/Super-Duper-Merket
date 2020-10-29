@@ -9,7 +9,7 @@ function handleSalesWindow()
     handleContinueButtonInSalesWindow();
 }
 
-function showSales() {
+function sמhowSales() {
     $.ajax({
         url: SALES_DATA_URL,
         success: function(StoreIdToStoreSaleToAmountJson)
@@ -139,7 +139,7 @@ function getOffersOptions(saleDetails) {
         str='<span ><b>One</b> of the following:</span>'
             +'<div class="form-group">\n' +
             '  <select class="form-control" id="offers" required>' +
-            '     <option value="" selected disabled>Please select an option to get</option>';
+            '     <option value="" selected disabled>Please select an option</option>';
 
 
         $.each(saleDetails.offersToGet || [], function (index, offerDetails)

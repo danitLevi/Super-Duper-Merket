@@ -89,7 +89,7 @@ function ajaxSetMenuByUserType() {
                 ManagerFeedbacksClicked();
                 AddNewStoreClicked();
                 OwnerOrdersHistoryClicked();
-                FeedbackClicked();
+                // FeedbackClicked();
             }
         }
     });

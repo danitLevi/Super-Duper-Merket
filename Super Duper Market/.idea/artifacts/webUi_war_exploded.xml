@@ -2,7 +2,6 @@
   <artifact type="exploded-war" name="webUi:war exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/webUi_war_exploded</output-path>
     <root id="root">
-      <element id="javaee-facet-resources" facet="webUi/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="webUi" />
@@ -13,6 +12,7 @@
           <element id="library" level="project" name="google-gson-2" />
         </element>
       </element>
+      <element id="javaee-facet-resources" facet="webUi/web/Web" />
     </root>
   </artifact>
 </component>
