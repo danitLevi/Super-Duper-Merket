@@ -144,7 +144,7 @@ function handleOrderConfirm() {
 //Empty page if customer doesnt want to save order
 function handleOrderCancel() {
     $("#cancelOrder").click(function(){
-        $("OrderSummaryContent").empty();
+        $("#OrderSummaryContent").empty();
     });
 }
 

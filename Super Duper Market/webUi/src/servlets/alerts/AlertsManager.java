@@ -54,7 +54,7 @@ public class AlertsManager {
     {
         return (userNameToHasNewAlert.get(userName));
     }
-    public int getCurrentVersionForUser()
+    public int getCurrentVersion()
     {
         return alerts.size();
     }

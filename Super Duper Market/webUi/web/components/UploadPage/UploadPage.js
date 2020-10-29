@@ -28,10 +28,9 @@ function handleUploadSubmit() {
 
                 if(resp.nextPage)
                 {
-
                     window.location.assign(resp.nextPage);
-
                     triggerUploadSuccessAlertMsgToShow(resp.newRegionName);
+
                 } else {
                     $('#modal').modal({keyboard: true });
                     $('#modal').find('#msg').text(resp.errorMsg);

@@ -11,8 +11,11 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-	<script src="common/context-path-helper.js"></script>
+
 	<!-- java script pages-->
+	<script src="common/context-path-helper.js"></script>
+	<script src="common/alerts.js"></script>
+
 	<script src="components/Regions/uploadBtn.js"></script>
 	<script src="components/Regions/chatroom.js"></script>
 	<!-- CSS-->
@@ -34,7 +37,7 @@
 	<div class="collapse navbar-collapse" id="navbarNav">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item">
-				<a class="nav-link" href="chatroom.html">Chat</a>
+				<a class="nav-link" href="chatroom.html" id="chatLink">Chat</a>
 			</li>
 		</ul>
 	</div>
@@ -57,5 +60,23 @@
 	</div>
 	<button type="button" class="btn btn-info btn-rounded mt-3" id="back">Back to main page</button>
 </div>
+
+<!--modal-->
+<div class="modal" id="modal" tabindex="-1" role="dialog" >
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modalTitle"></h5>
+			</div>
+			<div class="modal-body" >
+				<p id="msg" style="white-space: pre-line"></p>
+			</div>
+			<div class="modal-footer justify-content-center">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 </body>
 </html>

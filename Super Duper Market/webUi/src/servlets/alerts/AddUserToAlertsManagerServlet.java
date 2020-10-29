@@ -1,6 +1,5 @@
 package servlets.alerts;
 
-import utils.Constants;
 import utils.ServletUtils;
 import utils.SessionUtils;
 
@@ -10,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 
 @WebServlet(name = "servlets.alerts.AddUserToAlertsManagerServlet", urlPatterns = {"/addUserToAlertsManager"})
 
@@ -28,6 +26,7 @@ public class AddUserToAlertsManagerServlet extends HttpServlet {
         synchronized (getServletContext()) {
             alertsManager = ServletUtils.getAlertsManager(getServletContext()); //todo: need synchronized on alerts manager(not only servlet context) ?
             alertsManager.addUserToAlertsManager(userName);
+            SessionUtils.setVersion(request,alertsManager.getCurrentVersion());
         }
     }
 }
