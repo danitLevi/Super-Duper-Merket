@@ -29,32 +29,43 @@ function setStoresInDynamicOrderCards(storesInDynamicOrderJson)
 
             <!--store data-->
             '<div class="flex-row text-left">'+
+            '<div>'+
             '<b class="font-weight-bold">Id: </b>'+
             '<span  class="col-1" id="id">'+storeData.id+'</span>'+
+             '</div>' +
 
+            '<div>'+
             '<b class="font-weight-bold">Location: </b>'+
             '<span  class="col-2" id="location">('+ storeData.xCoordinate + ',' + storeData.yCoordinate+')</span>'+
+            '</div>' +
 
             '</div><br/>'+
 
             '<div class="flex-row text-left">'+
+            '<div>'+
             '<b class="font-weight-bold">Distance from order location: </b>'+
             '<span  class="col-2" id="distanceFromOrder">'+myFormatter.format(storeData.distanceFromOrder)+' KM</span>'+
+            '</div>'+
+            '<div>'+
             '<b class="font-weight-bold">Price per KM: </b>'+
             '<span  class="col-1" id="deliveryPpk">'+myFormatter.format(storeData.deliveryPpk)+' ₪</span>'+
-
+            '</div>'+
+            '<div>'+
             '<b class="font-weight-bold">Delivery cost: </b>'+
             '<span  class="col-1" id="deliveryPrice">'+myFormatter.format(storeData.deliveryPrice)+' ₪</span>'+
-
+            '</div>'+
             '</div><br/>'+
 
             '<div class="flex-row text-left">'+
+
+            '<div>'+
             '<b class="font-weight-bold">Ordered items types amount: </b>'+
             '<span  class="col-2" id="amountOfItemsTypes">'+storeData.amountOfItemsTypes+'</span>'+
-
+            '</div>'+
+            '<div>'+
             '<b class="font-weight-bold">Orderd items total price </b>'+
             '<span  class="col-2" id="itemsTotalPrice">'+myFormatter.format(storeData.itemsTotalPrice)+' ₪</span>'+
-
+            '</div>'+
             '</div><br/>'+
 
             '</div>'+
