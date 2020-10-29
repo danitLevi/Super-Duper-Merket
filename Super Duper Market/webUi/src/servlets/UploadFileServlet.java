@@ -56,7 +56,10 @@ public class UploadFileServlet extends HttpServlet {
 
 
             try {
-                String newRegionName=sdmLogic.importDataFromXmlFile(part.getInputStream(),usernameFromSession, fileName);
+                String newRegionName = null;
+                synchronized (sdmLogic) {
+                    newRegionName = sdmLogic.importDataFromXmlFile(part.getInputStream(), usernameFromSession, fileName);
+                }
                 mapToReturn.put("nextPage",Constants.REGIONS_PAGE);
                 mapToReturn.put("newRegionName",newRegionName);
 //                String mapToReturnJson=gson.toJson(mapToReturn);

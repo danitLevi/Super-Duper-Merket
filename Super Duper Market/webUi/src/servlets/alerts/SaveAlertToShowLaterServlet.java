@@ -34,12 +34,17 @@ public class SaveAlertToShowLaterServlet extends HttpServlet {
             Gson gson = new Gson();
 //            List<Integer> storesIdLst;
             RegionInterface region=null;
+            String regionName=null;
+            SDMLogicInterface sdmLogic =null;
             synchronized (getServletContext()) {
-                SDMLogicInterface sdmLogic = ServletUtils.getSdmLogic(getServletContext());
-                String regionName= SessionUtils.getRegionName(request);
+                sdmLogic = ServletUtils.getSdmLogic(getServletContext());
+                regionName= SessionUtils.getRegionName(request);
                 region=sdmLogic.getRegionByName(regionName);
-
             }
+            synchronized (sdmLogic) {
+                region=sdmLogic.getRegionByName(regionName);
+            }
+
             String alertType=request.getParameter(Constants.ALERT_TYPE);
 
             switch (alertType) {
@@ -69,7 +74,7 @@ public class SaveAlertToShowLaterServlet extends HttpServlet {
         String rate=request.getParameter("rate");
         String review=request.getParameter("review");
 
-        msg="You recieved new feedback from "+customerName+" in "+convertDateToString(feedbackDate)+".\n"
+        msg="You recieved new feedback from "+customerName+" on "+convertDateToString(feedbackDate)+".\n"
             +"He gave you "+rate+" stars\n";
         if(review!="")
         {

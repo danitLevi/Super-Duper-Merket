@@ -32,11 +32,15 @@ public class ValidateOrderLocationServlet extends HttpServlet {
         {
 
             RegionInterface region=null;
+            SDMLogicInterface sdmLogic =null;
+            String regionName=null;
             synchronized (getServletContext()) {
-                SDMLogicInterface sdmLogic = ServletUtils.getSdmLogic(getServletContext());
-                String regionName= SessionUtils.getRegionName(request);
+                sdmLogic = ServletUtils.getSdmLogic(getServletContext());
+                regionName= SessionUtils.getRegionName(request);
                 region=sdmLogic.getRegionByName(regionName);
-
+            }
+            synchronized (sdmLogic) {
+                region=sdmLogic.getRegionByName(regionName);
             }
 
             int xCoordinate = Integer.parseInt(request.getParameter("xCoordinate"));

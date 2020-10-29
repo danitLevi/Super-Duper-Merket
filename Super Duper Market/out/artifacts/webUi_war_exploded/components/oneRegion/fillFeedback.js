@@ -54,7 +54,7 @@ function handleSubmit() {
 function removeStoreFromSelection() {
     var selectedStore = $('#storesFromOrder :selected');
     selectedStore.remove();
-    if($('#storesFromOrder option').length==1)
+    if($('#storesFromOrder option').length==0)
     {
         $("#FeedbackContent").empty();
         $('<h2>You gave feedback to all possible stores</h2>' +
