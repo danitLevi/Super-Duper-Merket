@@ -1,8 +1,4 @@
-<div align="center">
-
 <img width="203" alt="Logo" src="https://user-images.githubusercontent.com/50530087/148424472-c007cdeb-c736-4b28-b182-3553338eebab.png">
-
-</div>
 
 A system that compares shopping carts in several supermarkets ,finds the cheapest products and orders them.
 
