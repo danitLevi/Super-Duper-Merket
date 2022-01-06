@@ -10,7 +10,7 @@ A system that compares shopping carts in several supermarkets ,finds the cheapes
 - Login
 - Register
 - Chat
-- Order items in 2 options
+- Order items in 2 options:
   - Dynamic order:the system automatically compares the wanted shopping carts in several supermarkets ,finds the cheapest products and orders them.
   - Staticc order: the system order the wanted shopping cart from the selected supermarket .
 - Show orders history
